@@ -1,0 +1,17 @@
+[remap]
+
+importer="font_data_bmfont"
+type="FontFile"
+uid="uid://8odquvbq28lq"
+path="res://.godot/imported/yolanda_geografia.fnt-4a6fc28c46bd10502f78c6fbc6490d50.fontdata"
+
+[deps]
+
+source_file="res://assets/fonts/yolanda_geografia.fnt"
+dest_files=["res://.godot/imported/yolanda_geografia.fnt-4a6fc28c46bd10502f78c6fbc6490d50.fontdata"]
+
+[params]
+
+fallbacks=[]
+compress=true
+scaling_mode=2

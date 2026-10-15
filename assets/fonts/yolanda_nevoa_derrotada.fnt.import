@@ -1,0 +1,17 @@
+[remap]
+
+importer="font_data_bmfont"
+type="FontFile"
+uid="uid://c1avqi70780qp"
+path="res://.godot/imported/yolanda_nevoa_derrotada.fnt-1356fb6632bd09059acc7e99f4cad447.fontdata"
+
+[deps]
+
+source_file="res://assets/fonts/yolanda_nevoa_derrotada.fnt"
+dest_files=["res://.godot/imported/yolanda_nevoa_derrotada.fnt-1356fb6632bd09059acc7e99f4cad447.fontdata"]
+
+[params]
+
+fallbacks=[]
+compress=true
+scaling_mode=2

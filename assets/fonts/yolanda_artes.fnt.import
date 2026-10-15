@@ -1,0 +1,17 @@
+[remap]
+
+importer="font_data_bmfont"
+type="FontFile"
+uid="uid://3kisho7qp41f"
+path="res://.godot/imported/yolanda_artes.fnt-885632940b39c95c948132e9149a5371.fontdata"
+
+[deps]
+
+source_file="res://assets/fonts/yolanda_artes.fnt"
+dest_files=["res://.godot/imported/yolanda_artes.fnt-885632940b39c95c948132e9149a5371.fontdata"]
+
+[params]
+
+fallbacks=[]
+compress=true
+scaling_mode=2

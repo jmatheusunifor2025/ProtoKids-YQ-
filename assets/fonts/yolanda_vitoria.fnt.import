@@ -1,0 +1,17 @@
+[remap]
+
+importer="font_data_bmfont"
+type="FontFile"
+uid="uid://dmtcxm7q7jjmt"
+path="res://.godot/imported/yolanda_vitoria.fnt-e0cdeb69df2c2cf85d7fe239d98bc6a7.fontdata"
+
+[deps]
+
+source_file="res://assets/fonts/yolanda_vitoria.fnt"
+dest_files=["res://.godot/imported/yolanda_vitoria.fnt-e0cdeb69df2c2cf85d7fe239d98bc6a7.fontdata"]
+
+[params]
+
+fallbacks=[]
+compress=true
+scaling_mode=2

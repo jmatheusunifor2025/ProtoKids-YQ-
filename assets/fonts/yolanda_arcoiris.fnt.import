@@ -1,0 +1,17 @@
+[remap]
+
+importer="font_data_bmfont"
+type="FontFile"
+uid="uid://dnugkf1s0v80w"
+path="res://.godot/imported/yolanda_arcoiris.fnt-98abd48d777f5af6fd8fc4b123c8590d.fontdata"
+
+[deps]
+
+source_file="res://assets/fonts/yolanda_arcoiris.fnt"
+dest_files=["res://.godot/imported/yolanda_arcoiris.fnt-98abd48d777f5af6fd8fc4b123c8590d.fontdata"]
+
+[params]
+
+fallbacks=[]
+compress=true
+scaling_mode=2
