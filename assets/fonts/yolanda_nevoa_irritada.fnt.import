@@ -1,0 +1,17 @@
+[remap]
+
+importer="font_data_bmfont"
+type="FontFile"
+uid="uid://bb5gqtgclij8y"
+path="res://.godot/imported/yolanda_nevoa_irritada.fnt-6d1b575a17bbddc3097d986b200242ea.fontdata"
+
+[deps]
+
+source_file="res://assets/fonts/yolanda_nevoa_irritada.fnt"
+dest_files=["res://.godot/imported/yolanda_nevoa_irritada.fnt-6d1b575a17bbddc3097d986b200242ea.fontdata"]
+
+[params]
+
+fallbacks=[]
+compress=true
+scaling_mode=2

@@ -1,0 +1,17 @@
+[remap]
+
+importer="font_data_bmfont"
+type="FontFile"
+uid="uid://va1c51iaue18"
+path="res://.godot/imported/yolanda_historia.fnt-c1a60ff8766a96ef6578d4a608aeb2c7.fontdata"
+
+[deps]
+
+source_file="res://assets/fonts/yolanda_historia.fnt"
+dest_files=["res://.godot/imported/yolanda_historia.fnt-c1a60ff8766a96ef6578d4a608aeb2c7.fontdata"]
+
+[params]
+
+fallbacks=[]
+compress=true
+scaling_mode=2

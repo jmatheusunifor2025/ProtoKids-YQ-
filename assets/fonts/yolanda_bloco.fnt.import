@@ -1,0 +1,17 @@
+[remap]
+
+importer="font_data_bmfont"
+type="FontFile"
+uid="uid://cm6llyjf82q6l"
+path="res://.godot/imported/yolanda_bloco.fnt-e50b962e417eedb11a8de44f16a0798d.fontdata"
+
+[deps]
+
+source_file="res://assets/fonts/yolanda_bloco.fnt"
+dest_files=["res://.godot/imported/yolanda_bloco.fnt-e50b962e417eedb11a8de44f16a0798d.fontdata"]
+
+[params]
+
+fallbacks=[]
+compress=true
+scaling_mode=2
