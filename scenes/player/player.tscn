@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://da6l00dm4wti0"]
+
+[ext_resource type="Script" uid="uid://dq4dgnrllyn4f" path="res://scripts/player/player.gd" id="1_player"]
+[ext_resource type="Script" uid="uid://br272yyq3fbhd" path="res://scripts/player/audio_explorador.gd" id="2_audio"]
+[ext_resource type="SpriteFrames" path="res://data/exploradores/sofia_frames.tres" id="2_gmlin"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_corpo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_interacao"]
+radius = 30.0
+
+[node name="Player" type="CharacterBody2D" unique_id=1356848288]
+motion_mode = 1
+script = ExtResource("1_player")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1029961276]
+scale = Vector2(0.45, 0.45)
+sprite_frames = ExtResource("2_gmlin")
+animation = &"idle_baixo"
+offset = Vector2(0, -60)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1838735947]
+position = Vector2(0, -6)
+shape = SubResource("CircleShape2D_corpo")
+
+[node name="AreaInteracao" type="Area2D" parent="." unique_id=606997235]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaInteracao" unique_id=10961975]
+position = Vector2(0, -6)
+shape = SubResource("CircleShape2D_interacao")
+
+[node name="AudioExplorador" type="Node2D" parent="." unique_id=482915377]
+script = ExtResource("2_audio")

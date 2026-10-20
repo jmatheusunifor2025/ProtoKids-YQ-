@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DadosExplorador" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/exploradores/dados_explorador.gd" id="1_dados"]
+
+[resource]
+script = ExtResource("1_dados")
+id = &"leo"
+nome = "Leo"
+frase_de_selecao = "Observador-natural: vê padrões onde outros veem bagunça."
