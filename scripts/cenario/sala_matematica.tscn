@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://dpx248mrlfvvn"]
+
+[ext_resource type="Script" uid="uid://d3s8tx3td8ru0" path="res://scripts/cenario/cena_cenario.gd" id="1_qal7u"]
+[ext_resource type="Texture2D" uid="uid://b0vcnkn5db8qg" path="res://assets/cenarios/cena da matematica/Biblioteca Acadêmica da Matemática.png" id="2_kmv5a"]
+
+[node name="Sala Matematica" type="Node2D" unique_id=1882203157]
+script = ExtResource("1_qal7u")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1817129840]
+position = Vector2(640, 359.99997)
+scale = Vector2(0.76435405, 0.763018)
+texture = ExtResource("2_kmv5a")
+
+[node name="Entrada" type="Marker2D" parent="." unique_id=1956196238]
+position = Vector2(915, 233)

@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://dosl4uuhbgkgi"]
+
+[ext_resource type="Script" uid="uid://d3s8tx3td8ru0" path="res://scripts/cenario/cena_cenario.gd" id="1_nk16w"]
+[ext_resource type="Texture2D" uid="uid://cchguiqla6xy6" path="res://assets/cenarios/sala final/Biblioteca Mágica das Três Disciplinas.png" id="2_k4ujt"]
+
+[node name="sala final" type="Node2D" unique_id=340382235]
+script = ExtResource("1_nk16w")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=337161220]
+position = Vector2(638.49994, 359.5)
+scale = Vector2(0.763756, 0.7640809)
+texture = ExtResource("2_k4ujt")
+
+[node name="Entrada" type="Marker2D" parent="." unique_id=1474205554]
+position = Vector2(622, 585)

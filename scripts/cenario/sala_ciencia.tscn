@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://c11g0nioehtml"]
+
+[ext_resource type="Script" uid="uid://d3s8tx3td8ru0" path="res://scripts/cenario/cena_cenario.gd" id="1_huu78"]
+[ext_resource type="Texture2D" uid="uid://b66m5xivbic2n" path="res://assets/cenarios/cena de ciencias/Biblioteca Botânica em Pixel Art.png" id="2_0mwrl"]
+
+[node name="sala ciencia" type="Node2D" unique_id=1181628316]
+script = ExtResource("1_huu78")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1228708998]
+position = Vector2(641, 361.50003)
+scale = Vector2(0.76555026, 0.76620615)
+texture = ExtResource("2_0mwrl")
+
+[node name="Entrada" type="Marker2D" parent="." unique_id=1413938466]
+position = Vector2(905, 241)

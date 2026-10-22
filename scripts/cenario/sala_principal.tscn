@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://f8r3yq2wvwv7"]
+
+[ext_resource type="Texture2D" uid="uid://bfssif1arksnf" path="res://assets/cenarios/sala principal/Biblioteca Mágica Sem Entrada.png" id="1_hh5f0"]
+[ext_resource type="Script" uid="uid://d3s8tx3td8ru0" path="res://scripts/cenario/cena_cenario.gd" id="1_tush0"]
+
+[node name="SalaPrincipal" type="Node2D" unique_id=1560225157]
+script = ExtResource("1_tush0")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2097058665]
+scale = Vector2(0.76435405, 0.7619554)
+texture = ExtResource("1_hh5f0")
+centered = false
+
+[node name="Entrada" type="Marker2D" parent="." unique_id=470849692]
+position = Vector2(641, 513.00006)

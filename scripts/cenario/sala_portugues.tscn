@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://dn1flbu576gpt"]
+
+[ext_resource type="Script" uid="uid://d3s8tx3td8ru0" path="res://scripts/cenario/cena_cenario.gd" id="1_w703l"]
+[ext_resource type="Texture2D" uid="uid://jxis05p7jfrm" path="res://assets/cenarios/cena de portugues/Biblioteca Portugues.png" id="2_kkw13"]
+
+[node name="Sala Portugues" type="Node2D" unique_id=1933975245]
+script = ExtResource("1_w703l")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=244661331]
+position = Vector2(642, 362.25)
+scale = Vector2(0.76555026, 0.7635494)
+texture = ExtResource("2_kkw13")
+
+[node name="Entrada" type="Marker2D" parent="." unique_id=1445010033]
+position = Vector2(1011, 245)
