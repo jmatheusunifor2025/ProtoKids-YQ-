@@ -1,0 +1,61 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scenes/menus/card_explorador.gd" id="1_card"]
+
+[node name="CardExplorador" type="PanelContainer"]
+custom_minimum_size = Vector2(260, 0)
+script = ExtResource("1_card")
+
+[node name="Margem" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 12
+
+[node name="Coluna" type="VBoxContainer" parent="Margem"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Cursores" type="Label" parent="Margem/Coluna"]
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+horizontal_alignment = 1
+
+[node name="Retrato" type="TextureRect" parent="Margem/Coluna"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SemArte" type="Label" parent="Margem/Coluna"]
+visible = false
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
+theme_override_font_sizes/font_size = 96
+text = "?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Nome" type="Label" parent="Margem/Coluna"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+
+[node name="Frase" type="Label" parent="Margem/Coluna"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Estado" type="Label" parent="Margem/Coluna"]
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.45, 0.2, 0.55, 1)
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1

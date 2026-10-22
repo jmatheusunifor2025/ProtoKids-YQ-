@@ -1,0 +1,86 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scenes/menus/selecao_explorador.gd" id="1_selecao"]
+[ext_resource type="Resource" path="res://data/exploradores/elenco.tres" id="2_elenco"]
+[ext_resource type="Script" path="res://scripts/ui/audio_por_sinal.gd" id="3_audio"]
+[ext_resource type="AudioStream" path="res://assets/sounds/ui/ui_button_hover.wav" id="4_hover"]
+[ext_resource type="AudioStream" path="res://assets/sounds/ui/ui_button_select.wav" id="5_select"]
+
+[node name="SelecaoExplorador" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_selecao")
+elenco = ExtResource("2_elenco")
+
+[node name="Fundo" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.913725, 0.898039, 0.854902, 1)
+
+[node name="Centro" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Coluna" type="VBoxContainer" parent="Centro"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Titulo" type="Label" parent="Centro/Coluna"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+text = "Escolha seu explorador"
+horizontal_alignment = 1
+
+[node name="Frase" type="Label" parent="Centro/Coluna"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.15, 0.15, 0.15, 1)
+theme_override_font_sizes/font_size = 18
+text = "Cada um tem um jeito especial de aprender — juntos somos mais fortes!"
+horizontal_alignment = 1
+
+[node name="Cards" type="HBoxContainer" parent="Centro/Coluna"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Yolanda" type="Label" parent="Centro/Coluna"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.15, 0.15, 0.15, 1)
+theme_override_font_sizes/font_size = 16
+text = "Yolanda diz: “Não importa quem você é, importa como a gente organiza junto.”"
+horizontal_alignment = 1
+
+[node name="Dica" type="Label" parent="Centro/Coluna"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+
+[node name="Mensagem" type="Label" parent="Centro/Coluna"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.45, 0.2, 0.55, 1)
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+
+[node name="AudioPorSinal" type="AudioStreamPlayer" parent="."]
+script = ExtResource("3_audio")
+sons = {
+&"cursor_movido": ExtResource("4_hover"),
+&"escolha_confirmada": ExtResource("5_select"),
+&"partida_iniciada": ExtResource("5_select")
+}

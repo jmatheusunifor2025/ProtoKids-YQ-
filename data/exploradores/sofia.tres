@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="DadosExplorador" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/exploradores/dados_explorador.gd" id="1_dados"]
+[ext_resource type="Texture2D" path="res://assets/personagens/menuDeEscolhaDePersonagens/sofia.png" id="2_retrato"]
+[ext_resource type="SpriteFrames" path="res://data/exploradores/sofia_frames.tres" id="3_frames"]
+
+[resource]
+script = ExtResource("1_dados")
+id = &"sofia"
+nome = "Sofia"
+retrato = ExtResource("2_retrato")
+sprite_frames = ExtResource("3_frames")
+frase_de_selecao = "Lógico-tech: cria sistemas para organizar."
