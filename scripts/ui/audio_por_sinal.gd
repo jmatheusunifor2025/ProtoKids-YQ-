@@ -1,9 +1,5 @@
 class_name AudioPorSinal
 extends AudioStreamPlayer
-## Componente de som genérico: toca um som quando o nó pai emite um signal.
-## Configure no Inspector: nome do signal -> AudioStream (conforme
-## assets/sounds/sound_guide.md). O pai não sabe que este nó existe;
-## removê-lo não quebra nada.
 
 @export var sons: Dictionary = {}
 
@@ -12,7 +8,9 @@ func _ready() -> void:
 	var alvo := get_parent()
 	for sinal in sons:
 		if alvo.has_signal(sinal):
-			alvo.connect(sinal, _tocar.bind(sons[sinal]).unbind(_quantidade_de_argumentos(alvo, sinal)))
+			var tocar := _tocar.bind(sons[sinal])
+			var argumentos := _quantidade_de_argumentos(alvo, sinal)
+			alvo.connect(sinal, tocar.unbind(argumentos) if argumentos > 0 else tocar)
 
 
 func _tocar(som: AudioStream) -> void:

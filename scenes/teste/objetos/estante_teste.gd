@@ -1,5 +1,4 @@
 extends StaticBody2D
-## Objeto de teste (sem arte): empurrado (E) um tile na direção em que o jogador olha.
 
 const PASSO := 32.0
 

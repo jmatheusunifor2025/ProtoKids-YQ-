@@ -1,7 +1,4 @@
 extends StaticBody2D
-## Objeto de teste (sem arte): agarrado com E, acompanha o jogador
-## (puxar e empurrar) e é solto com Q. Se travar em algo, solta sozinho.
-## O jogador mantém a mesma velocidade enquanto puxa (regra de ouro do SGDD).
 
 const DISTANCIA_POR_SOM := 32.0
 
@@ -32,10 +29,9 @@ func interagir(jogador: Node2D) -> void:
 	_jogador = jogador
 	_ultima_posicao_jogador = jogador.global_position
 	_distancia_acumulada = 0.0
-	# Jogador e caixa não se bloqueiam enquanto estão juntos.
 	add_collision_exception_with(jogador)
 	jogador.add_collision_exception_with(self)
-	jogador.segurar(self)
+	jogador.segurar(self, true)
 
 
 func largar(_jogador_que_solta: Node2D) -> void:

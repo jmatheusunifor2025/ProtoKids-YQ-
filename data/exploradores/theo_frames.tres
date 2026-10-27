@@ -1,0 +1,110 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://dmddtdgdj673d"]
+
+[ext_resource type="Texture2D" uid="uid://ca1mhyrholh58" path="res://assets/personagens/caio/Sprites de Exploradores em Roxo Profundo.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="frame_11"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1040, 0, 70, 126)
+margin = Rect2(0, 0, 0, 4)
+
+[sub_resource type="AtlasTexture" id="frame_12"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1133, 0, 70, 126)
+margin = Rect2(0, 0, 0, 4)
+
+[sub_resource type="AtlasTexture" id="frame_13"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1228, 0, 70, 126)
+margin = Rect2(0, 0, 0, 4)
+
+[sub_resource type="AtlasTexture" id="frame_05"]
+atlas = ExtResource("1_sheet")
+region = Rect2(463, 0, 70, 126)
+margin = Rect2(0, 0, 0, 4)
+
+[sub_resource type="AtlasTexture" id="frame_06"]
+atlas = ExtResource("1_sheet")
+region = Rect2(566, 0, 70, 126)
+margin = Rect2(0, 0, 0, 4)
+
+[sub_resource type="AtlasTexture" id="frame_07"]
+atlas = ExtResource("1_sheet")
+region = Rect2(652, 0, 70, 126)
+margin = Rect2(0, 0, 0, 4)
+
+[sub_resource type="AtlasTexture" id="frame_08"]
+atlas = ExtResource("1_sheet")
+region = Rect2(747, 0, 70, 126)
+margin = Rect2(0, 0, 0, 4)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("frame_11")
+}, {
+"duration": 1.0,
+"texture": SubResource("frame_12")
+}, {
+"duration": 1.0,
+"texture": SubResource("frame_13")
+}],
+"loop": 1,
+"name": &"andar_baixo",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("frame_11")
+}, {
+"duration": 1.0,
+"texture": SubResource("frame_12")
+}, {
+"duration": 1.0,
+"texture": SubResource("frame_13")
+}],
+"loop": 1,
+"name": &"andar_cima",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("frame_05")
+}, {
+"duration": 1.0,
+"texture": SubResource("frame_06")
+}, {
+"duration": 1.0,
+"texture": SubResource("frame_07")
+}, {
+"duration": 1.0,
+"texture": SubResource("frame_08")
+}],
+"loop": 1,
+"name": &"andar_lado",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("frame_11")
+}],
+"loop": 1,
+"name": &"idle_baixo",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("frame_11")
+}],
+"loop": 1,
+"name": &"idle_cima",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("frame_05")
+}],
+"loop": 1,
+"name": &"idle_lado",
+"speed": 1.0
+}]

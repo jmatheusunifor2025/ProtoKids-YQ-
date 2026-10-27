@@ -1,9 +1,15 @@
-[gd_resource type="Resource" script_class="DadosExplorador" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="DadosExplorador" load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://scripts/exploradores/dados_explorador.gd" id="1_dados"]
+[ext_resource type="Texture2D" path="res://assets/personagens/menuDeEscolhaDePersonagens/lisa.png" id="2_retrato"]
+[ext_resource type="SpriteFrames" path="res://data/exploradores/maya_frames.tres" id="3_frames"]
+[ext_resource type="AudioStream" path="res://assets/sounds/sfx/sfx_footstep.wav" id="4_passos"]
 
 [resource]
 script = ExtResource("1_dados")
 id = &"maya"
 nome = "Maya"
+retrato = ExtResource("2_retrato")
+sprite_frames = ExtResource("3_frames")
 frase_de_selecao = "Visual-organizada: usa checklist mental antes de agir."
+som_movimento = ExtResource("4_passos")

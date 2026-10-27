@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scenes/objetos/alvo_bloco.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/elementos dos mini games/Quadrado Branco Pontilhado em Pixel Art.png" id="2_quadrado"]
+[ext_resource type="Script" path="res://scripts/ui/audio_por_sinal.gd" id="3_audio"]
+[ext_resource type="AudioStream" path="res://assets/sounds/sfx/sfx_puzzle_correct.wav" id="4_acerto"]
+
+[sub_resource type="RectangleShape2D" id="Quadrado"]
+size = Vector2(72, 72)
+
+[sub_resource type="AtlasTexture" id="Pontilhado"]
+atlas = ExtResource("2_quadrado")
+region = Rect2(404, 384, 446, 438)
+
+[node name="AlvoBloco" type="Area2D"]
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("Quadrado")
+
+[node name="Visual" type="Sprite2D" parent="."]
+scale = Vector2(0.162, 0.162)
+texture = SubResource("Pontilhado")
+
+[node name="Rotulo" type="Label" parent="."]
+offset_left = -60.0
+offset_top = -64.0
+offset_right = 60.0
+offset_bottom = -40.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioPorSinal" type="AudioStreamPlayer" parent="."]
+script = ExtResource("3_audio")
+sons = {
+"acertou": ExtResource("4_acerto")
+}

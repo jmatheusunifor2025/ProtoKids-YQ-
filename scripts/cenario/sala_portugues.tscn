@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d3s8tx3td8ru0" path="res://scripts/cenario/cena_cenario.gd" id="1_w703l"]
 [ext_resource type="Texture2D" uid="uid://jxis05p7jfrm" path="res://assets/cenarios/cena de portugues/Biblioteca Portugues.png" id="2_kkw13"]
+[ext_resource type="PackedScene" path="res://scenes/objetos/porta.tscn" id="porta_1"]
 
 [node name="Sala Portugues" type="Node2D" unique_id=1933975245]
 script = ExtResource("1_w703l")
@@ -13,3 +14,8 @@ texture = ExtResource("2_kkw13")
 
 [node name="Entrada" type="Marker2D" parent="." unique_id=1445010033]
 position = Vector2(1011, 245)
+
+[node name="PortaHub" parent="." instance=ExtResource("porta_1")]
+position = Vector2(1060, 165)
+destino = "res://scripts/cenario/sala_principal.tscn"
+chegada = "ChegadaPortugues"

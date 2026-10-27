@@ -1,0 +1,125 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://ky3ccky7rrt5"]
+
+[ext_resource type="Texture2D" uid="uid://bkxhvbrewgv3n" path="res://assets/personagens/lisa/Sprites de Exploradores em Roxo Profundo.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="frame_13"]
+atlas = ExtResource("1_sheet")
+region = Rect2(962, 0, 71, 113)
+margin = Rect2(0, 15, 0, 15)
+
+[sub_resource type="AtlasTexture" id="frame_14"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1052, 0, 71, 113)
+margin = Rect2(0, 15, 0, 15)
+
+[sub_resource type="AtlasTexture" id="frame_15"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1144, 0, 71, 113)
+margin = Rect2(0, 15, 0, 15)
+
+[sub_resource type="AtlasTexture" id="frame_09"]
+atlas = ExtResource("1_sheet")
+region = Rect2(646, 0, 71, 113)
+margin = Rect2(0, 15, 0, 15)
+
+[sub_resource type="AtlasTexture" id="frame_10"]
+atlas = ExtResource("1_sheet")
+region = Rect2(722, 0, 71, 113)
+margin = Rect2(0, 15, 0, 15)
+
+[sub_resource type="AtlasTexture" id="frame_11"]
+atlas = ExtResource("1_sheet")
+region = Rect2(802, 0, 71, 113)
+margin = Rect2(0, 15, 0, 15)
+
+[sub_resource type="AtlasTexture" id="frame_12"]
+atlas = ExtResource("1_sheet")
+region = Rect2(878, 0, 71, 113)
+margin = Rect2(0, 15, 0, 15)
+
+[sub_resource type="AtlasTexture" id="frame_06"]
+atlas = ExtResource("1_sheet")
+region = Rect2(422, 0, 71, 113)
+margin = Rect2(0, 15, 0, 15)
+
+[sub_resource type="AtlasTexture" id="frame_07"]
+atlas = ExtResource("1_sheet")
+region = Rect2(492, 0, 71, 113)
+margin = Rect2(0, 15, 0, 15)
+
+[sub_resource type="AtlasTexture" id="frame_08"]
+atlas = ExtResource("1_sheet")
+region = Rect2(562, 0, 71, 113)
+margin = Rect2(0, 15, 0, 15)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("frame_13")
+}, {
+"duration": 1.0,
+"texture": SubResource("frame_14")
+}, {
+"duration": 1.0,
+"texture": SubResource("frame_15")
+}],
+"loop": 1,
+"name": &"andar_baixo",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("frame_09")
+}, {
+"duration": 1.0,
+"texture": SubResource("frame_10")
+}, {
+"duration": 1.0,
+"texture": SubResource("frame_11")
+}, {
+"duration": 1.0,
+"texture": SubResource("frame_12")
+}],
+"loop": 1,
+"name": &"andar_cima",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("frame_06")
+}, {
+"duration": 1.0,
+"texture": SubResource("frame_07")
+}, {
+"duration": 1.0,
+"texture": SubResource("frame_08")
+}],
+"loop": 1,
+"name": &"andar_lado",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("frame_13")
+}],
+"loop": 1,
+"name": &"idle_baixo",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("frame_09")
+}],
+"loop": 1,
+"name": &"idle_cima",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("frame_06")
+}],
+"loop": 1,
+"name": &"idle_lado",
+"speed": 1.0
+}]

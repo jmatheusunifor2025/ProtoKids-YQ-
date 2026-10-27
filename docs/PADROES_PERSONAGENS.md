@@ -31,15 +31,21 @@ bordas, se precisar). Posicione tudo dentro de (0, 0)–(1280, 720).
 assets/                     só leitura (sprites, sons, fontes)
 data/
   exploradores/             um .tres DadosExplorador + um .tres SpriteFrames por personagem
+  npc/                      SpriteFrames dos NPCs (yolanda_frames.tres)
                             + elenco.tres (quem aparece no menu de seleção, em ordem)
 scripts/
   partida.gd                autoload "Partida": escolhas feitas nos menus
   exploradores/             Resources de dados (dados_explorador.gd, elenco_exploradores.gd)
   player/                   player.gd, audio_explorador.gd
-  ui/                       componentes de interface reutilizáveis (audio_por_sinal.gd)
+  cenario/                  cenas das salas (HUB = sala_principal) + cena_cenario.gd
+  ui/                       componentes de interface reutilizáveis (audio_por_sinal.gd,
+                            caixa_dialogo.gd)
 scenes/
   menus/                    telas de menu (selecao_explorador, card_explorador)
   player/                   player.tscn (a ÚNICA cena de jogador)
+  npc/                      yolanda.tscn + .gd
+  objetos/                  objetos do jogo: bloco, alvo_bloco, estante, porta
+  ui/                       caixa_dialogo.tscn (autoload "Dialogo")
   teste/                    cenas de teste + teste_base.gd + menu_testes
     objetos/                objetos de teste sem arte (um .tscn + .gd cada)
 docs/                       este guia
@@ -65,7 +71,7 @@ Scripts de **teste** e de **objetos** ficam ao lado da cena que os usa. Scripts
 
 ```
  InputMap (p1_*, p2_*) ──lê──▶ Player (player.gd) ──chama──▶ Objeto interativo
-                                 ▲   │    ▲                  interagir/largar/chutar
+                                 ▲   │    ▲                  interagir/largar
  DadosExplorador (.tres) ─dados──┘   │    └──avisa── segurar / liberar / registrar_empurrao
                                      │
                                   signals
@@ -104,8 +110,8 @@ Qualquer objeto que implemente `interagir(jogador)` funciona onde um bloco
 funciona. Qualquer `DadosExplorador` funciona onde a Sofia funciona.
 
 ### I — Segregação de interface
-O objeto implementa **só** os métodos que fazem sentido para ele. A bolinha só
-tem `chutar`; a estante só tem `interagir`. O Player testa com `has_method()`.
+O objeto implementa **só** os métodos que fazem sentido para ele. A estante
+de empurrar só tem `interagir`; o bloco tem `interagir` e `largar`. O Player testa com `has_method()`.
 
 ### D — Inversão de dependência
 O Player depende de **contratos** (nomes de métodos e signals), não de classes
@@ -131,7 +137,6 @@ há aceleração.
 | `interagiu(alvo)`| Apertou E perto de algo com `interagir`        |
 | `carregou(alvo)` | O objeto chamou `jogador.segurar(self)`        |
 | `largou(alvo)`   | Soltou com Q, ou o objeto chamou `liberar`     |
-| `chutou(alvo)`   | Apertou Q perto de algo com `chutar`           |
 | `empurrou(alvo)` | O objeto chamou `jogador.registrar_empurrao(self)` |
 
 **Métodos que os objetos podem chamar:** `segurar(objeto)`,
@@ -140,9 +145,16 @@ há aceleração.
 
 **Botões:**
 - **E (botão 1):** se não estiver segurando nada, chama `interagir(self)` no
-  objeto mais próximo que tenha esse método.
-- **Q (botão 2):** se estiver segurando algo, chama `largar(self)` nele; senão,
-  chama `chutar(self)` no objeto mais próximo que tenha esse método.
+  objeto mais próximo que tenha esse método **e esteja na frente** (até 45° da
+  direção do olhar; `ANGULO_FRENTE`). De costas ou de lado, não pega.
+- **Carregando** (bloco: `jogador.segurar(self)`): o explorador continua
+  virando e animando normalmente; o bloco cai na frente, para onde ele olha.
+- **Arrastando** (estante, caixa: `jogador.segurar(self, true)`): o explorador
+  vira de frente para o objeto e **não muda mais a direção do olhar** — anda de
+  frente (empurrar) ou de costas (puxar), parado na pose `idle_<direção>`. Ao
+  soltar, volta ao normal. `jogador.esta_arrastando()` diz se está assim.
+- **Q (botão 2):** se estiver segurando algo, chama `largar(self)` nele. De mãos
+  vazias, não faz nada (não há chute).
 
 ---
 
@@ -167,12 +179,15 @@ há aceleração.
 3. **DadosExplorador** — crie `data/exploradores/<id>.tres` e preencha:
    `id` (ex.: `&"maya"`), `nome`, `retrato`, `sprite_frames`,
    `frase_de_selecao` e, opcionalmente, `som_movimento`.
+   Se o sheet foi desenhado em outra resolução, ajuste `escala_sprite`; se os
+   frames de "lado" olham para a esquerda, marque `sprite_lado_para_esquerda`
+   (grupo "Exibição do sprite" — só aparência, não muda colisão nem velocidade).
 4. **Menu de seleção** — se o personagem for novo (não é Maya, Theo ou Leo),
    adicione o `.tres` dele na lista de `data/exploradores/elenco.tres`. A ordem
    da lista é a ordem dos cards.
 5. **Usar numa cena** — instancie `scenes/player/player.tscn`, defina
    `id_jogador` e arraste o `.tres` em `dados`. Ou escolha pelo menu de
-   seleção: a sala livre já recebe quem foi escolhido.
+   seleção: o HUB e a cena de interações recebem quem foi escolhido.
 
 Pronto: nenhum script foi editado. Se você precisou editar um, algo saiu do padrão.
 
@@ -205,7 +220,7 @@ explorador"). Os cards vêm de `data/exploradores/elenco.tres`, um
 
 Ao começar, a escolha vai para o autoload **`Partida`**
 (`Partida.exploradores[0]` = P1, `[1]` = P2) e o menu abre `proxima_cena`
-(hoje, `teste_sala_livre.tscn`; troque pelo HUB quando ele existir).
+(o HUB, `scripts/cenario/sala_principal.tscn`).
 
 O menu **não toca som**: ele emite `cursor_movido`, `escolha_confirmada`,
 `escolha_recusada`, `escolha_cancelada` e `partida_iniciada`, e o filho
@@ -214,32 +229,19 @@ O menu **não toca som**: ele emite `cursor_movido`, `escolha_confirmada`,
 
 ---
 
-## 6.2 Pendências: Maya, Theo e Leo (To Be Done)
+## 6.2 Elenco atual
 
-Os três já existem como dados (`data/exploradores/maya.tres`, `theo.tres`,
-`leo.tres`) com nome e frase do SGDD, mas **sem retrato e sem animações**. Por
-isso aparecem no menu como "EM BREVE · To Be Done".
+Os quatro exploradores estão jogáveis:
 
-O que falta para cada um ficar jogável:
+| Explorador | Sheet (`assets/personagens/`) | Retrato (`menuDeEscolhaDePersonagens/`) | Ajustes de exibição |
+| ---------- | ----------------------------- | --------------------------------------- | ------------------- |
+| Sofia      | `sofia/`                      | `sofia.png`                             | —                   |
+| Maya       | `lisa/`                       | `lisa.png`                              | —                   |
+| Theo       | `caio/`                       | `caio.png`                              | —                   |
+| Leo        | `lucas/`                      | `lucas.png`                             | `escala_sprite = 0.6`, `sprite_lado_para_esquerda` |
 
-- [ ] **Definir qual arte é de quem.** As pastas em `assets/personagens/` se
-      chamam `caio`, `lisa` e `lucas`, e os retratos em
-      `menuDeEscolhaDePersonagens/` também. Isso não bate com os nomes do SGDD
-      (Maya, Theo, Leo). A equipe precisa decidir: renomear no SGDD, ou entregar
-      arte nova com os nomes certos.
-- [ ] **Conferir a arte com o SGDD** (sem editar o asset): 4 direções, idle,
-      e as características de cada um (Maya: cabelo black power com lacinhos
-      amarelos e óculos; Theo: camiseta listrada; Leo: colar de sementes e
-      grafismo na camiseta).
-- [ ] **Criar `<id>_frames.tres`** com os 6 nomes de animação padrão (seção 6).
-- [ ] **Preencher `retrato` e `sprite_frames`** no `.tres` de cada um. Só isso:
-      o card deixa de ser "To Be Done" sozinho, sem editar nenhum script.
-- [ ] (Opcional) `som_movimento`: hoje `sfx_footstep.wav` é o som de passos
-      que o `sound_guide.md` indica para Maya, Theo e Leo.
-- [ ] Quando houver dois exploradores jogáveis, testar o co-op completo no
-      menu (P1 e P2 com exploradores diferentes) e na sala livre.
-
----
+As pastas de arte usam os nomes antigos (lisa, caio, lucas); os nomes do SGDD
+ficam só no `.tres`. Maya, Theo e Leo usam `sfx_footstep.wav` como som de passos.
 
 ## 7. Como criar um objeto interativo
 
@@ -251,13 +253,13 @@ O que falta para cada um ficar jogável:
    | -------------------- | -------------------------------- |
    | `interagir(jogador)` | Jogador aperta E perto           |
    | `largar(jogador)`    | Jogador aperta Q segurando ele   |
-   | `chutar(jogador)`    | Jogador aperta Q perto, de mãos vazias |
 
 3. Avise o Player quando precisar:
-   - vai ficar na mão dele → `jogador.segurar(self)`;
+   - vai ficar na mão dele → `jogador.segurar(self)` (carregado) ou
+     `jogador.segurar(self, true)` (arrastado pelo chão);
    - se soltou sozinho (travou, quebrou) → `jogador.liberar(self)`;
    - foi empurrado/arrastado → `jogador.registrar_empurrao(self)` (toca o som).
-4. Use `jogador.direcao_olhar` para decidir para onde empurrar, largar ou chutar.
+4. Use `jogador.direcao_olhar` para decidir para onde empurrar ou largar.
 
 **Modelos prontos** em `scenes/teste/objetos/`:
 
@@ -266,7 +268,52 @@ O que falta para cada um ficar jogável:
 | `bloco_teste`             | Carregar acima da cabeça (E) e largar na frente (Q) |
 | `estante_teste`           | Empurrar 1 tile por toque (E)                     |
 | `caixa_puxavel_teste`     | Agarrar (E), puxar/empurrar andando, soltar (Q); trava → solta sozinha |
-| `bola_teste`              | Chutar (Q)                                        |
+
+**Objetos do jogo** em `scenes/objetos/` (use estes nas salas):
+
+| Objeto        | Mecânica                                                        |
+| ------------- | --------------------------------------------------------------- |
+| `bloco`       | `class_name Bloco`. Carregar (E) e largar (Q). `@export valor` (ex.: `"GATO"`). Ao ser largado emite `entregue(bloco)` |
+| `alvo_bloco`  | `class_name AlvoBloco`. Quadrado onde o bloco é entregue. `@export esperado`. Escuta o `entregue` do bloco que cai nele, encaixa no centro e emite `acertou`, `errou` ou `esvaziou` (quando tiram o bloco) |
+| `estante`     | Agarrar (E), empurrar andando para frente, puxar andando para trás, soltar (Q); travou → solta sozinha |
+| `porta`       | E perto dela troca de cena. `@export destino` (.tscn) e `chegada` (nome do Marker2D onde os exploradores nascem; vazio = `Entrada`) |
+
+- O bloco **não sabe** se acertou: quem confere é o alvo. A sala (ou o
+  puzzle) escuta `acertou`/`errou` do `AlvoBloco` para contar acertos e erros
+  (Bagunça Máxima = 3 erros, SGDD).
+- O bloco é `AnimatableBody2D`, não `StaticBody2D`: um `StaticBody2D`
+  teleportado por código não é percebido pelo `Area2D` do alvo.
+- Deixe espaço entre dois `AlvoBloco`: só confere o quadrado que contém o
+  centro do bloco.
+- Quadrados e blocos de Ciências ainda são **sem arte** (texto). Para trocar o
+  animal, mude `esperado`/`valor` no Inspector.
+
+### 7.1 Portas (HUB ↔ salas)
+
+O HUB (`scripts/cenario/sala_principal.tscn`) tem `PortaPortugues`,
+`PortaMatematica`, `PortaFinal` e `PortaCiencias` sobre as portas desenhadas, e
+um Marker2D `Chegada<Sala>` na frente de cada uma. Cada sala tem uma
+`PortaHub` que volta para o HUB com `chegada = "Chegada<Sala>"`. A porta grava
+`Partida.ponto_entrada`, e o `CenaCenario` da cena seguinte põe os
+exploradores nesse Marker2D.
+
+Sala nova: instancie `scenes/objetos/porta.tscn` no HUB (destino = sala nova),
+crie o Marker2D `Chegada<Sala>` no HUB e uma `PortaHub` na sala.
+
+### 7.2 Yolanda e a caixa de diálogo
+
+- **`Dialogo`** (autoload, `scenes/ui/caixa_dialogo.tscn`): caixa reutilizável
+  para qualquer fala. `await Dialogo.mostrar(falas, nome, retrato)` — nome e
+  retrato são opcionais. Enquanto está aberta o jogo **pausa** (a fala é para
+  todos). E de **qualquer** jogador mostra o texto inteiro / passa a fala; Q
+  pula a conversa. Signals: `aberta`, `fala_mostrada(indice)`, `fechada`.
+- **Yolanda** (`scenes/npc/yolanda.tscn`): NPC com o sheet `mentorCoruja`
+  recortado em `data/npc/yolanda_frames.tres` (`idle` piscando, `hoot` a cada
+  5 s, SGDD). E perto dela abre o `Dialogo` com as `falas` do Inspector.
+  Signals: `conversa_iniciada`, `conversa_terminada`, `piou`.
+- Nó com som que precisa tocar durante o diálogo (jogo pausado) usa
+  `process_mode = Always` (ex.: o `AudioPorSinal` da Yolanda).
+- As fontes bitmap não têm aspas curvas: use aspas retas nas falas.
 
 ---
 
@@ -280,13 +327,15 @@ O que falta para cada um ficar jogável:
   | ---------- | ---------------------- |
   | `carregou` | `sfx_block_pickup.wav` |
   | `largou`   | `sfx_block_place.wav`  |
-  | `chutou`   | `sfx_kick_paper.wav`   |
   | `empurrou` | `sfx_push_heavy.wav`   |
   | `andou`    | `som_movimento` do `.tres` (vazio = sem som) |
 
 - Som novo para uma ação nova: crie um signal no Player **se** for uma ação do
   jogador, e conecte no `AudioExplorador`. Som de objeto (porta abrindo,
   selo) fica no próprio objeto ou num componente dele.
+- Sons de objeto atuais (filho `AudioPorSinal`): `porta.abriu` →
+  `sfx_door_open`, `alvo_bloco.acertou` → `sfx_puzzle_correct`,
+  `yolanda.conversa_iniciada` → `sfx_yolanda_hoot`. Erro não tem som (sem punição).
 
 ---
 
@@ -345,12 +394,8 @@ Quando a Tela Inicial existir, troque a cena principal em
 
 | Cena                         | Testa                                         |
 | ---------------------------- | --------------------------------------------- |
-| `teste_locomocao.tscn`       | Velocidade nas 8 direções, P1 e P2            |
-| `teste_carregar_largar.tscn` | Carregar, andar carregando, largar, co-op     |
-| `teste_puxar_soltar.tscn`    | Agarrar, puxar, empurrar segurando, soltar, travar na parede |
-| `teste_interacao.tscn`       | Empurrar, chutar, sons; repete sem o áudio    |
-| `teste_selecao.tscn`         | Menu de seleção: To Be Done bloqueado, co-op com exploradores diferentes, entrar/sair do P2, início |
-| `teste_sala_livre.tscn`      | Sem teste automático: joga com quem foi escolhido no menu, com todos os objetos |
+| `teste_selecao.tscn`         | Teste automático do menu de seleção: To Be Done bloqueado, co-op com exploradores diferentes, entrar/sair do P2, início |
+| `teste_interacoes.tscn`      | Sem teste automático: joga com quem foi escolhido no menu, com todos os objetos (Yolanda, blocos e quadrados, estante de arrastar, estante de empurrar, porta para o HUB) |
 
 O teste automático roda ao abrir e termina com `TUDO OK`; depois os controles
 ficam livres para testar à mão. Para desligar, desmarque `teste_automatico` no
@@ -367,6 +412,6 @@ nó raiz.
 - [ ] `player.gd` não ganhou `if` por personagem nem por tipo de objeto.
 - [ ] Nenhum campo de gameplay entrou no `DadosExplorador`.
 - [ ] Personagem novo usa os 6 nomes de animação padrão.
-- [ ] As 5 cenas de teste automático terminam em `TUDO OK`.
+- [ ] O `teste_selecao` termina em `TUDO OK`, e as interações funcionam à mão em `teste_interacoes`.
 - [ ] Personagem novo foi adicionado ao `elenco.tres`.
 - [ ] Nenhuma fala/som nova fere a regra de ouro.

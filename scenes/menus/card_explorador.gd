@@ -1,7 +1,5 @@
 class_name CardExplorador
 extends PanelContainer
-## Card de um explorador no menu de seleção. Só exibe: quem decide o que
-## está destacado ou escolhido é o menu (selecao_explorador.gd).
 
 const COR_P1 := Color("#FFE066")
 const COR_P2 := Color(0.2, 0.45, 0.9)
@@ -30,7 +28,6 @@ func configurar(novos_dados: DadosExplorador) -> void:
 	atualizar([], 0)
 
 
-## cursores: ids dos jogadores com o cursor neste card. escolhido_por: id ou 0.
 func atualizar(cursores: Array[int], escolhido_por: int) -> void:
 	var estilo := StyleBoxFlat.new()
 	estilo.bg_color = COR_ESCOLHIDO if escolhido_por else COR_PAPEL

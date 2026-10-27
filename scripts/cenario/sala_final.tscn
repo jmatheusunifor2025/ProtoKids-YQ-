@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d3s8tx3td8ru0" path="res://scripts/cenario/cena_cenario.gd" id="1_nk16w"]
 [ext_resource type="Texture2D" uid="uid://cchguiqla6xy6" path="res://assets/cenarios/sala final/Biblioteca Mágica das Três Disciplinas.png" id="2_k4ujt"]
+[ext_resource type="PackedScene" path="res://scenes/objetos/porta.tscn" id="porta_1"]
 
 [node name="sala final" type="Node2D" unique_id=340382235]
 script = ExtResource("1_nk16w")
@@ -13,3 +14,8 @@ texture = ExtResource("2_k4ujt")
 
 [node name="Entrada" type="Marker2D" parent="." unique_id=1474205554]
 position = Vector2(622, 585)
+
+[node name="PortaHub" parent="." instance=ExtResource("porta_1")]
+position = Vector2(638, 665)
+destino = "res://scripts/cenario/sala_principal.tscn"
+chegada = "ChegadaFinal"

@@ -1,0 +1,69 @@
+[gd_resource type="SpriteFrames" load_steps=10 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/personagens/mentorCoruja/Sprites de Exploradores em Roxo Profundo.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="Quadro0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(42, 12, 104, 118)
+
+[sub_resource type="AtlasTexture" id="Quadro1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(190, 12, 104, 118)
+
+[sub_resource type="AtlasTexture" id="Quadro2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(343, 12, 104, 118)
+
+[sub_resource type="AtlasTexture" id="Quadro3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(501, 12, 104, 118)
+
+[sub_resource type="AtlasTexture" id="Quadro4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(654, 12, 104, 118)
+
+[sub_resource type="AtlasTexture" id="Quadro5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(774, 12, 148, 118)
+
+[sub_resource type="AtlasTexture" id="Quadro6"]
+atlas = ExtResource("1_sheet")
+region = Rect2(941, 12, 104, 118)
+
+[sub_resource type="AtlasTexture" id="Quadro7"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1080, 12, 104, 118)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Quadro0")
+}, {
+"duration": 4.0,
+"texture": SubResource("Quadro5")
+}, {
+"duration": 1.0,
+"texture": SubResource("Quadro0")
+}],
+"loop": false,
+"name": &"hoot",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 24.0,
+"texture": SubResource("Quadro0")
+}, {
+"duration": 1.0,
+"texture": SubResource("Quadro4")
+}, {
+"duration": 1.0,
+"texture": SubResource("Quadro3")
+}, {
+"duration": 1.0,
+"texture": SubResource("Quadro4")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}]

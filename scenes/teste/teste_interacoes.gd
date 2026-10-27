@@ -1,7 +1,4 @@
 extends TesteBase
-## Sala livre: cria os Players com os exploradores escolhidos no menu de
-## seleção (autoload Partida) e deixa todos os objetos de teste à mão.
-## Aberta direto (sem passar pelo menu), usa a Sofia como P1.
 
 const CENA_PLAYER := preload("res://scenes/player/player.tscn")
 const EXPLORADOR_PADRAO := preload("res://data/exploradores/sofia.tres")

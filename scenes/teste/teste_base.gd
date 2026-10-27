@@ -1,22 +1,17 @@
 class_name TesteBase
 extends Node2D
-## Base das cenas de teste: simula o InputMap, registra os signals dos
-## jogadores e imprime "[TESTE] OK / FALHOU". Cada cena de teste herda daqui
-## e implementa _rodar_testes(). Depois do teste, o controle volta aos jogadores.
-## Esc volta para o menu de testes.
 
 const MENU := "res://scenes/teste/menu_testes.tscn"
 
 @export var teste_automatico := true
 
 var falhas := 0
-## Signals emitidos desde o último _apertar(), no formato "P1:carregou".
 var eventos: Array[String] = []
 
 
 func _ready() -> void:
 	for jogador in _jogadores():
-		for sinal in ["interagiu", "carregou", "largou", "chutou", "empurrou"]:
+		for sinal in ["interagiu", "carregou", "largou", "empurrou"]:
 			jogador.connect(sinal, func(_alvo): eventos.append("P%d:%s" % [jogador.id_jogador, sinal]))
 	if teste_automatico:
 		await _rodar_testes()
@@ -28,7 +23,6 @@ func _unhandled_input(evento: InputEvent) -> void:
 		get_tree().change_scene_to_file(MENU)
 
 
-## Sobrescrever: os testes da cena (pode usar await).
 func _rodar_testes() -> void:
 	await get_tree().process_frame
 
@@ -44,12 +38,10 @@ func _jogadores() -> Array[Player]:
 func posicionar(jogador: Player, posicao: Vector2, olhar: Vector2) -> void:
 	jogador.position = posicao
 	jogador.direcao_olhar = olhar
-	# Espera a Area2D atualizar as sobreposições.
 	for i in 3:
 		await get_tree().physics_frame
 
 
-## Aperta e solta uma ação (ex.: "p1_botao1").
 func apertar(acao: String) -> void:
 	eventos.clear()
 	for pressionado in [true, false]:
@@ -60,7 +52,6 @@ func apertar(acao: String) -> void:
 		await get_tree().process_frame
 
 
-## Segura uma direção (ex.: "esquerda") por N passos de física e devolve a velocidade medida.
 func andar(jogador: Player, direcao: String, quadros: int) -> float:
 	var acao := "p%d_%s" % [jogador.id_jogador, direcao]
 	Input.action_press(acao)

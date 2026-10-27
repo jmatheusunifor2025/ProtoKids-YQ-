@@ -1,6 +1,4 @@
 extends TesteBase
-## Teste do menu de seleção de exploradores: To Be Done bloqueado,
-## co-op com exploradores diferentes, entrar/sair do P2 e início da partida.
 
 const SOFIA := preload("res://data/exploradores/sofia.tres")
 

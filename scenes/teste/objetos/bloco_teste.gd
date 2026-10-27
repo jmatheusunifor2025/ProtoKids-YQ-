@@ -1,5 +1,4 @@
 extends StaticBody2D
-## Objeto de teste (sem arte): pode ser carregado (E) e largado (Q).
 
 const ALTURA_CARREGADO := Vector2(0, -44)
 const DISTANCIA_LARGAR := 30.0

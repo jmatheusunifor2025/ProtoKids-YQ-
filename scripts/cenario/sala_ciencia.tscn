@@ -2,6 +2,10 @@
 
 [ext_resource type="Script" uid="uid://d3s8tx3td8ru0" path="res://scripts/cenario/cena_cenario.gd" id="1_huu78"]
 [ext_resource type="Texture2D" uid="uid://b66m5xivbic2n" path="res://assets/cenarios/cena de ciencias/Biblioteca Botânica em Pixel Art.png" id="2_0mwrl"]
+[ext_resource type="PackedScene" path="res://scenes/objetos/porta.tscn" id="porta_1"]
+[ext_resource type="PackedScene" path="res://scenes/objetos/alvo_bloco.tscn" id="alvo_1"]
+[ext_resource type="PackedScene" path="res://scenes/objetos/bloco.tscn" id="bloco_1"]
+[ext_resource type="PackedScene" path="res://scenes/objetos/estante.tscn" id="estante_1"]
 
 [node name="sala ciencia" type="Node2D" unique_id=1181628316]
 script = ExtResource("1_huu78")
@@ -13,3 +17,35 @@ texture = ExtResource("2_0mwrl")
 
 [node name="Entrada" type="Marker2D" parent="." unique_id=1413938466]
 position = Vector2(905, 241)
+
+[node name="PortaHub" parent="." instance=ExtResource("porta_1")]
+position = Vector2(949, 185)
+destino = "res://scripts/cenario/sala_principal.tscn"
+chegada = "ChegadaCiencias"
+
+[node name="QuadradoGato" parent="." instance=ExtResource("alvo_1")]
+position = Vector2(420, 290)
+esperado = "GATO"
+
+[node name="BlocoPeixe" parent="." instance=ExtResource("bloco_1")]
+position = Vector2(420, 420)
+valor = "PEIXE"
+
+[node name="QuadradoPato" parent="." instance=ExtResource("alvo_1")]
+position = Vector2(600, 290)
+esperado = "PATO"
+
+[node name="BlocoGato" parent="." instance=ExtResource("bloco_1")]
+position = Vector2(600, 420)
+valor = "GATO"
+
+[node name="QuadradoPeixe" parent="." instance=ExtResource("alvo_1")]
+position = Vector2(780, 290)
+esperado = "PEIXE"
+
+[node name="BlocoPato" parent="." instance=ExtResource("bloco_1")]
+position = Vector2(780, 420)
+valor = "PATO"
+
+[node name="Estante" parent="." instance=ExtResource("estante_1")]
+position = Vector2(220, 390)

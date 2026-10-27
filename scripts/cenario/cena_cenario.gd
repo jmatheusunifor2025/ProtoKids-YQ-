@@ -1,6 +1,5 @@
 class_name CenaCenario
 extends Node2D
-## Coloca os exploradores da Partida em cima de um Marker2D.
 
 const CENA_PLAYER := preload("res://scenes/player/player.tscn")
 const EXPLORADOR_PADRAO := preload("res://data/exploradores/sofia.tres")

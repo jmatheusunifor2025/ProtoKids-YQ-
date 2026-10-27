@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d3s8tx3td8ru0" path="res://scripts/cenario/cena_cenario.gd" id="1_qal7u"]
 [ext_resource type="Texture2D" uid="uid://b0vcnkn5db8qg" path="res://assets/cenarios/cena da matematica/Biblioteca Acadêmica da Matemática.png" id="2_kmv5a"]
+[ext_resource type="PackedScene" path="res://scenes/objetos/porta.tscn" id="porta_1"]
 
 [node name="Sala Matematica" type="Node2D" unique_id=1882203157]
 script = ExtResource("1_qal7u")
@@ -13,3 +14,8 @@ texture = ExtResource("2_kmv5a")
 
 [node name="Entrada" type="Marker2D" parent="." unique_id=1956196238]
 position = Vector2(915, 233)
+
+[node name="PortaHub" parent="." instance=ExtResource("porta_1")]
+position = Vector2(948, 185)
+destino = "res://scripts/cenario/sala_principal.tscn"
+chegada = "ChegadaMatematica"

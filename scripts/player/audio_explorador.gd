@@ -1,12 +1,8 @@
 class_name AudioExplorador
 extends Node2D
-## Componente de som do Player. Só escuta os signals do pai;
-## o Player não sabe que este nó existe. Removê-lo não quebra nenhuma mecânica.
-## Sons conforme assets/sounds/sound_guide.md.
 
 @export var som_carregar: AudioStream = preload("res://assets/sounds/sfx/sfx_block_pickup.wav")
 @export var som_largar: AudioStream = preload("res://assets/sounds/sfx/sfx_block_place.wav")
-@export var som_chutar: AudioStream = preload("res://assets/sounds/sfx/sfx_kick_paper.wav")
 @export var som_empurrar: AudioStream = preload("res://assets/sounds/sfx/sfx_push_heavy.wav")
 
 var _andando := false
@@ -24,7 +20,6 @@ func _ready() -> void:
 	_conectar(alvo, "parou", _ao_parar)
 	_conectar(alvo, "carregou", _tocar_acao.bind(som_carregar).unbind(1))
 	_conectar(alvo, "largou", _tocar_acao.bind(som_largar).unbind(1))
-	_conectar(alvo, "chutou", _tocar_acao.bind(som_chutar).unbind(1))
 	_conectar(alvo, "empurrou", _tocar_acao.bind(som_empurrar).unbind(1))
 
 

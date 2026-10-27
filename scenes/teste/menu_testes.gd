@@ -1,12 +1,11 @@
 extends Control
-## Cena principal provisória: lista as cenas de teste (scenes/teste/teste_*.tscn)
-## e abre a escolhida. Esc dentro de um teste volta para cá.
-## Cena de teste nova aparece aqui sozinha, sem editar este script.
 
 const PASTA := "res://scenes/teste/"
 
-## Cenas fora de scenes/teste que também aparecem no topo do menu.
-@export var outras_cenas: Array[String] = ["res://scenes/menus/selecao_explorador.tscn"]
+@export var outras_cenas: Array[String] = [
+	"res://scenes/menus/selecao_explorador.tscn",
+	"res://scripts/cenario/sala_principal.tscn",
+]
 
 @onready var _lista: VBoxContainer = $Centro/Caixa/Lista
 
@@ -17,7 +16,6 @@ func _ready() -> void:
 	var arquivos := Array(DirAccess.get_files_at(PASTA))
 	arquivos.sort()
 	for arquivo: String in arquivos:
-		# No jogo exportado as cenas aparecem como ".tscn.remap".
 		arquivo = arquivo.trim_suffix(".remap")
 		if not (arquivo.begins_with("teste_") and arquivo.ends_with(".tscn")):
 			continue

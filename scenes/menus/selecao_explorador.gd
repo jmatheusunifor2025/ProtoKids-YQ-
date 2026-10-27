@@ -1,10 +1,5 @@
 class_name SelecaoExplorador
 extends Control
-## Menu "Escolha seu explorador" (SGDD, cena 03).
-## Single-player: P1 escolhe 1. Co-op: P2 entra com o botão 1 e escolhe um
-## explorador DIFERENTE. Exploradores sem sprite_frames aparecem como
-## "Em breve · To Be Done" e não podem ser escolhidos.
-## Não toca som: emite signals (o filho AudioPorSinal escuta).
 
 signal cursor_movido(jogador: int)
 signal escolha_confirmada(jogador: int, dados: DadosExplorador)
@@ -16,8 +11,7 @@ const CENA_CARD := preload("res://scenes/menus/card_explorador.tscn")
 const MENU_TESTES := "res://scenes/teste/menu_testes.tscn"
 
 @export var elenco: ElencoExploradores
-## Cena aberta depois da escolha. Vazio = fica no menu (usado nos testes).
-@export_file("*.tscn") var proxima_cena := "res://scenes/teste/teste_sala_livre.tscn"
+@export_file("*.tscn") var proxima_cena := "res://scripts/cenario/sala_principal.tscn"
 
 var _cards: Array[CardExplorador] = []
 var _ativo := {1: true, 2: false}
@@ -54,8 +48,6 @@ func _unhandled_input(evento: InputEvent) -> void:
 			_cancelar(id)
 
 
-# --- Consultas (usadas pela tela e pelos testes) ---
-
 func cursor_de(id: int) -> int:
 	return _cursor[id]
 
@@ -71,8 +63,6 @@ func confirmou(id: int) -> bool:
 func pode_comecar() -> bool:
 	return _confirmado[1] and (not _ativo[2] or _confirmado[2])
 
-
-# --- Ações dos jogadores ---
 
 func _mover(id: int, passo: int) -> void:
 	if not _ativo[id] or _confirmado[id]:
@@ -134,8 +124,6 @@ func _comecar() -> void:
 		get_tree().change_scene_to_file(proxima_cena)
 
 
-# --- Auxiliares ---
-
 func _dados_no_cursor(id: int) -> DadosExplorador:
 	return _cards[_cursor[id]].dados
 
@@ -153,7 +141,6 @@ func _existe_livre(id: int) -> bool:
 	return range(_cards.size()).any(func(i): return _livre(id, i))
 
 
-## Primeiro card jogável e livre; se não houver, o primeiro card.
 func _primeiro_livre(id: int) -> int:
 	for i in _cards.size():
 		if _livre(id, i):
