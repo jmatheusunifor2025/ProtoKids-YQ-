@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d3s8tx3td8ru0" path="res://scripts/cenario/cena_cenario.gd" id="1_huu78"]
 [ext_resource type="Texture2D" uid="uid://b66m5xivbic2n" path="res://assets/cenarios/cena de ciencias/Biblioteca Botânica em Pixel Art.png" id="2_0mwrl"]
+[ext_resource type="PackedScene" uid="uid://dw6qhojgd3g1i" path="res://scenes/objetos/porta.tscn" id="3_0mwrl"]
 
 [node name="sala ciencia" type="Node2D" unique_id=1181628316]
 script = ExtResource("1_huu78")
@@ -13,3 +14,14 @@ texture = ExtResource("2_0mwrl")
 
 [node name="Entrada" type="Marker2D" parent="." unique_id=1413938466]
 position = Vector2(905, 241)
+
+[node name="Porta" parent="." unique_id=1630305698 instance=ExtResource("3_0mwrl")]
+position = Vector2(927, 165)
+cena_destino = "uid://f8r3yq2wvwv7"
+
+[node name="Paredes" type="StaticBody2D" parent="." unique_id=1741557540]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Paredes" unique_id=217508082]
+position = Vector2(-1, 0)
+build_mode = 1
+polygon = PackedVector2Array(1013, 191, 993, 178, 1000, 58, 910, 55, 900, 186, 886, 198, 322, 206, 299, 220, 253, 220, 243, 170, 211, 170, 185, 172, 185, 195, 98, 246, 85, 253, 87, 255, 99, 249, 79, 273, 76, 303, 77, 329, 77, 389, 104, 392, 106, 444, 158, 442, 138, 446, 168, 446, 185, 451, 215, 448, 228, 453, 235, 462, 235, 477, 362, 493, 393, 503, 444, 520, 454, 526, 459, 528, 467, 532, 478, 544, 490, 554, 514, 571, 529, 593, 544, 601, 545, 624, 732, 625, 734, 604, 749, 592, 756, 582, 770, 550, 790, 537, 804, 527, 818, 523, 839, 522, 899, 512, 919, 488, 1000, 486, 1047, 480, 1051, 454, 1092, 454, 1124, 450, 1188, 445, 1189, 416, 1163, 419, 1147, 404, 1106, 411, 1052, 428, 1014, 428, 929, 432, 929, 348, 932, 307, 962, 304, 976, 260, 1115, 259, 1112, 236, 1117, 203, 1106, 190, 1101, 192, 1091, 195, 1069, 199, 1033, 199)

@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dw6qhojgd3g1i"]
+
+[ext_resource type="Script" uid="uid://dtae5gthh1q8k" path="res://scenes/objetos/porta.gd" id="1_a2mls"]
+[ext_resource type="AudioStream" uid="uid://byb1c5q3ta6xy" path="res://assets/sounds/sfx/sfx_door_open.wav" id="2_723xh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e2ube"]
+size = Vector2(68, 20)
+
+[node name="Porta" type="Area2D" unique_id=1630305698]
+script = ExtResource("1_a2mls")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=284044307]
+position = Vector2(24, 0)
+shape = SubResource("RectangleShape2D_e2ube")
+
+[node name="Som" type="AudioStreamPlayer2D" parent="." unique_id=102677792]
+stream = ExtResource("2_723xh")

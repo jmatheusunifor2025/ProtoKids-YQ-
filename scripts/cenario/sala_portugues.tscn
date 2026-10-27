@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://d3s8tx3td8ru0" path="res://scripts/cenario/cena_cenario.gd" id="1_w703l"]
 [ext_resource type="Texture2D" uid="uid://jxis05p7jfrm" path="res://assets/cenarios/cena de portugues/Biblioteca Portugues.png" id="2_kkw13"]
+[ext_resource type="PackedScene" uid="uid://dw6qhojgd3g1i" path="res://scenes/objetos/porta.tscn" id="3_kkw13"]
+[ext_resource type="PackedScene" uid="uid://b10cchu7vjqlp" path="res://scenes/miniGames/forca.tscn" id="4_uwde1"]
+[ext_resource type="PackedScene" uid="uid://dexb7ldg6te0p" path="res://scripts/yolanda/yolanda.tscn" id="5_ehfv5"]
 
 [node name="Sala Portugues" type="Node2D" unique_id=1933975245]
 script = ExtResource("1_w703l")
@@ -13,3 +16,19 @@ texture = ExtResource("2_kkw13")
 
 [node name="Entrada" type="Marker2D" parent="." unique_id=1445010033]
 position = Vector2(1011, 245)
+
+[node name="Porta" parent="." unique_id=1630305698 instance=ExtResource("3_kkw13")]
+position = Vector2(1041, 139)
+cena_destino = "uid://f8r3yq2wvwv7"
+
+[node name="Paredes" type="StaticBody2D" parent="." unique_id=1436756486]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Paredes" unique_id=1669566624]
+build_mode = 1
+polygon = PackedVector2Array(1007, 168, 995, 184, 978, 179, 966, 192, 899, 183, 895, 166, 308, 166, 308, 187, 242, 187, 243, 170, 211, 170, 185, 172, 185, 195, 98, 246, 107, 264, 103, 284, 135, 279, 159, 293, 170, 312, 169, 336, 109, 368, 110, 399, 106, 444, 158, 442, 171, 428, 195, 425, 215, 435, 215, 448, 228, 453, 235, 462, 235, 477, 362, 493, 360, 517, 444, 520, 459, 512, 472, 504, 488, 513, 497, 529, 517, 536, 529, 552, 529, 593, 544, 601, 545, 624, 732, 625, 734, 604, 749, 592, 756, 582, 754, 546, 790, 537, 795, 513, 818, 502, 837, 516, 927, 518, 926, 490, 1000, 486, 1047, 480, 1051, 454, 1092, 454, 1124, 450, 1188, 445, 1189, 416, 1163, 419, 1147, 404, 1106, 411, 1090, 323, 1144, 304, 1188, 319, 1203, 328, 1197, 291, 1176, 273, 1100, 275, 1096, 247, 1112, 236, 1104, 202, 1111, 174, 1100, 148, 1122, 54, 1019, 58, 1024, 150)
+
+[node name="Forca" parent="." unique_id=2009148738 instance=ExtResource("4_uwde1")]
+position = Vector2(-92, -195)
+
+[node name="Yolanda" parent="." unique_id=2098969618 instance=ExtResource("5_ehfv5")]
+position = Vector2(758, 108)

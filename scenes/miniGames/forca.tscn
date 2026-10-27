@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://b10cchu7vjqlp"]
+
+[ext_resource type="Script" uid="uid://b6juceq8vqd52" path="res://scenes/miniGames/forca.gd" id="1_mn1kr"]
+[ext_resource type="Texture2D" uid="uid://bhe42npqjvvhd" path="res://assets/elementos dos mini games/portugues/Quadro-negro pixel art com suporte de madeira.png" id="1_n1tj3"]
+[ext_resource type="FontFile" uid="uid://dh12wc57431y4" path="res://assets/dialogo/yolanda_texto.png" id="3_font"]
+[ext_resource type="Texture2D" uid="uid://ny2wh8a6r7bj" path="res://assets/elementos dos mini games/HUD de Ampulheta Dourada em Pixel Art.png" id="4_amp"]
+
+[node name="Forca" type="Node2D" unique_id=2009148738]
+position = Vector2(0, 2)
+script = ExtResource("1_mn1kr")
+
+[node name="Lousa" type="Sprite2D" parent="." unique_id=817005779]
+position = Vector2(609.75, 343)
+scale = Vector2(0.32883877, 0.20785217)
+texture = ExtResource("1_n1tj3")
+
+[node name="Linha" type="Node2D" parent="." unique_id=1988803136]
+position = Vector2(610, 324)
+
+[node name="SaidaLetras" type="Marker2D" parent="." unique_id=537955224]
+position = Vector2(609, 523)
+
+[node name="Cronometro" type="CanvasLayer" parent="." unique_id=1906796460]
+
+[node name="Moldura" type="Node2D" parent="Cronometro" unique_id=1559236660]
+position = Vector2(198, 68)
+
+[node name="Fundo" type="Sprite2D" parent="Cronometro/Moldura" unique_id=1058456617]
+position = Vector2(-54, -23.5)
+scale = Vector2(0.17741935, 0.15208334)
+texture = ExtResource("4_amp")
+region_enabled = true
+region_rect = Rect2(92, 214, 1488, 480)
+
+[node name="Tempo" type="Label" parent="Cronometro/Moldura" unique_id=1412872767]
+offset_left = -73.0
+offset_top = -44.0
+offset_right = 35.0
+offset_bottom = 3.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 35
+text = "1:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Relogio" type="Timer" parent="Cronometro" unique_id=1897230242]

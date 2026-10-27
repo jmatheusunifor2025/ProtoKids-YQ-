@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dy64u2tw6brqr"]
+
+[ext_resource type="Script" uid="uid://ckcxvy320im02" path="res://scenes/miniGames/letra_bloco.gd" id="1_hy54b"]
+[ext_resource type="Texture2D" uid="uid://cr4atqum0uxrq" path="res://assets/elementos dos mini games/alfabeto/A.png" id="2_4wyfb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e2ube"]
+size = Vector2(40, 39)
+
+[node name="LetraBloco" type="StaticBody2D" unique_id=161333839]
+script = ExtResource("1_hy54b")
+
+[node name="Visual" type="Sprite2D" parent="." unique_id=1206521107]
+scale = Vector2(0.23, 0.23)
+texture = ExtResource("2_4wyfb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=776055988]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_e2ube")

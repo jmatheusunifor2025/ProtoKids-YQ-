@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://dexb7ldg6te0p"]
+
+[ext_resource type="Texture2D" uid="uid://dyqg48mtri46y" path="res://assets/personagens/mentorCoruja/yolanda_01.png" id="1_0k08i"]
+[ext_resource type="Texture2D" uid="uid://c2ckbr8a6vv0e" path="res://assets/dialogo/Caixa de diálogo de canto.png" id="2_vc2qy"]
+[ext_resource type="FontFile" uid="uid://dh12wc57431y4" path="res://assets/dialogo/yolanda_texto.png" id="3_e213q"]
+
+[node name="Yolanda" type="Node2D" unique_id=2098969618]
+
+[node name="Visual" type="Sprite2D" parent="." unique_id=567139587]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_0k08i")
+
+[node name="Balao" type="Node2D" parent="." unique_id=273232078]
+
+[node name="Caixa" type="Sprite2D" parent="Balao" unique_id=978210232]
+position = Vector2(134, -71.74999)
+scale = Vector2(0.15191385, 0.12486715)
+texture = ExtResource("2_vc2qy")
+
+[node name="Texto" type="Label" parent="Balao" unique_id=1614969882]
+offset_left = 26.0
+offset_top = -94.0
+offset_right = 245.0
+offset_bottom = -56.0
+theme_override_colors/font_color = Color(0.9646681, 9.62615e-07, 0.48614514, 1)
+theme_override_fonts/font = ExtResource("3_e213q")
+theme_override_font_sizes/font_size = 15
+text = "Arraste as letras até a lousa.
+ Cada palavra tem um minuto."
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -2,14 +2,69 @@
 
 [ext_resource type="Texture2D" uid="uid://bfssif1arksnf" path="res://assets/cenarios/sala principal/Biblioteca Mágica Sem Entrada.png" id="1_hh5f0"]
 [ext_resource type="Script" uid="uid://d3s8tx3td8ru0" path="res://scripts/cenario/cena_cenario.gd" id="1_tush0"]
+[ext_resource type="PackedScene" uid="uid://dw6qhojgd3g1i" path="res://scenes/objetos/porta.tscn" id="3_kuj36"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e2ube"]
+radius = 90.005554
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e2ube"]
+size = Vector2(43, 176)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lbo00"]
+size = Vector2(40, 167)
 
 [node name="SalaPrincipal" type="Node2D" unique_id=1560225157]
 script = ExtResource("1_tush0")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2097058665]
+position = Vector2(1, 4.000001)
 scale = Vector2(0.76435405, 0.7619554)
 texture = ExtResource("1_hh5f0")
 centered = false
 
 [node name="Entrada" type="Marker2D" parent="." unique_id=470849692]
 position = Vector2(641, 513.00006)
+
+[node name="Final" parent="." unique_id=1630305698 instance=ExtResource("3_kuj36")]
+position = Vector2(615, 159)
+cena_destino = "uid://dosl4uuhbgkgi"
+
+[node name="Portugues" parent="." unique_id=146445916 instance=ExtResource("3_kuj36")]
+position = Vector2(241, 161)
+cena_destino = "uid://dn1flbu576gpt"
+
+[node name="Matematica" parent="." unique_id=1536738640 instance=ExtResource("3_kuj36")]
+position = Vector2(420, 161)
+cena_destino = "uid://dpx248mrlfvvn"
+
+[node name="Ciencias" parent="." unique_id=1714642043 instance=ExtResource("3_kuj36")]
+position = Vector2(808, 165)
+cena_destino = "uid://c11g0nioehtml"
+
+[node name="Paredes" type="StaticBody2D" parent="." unique_id=44826285]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Paredes" unique_id=1996132923]
+visible = false
+position = Vector2(-2, -2)
+build_mode = 1
+polygon = PackedVector2Array(221, 173, 202, 181, 204, 192, 193, 200, 177, 199, 171, 213, 172, 223, 164, 227, 107, 248, 103, 272, 107, 297, 95, 316, 96, 330, 86, 345, 102, 354, 111, 379, 113, 398, 156, 404, 163, 425, 158, 436, 175, 434, 183, 441, 190, 458, 192, 470, 196, 476, 224, 469, 218, 456, 228, 451, 237, 445, 253, 443, 265, 444, 269, 453, 279, 453, 290, 454, 301, 464, 315, 469, 326, 470, 339, 471, 355, 467, 370, 482, 387, 480, 397, 491, 416, 498, 433, 505, 443, 481, 472, 492, 473, 513, 494, 516, 499, 538, 513, 539, 521, 540, 525, 541, 530, 546, 531, 553, 530, 558, 535, 560, 535, 564, 747, 562, 747, 559, 749, 558, 749, 556, 749, 551, 750, 548, 752, 545, 755, 542, 757, 540, 767, 539, 772, 539, 776, 543, 777, 550, 778, 553, 782, 550, 785, 547, 788, 543, 784, 538, 783, 532, 784, 525, 786, 519, 790, 517, 796, 516, 802, 516, 807, 515, 810, 514, 811, 506, 812, 500, 812, 493, 814, 488, 823, 486, 829, 484, 835, 484, 840, 492, 843, 497, 842, 505, 842, 507, 890, 495, 894, 486, 901, 483, 908, 481, 911, 487, 914, 484, 918, 483, 918, 475, 933, 465, 944, 473, 951, 471, 960, 473, 963, 477, 972, 467, 978, 469, 1002, 450, 1008, 456, 1018, 443, 1031, 446, 1043, 443, 1050, 450, 1060, 458, 1064, 467, 1072, 473, 1086, 475, 1094, 468, 1100, 456, 1101, 447, 1109, 435, 1118, 435, 1124, 420, 1120, 414, 1130, 403, 1135, 400, 1146, 387, 1157, 382, 1161, 391, 1168, 400, 1171, 390, 1174, 372, 1171, 369, 1173, 363, 1175, 359, 1175, 351, 1180, 350, 1187, 349, 1193, 348, 1200, 343, 1202, 331, 1191, 334, 1186, 332, 1185, 329, 1182, 326, 1183, 321, 1183, 318, 1185, 314, 1184, 309, 1180, 307, 1177, 305, 1175, 302, 1174, 299, 1175, 284, 1164, 278, 1154, 271, 1145, 259, 1139, 253, 1133, 244, 1118, 242, 1094, 241, 1077, 239, 1057, 237, 1047, 232, 1040, 218, 1025, 217, 1015, 218, 1007, 230, 999, 239, 975, 238, 966, 227, 954, 218, 935, 216, 917, 216, 901, 206, 887, 198, 886, 189, 870, 175, 878, 163, 877, 52, 793, 49, 775, 70, 779, 87, 777, 120, 779, 140, 783, 158, 796, 174, 777, 180, 776, 196, 764, 207, 753, 201, 741, 200, 743, 223, 732, 229, 706, 226, 704, 205, 704, 188, 696, 175, 680, 171, 678, 42, 582, 39, 587, 173, 585, 187, 583, 198, 580, 200, 574, 208, 572, 216, 570, 226, 555, 225, 531, 226, 528, 209, 511, 200, 501, 192, 502, 179, 494, 177, 486, 173, 485, 43, 388, 45, 398, 169, 410, 171, 395, 185, 390, 200, 380, 205, 364, 199, 358, 208, 344, 216, 330, 211, 318, 207, 316, 183, 307, 175, 308, 45, 211, 63, 229, 171)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Paredes" unique_id=1900212910]
+position = Vector2(1031, 338)
+shape = SubResource("CircleShape2D_e2ube")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Paredes" unique_id=1894639503]
+position = Vector2(243, 339)
+shape = SubResource("CircleShape2D_e2ube")
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Paredes" unique_id=1632314893]
+build_mode = 1
+polygon = PackedVector2Array(587, 300, 595, 312, 611, 308, 627, 307, 644, 307, 663, 307, 680, 312, 685, 317, 695, 303, 706, 296, 721, 292, 735, 292, 744, 299, 746, 310, 759, 307, 766, 312, 770, 306, 770, 294, 771, 288, 775, 286, 779, 284, 781, 281, 784, 281, 786, 281, 789, 283, 789, 285, 792, 287, 796, 289, 798, 293, 798, 305, 797, 317, 796, 320, 798, 329, 793, 332, 796, 338, 795, 349, 794, 353, 793, 371, 794, 386, 794, 397, 793, 406, 795, 414, 796, 421, 789, 424, 771, 428, 781, 434, 788, 441, 788, 453, 788, 463, 782, 470, 772, 474, 761, 479, 750, 484, 734, 491, 720, 492, 705, 492, 701, 484, 693, 479, 691, 469, 668, 472, 655, 475, 645, 475, 598, 469, 588, 465, 583, 465, 585, 475, 583, 482, 574, 488, 566, 491, 557, 492, 546, 488, 541, 483, 528, 485, 516, 487, 508, 484, 501, 481, 493, 476, 488, 469, 488, 459, 491, 450, 498, 443, 500, 436, 501, 429, 487, 423, 482, 420, 485, 409, 485, 350, 482, 344, 482, 337, 484, 332, 480, 327, 480, 321, 481, 315, 481, 306, 481, 293, 481, 287, 486, 284, 491, 278, 496, 279, 500, 284, 505, 289, 507, 295, 507, 306, 512, 302, 522, 302, 529, 300, 533, 303, 537, 302, 543, 299, 553, 297, 558, 293, 566, 291, 574, 294, 582, 298)
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Paredes" unique_id=1045908474]
+position = Vector2(893.5, 371)
+shape = SubResource("RectangleShape2D_e2ube")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Paredes" unique_id=328141936]
+position = Vector2(382, 364)
+shape = SubResource("RectangleShape2D_lbo00")
