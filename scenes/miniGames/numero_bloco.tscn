@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scenes/miniGames/numero_bloco.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://viovqxceyalq" path="res://assets/elementos dos mini games/matematica/Puzzle Matematica Numeros 1.png" id="2_num"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_corpo"]
+size = Vector2(40, 39)
+
+[node name="NumeroBloco" type="StaticBody2D"]
+script = ExtResource("1_script")
+
+[node name="Visual" type="Sprite2D" parent="."]
+scale = Vector2(0.23, 0.23)
+texture = ExtResource("2_num")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_corpo")

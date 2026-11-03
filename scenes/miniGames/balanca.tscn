@@ -1,0 +1,71 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scenes/miniGames/balanca.gd" id="1_script"]
+[ext_resource type="Script" path="res://scenes/miniGames/prato_balanca.gd" id="2_prato"]
+[ext_resource type="Texture2D" uid="uid://csi7hqxwlt7c8" path="res://assets/elementos dos mini games/matematica/balanca_equilibrada_01.png" id="3_visual"]
+[ext_resource type="FontFile" uid="uid://dh12wc57431y4" path="res://assets/dialogo/yolanda_texto.png" id="4_font"]
+[ext_resource type="Texture2D" uid="uid://di4ck1rionup7" path="res://assets/elementos dos mini games/matematica/HUD de Ampulheta Dourada em Pixel Art.png" id="5_amp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_prato"]
+radius = 36.0
+
+[node name="Balanca" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Visual" type="Sprite2D" parent="."]
+texture = ExtResource("3_visual")
+
+[node name="PratoEsquerdo" type="Area2D" parent="."]
+position = Vector2(-180, 50)
+script = ExtResource("2_prato")
+lado = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PratoEsquerdo"]
+shape = SubResource("CircleShape2D_prato")
+
+[node name="PratoDireito" type="Area2D" parent="."]
+position = Vector2(180, 50)
+script = ExtResource("2_prato")
+lado = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PratoDireito"]
+shape = SubResource("CircleShape2D_prato")
+
+[node name="Conta" type="Label" parent="."]
+offset_left = -170.0
+offset_top = -175.0
+offset_right = 170.0
+offset_bottom = -120.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_font")
+theme_override_font_sizes/font_size = 35
+text = "? + ? = 10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Cronometro" type="CanvasLayer" parent="."]
+
+[node name="Moldura" type="Node2D" parent="Cronometro"]
+position = Vector2(198, 68)
+
+[node name="Fundo" type="Sprite2D" parent="Cronometro/Moldura"]
+position = Vector2(-54, -23.5)
+scale = Vector2(0.17741935, 0.15208334)
+texture = ExtResource("5_amp")
+region_enabled = true
+region_rect = Rect2(92, 214, 1488, 480)
+
+[node name="Tempo" type="Label" parent="Cronometro/Moldura"]
+offset_left = -73.0
+offset_top = -44.0
+offset_right = 35.0
+offset_bottom = 3.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_font")
+theme_override_font_sizes/font_size = 35
+text = "1:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Relogio" type="Timer" parent="Cronometro"]

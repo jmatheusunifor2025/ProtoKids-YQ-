@@ -16,9 +16,20 @@ func _ready() -> void:
 		var jogador: Player = CENA_PLAYER.instantiate()
 		jogador.id_jogador = i + 1
 		jogador.dados = escolhidos[i]
-		jogador.position = marca.position + SEPARACAO_P2 * i
+		jogador.position = _posicao_do_jogador(i, escolhidos.size(), marca)
 		add_child(jogador)
 	Partida.ponto_entrada = ""
+
+
+## Sala com EntradaEsquerda e EntradaDireita separa os dois jogadores.
+## Sala sem esses marcadores continua nascendo na Entrada, com o P2 ao lado.
+func _posicao_do_jogador(indice: int, total: int, marca: Marker2D) -> Vector2:
+	if total >= 2:
+		var esquerda := get_node_or_null("EntradaEsquerda") as Marker2D
+		var direita := get_node_or_null("EntradaDireita") as Marker2D
+		if esquerda and direita:
+			return esquerda.position if indice == 0 else direita.position
+	return marca.position + SEPARACAO_P2 * indice
 
 
 func _marca_de_chegada() -> Marker2D:
