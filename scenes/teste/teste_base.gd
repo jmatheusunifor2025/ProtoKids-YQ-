@@ -19,7 +19,13 @@ func _ready() -> void:
 		for sinal in ["interagiu", "carregou", "largou", "chutou", "empurrou"]:
 			jogador.connect(sinal, func(_alvo): eventos.append("P%d:%s" % [jogador.id_jogador, sinal]))
 	if teste_automatico:
+		# Erro de script interrompe _rodar_testes() no meio; sem isto o resumo diria "TUDO OK".
+		var erros := ErrosDeScript.new()
+		OS.add_logger(erros)
 		await _rodar_testes()
+		OS.remove_logger(erros)
+		for erro in erros.lista():
+			checar(false, "erro de script (o teste parou aqui): " + erro)
 		print("[TESTE] %s: %s" % [name, "TUDO OK" if falhas == 0 else "%d FALHA(S)" % falhas])
 
 
@@ -71,6 +77,26 @@ func andar(jogador: Player, direcao: String, quadros: int) -> float:
 	Input.action_release(acao)
 	await get_tree().physics_frame
 	return (jogador.global_position - inicio).length() * Engine.physics_ticks_per_second / quadros
+
+
+## Guarda os erros de script emitidos durante o teste (o Logger pode ser chamado de outras threads).
+class ErrosDeScript extends Logger:
+	var _erros: Array[String] = []
+	var _trava := Mutex.new()
+
+	func _log_error(_funcao: String, arquivo: String, linha: int, codigo: String, _motivo: String,
+			_notificar_editor: bool, tipo: int, _pilhas: Array[ScriptBacktrace]) -> void:
+		if tipo != ERROR_TYPE_SCRIPT:
+			return
+		_trava.lock()
+		_erros.append("%s:%d %s" % [arquivo, linha, codigo])
+		_trava.unlock()
+
+	func lista() -> Array[String]:
+		_trava.lock()
+		var copia := _erros.duplicate()
+		_trava.unlock()
+		return copia
 
 
 func checar(condicao: bool, descricao: String) -> void:

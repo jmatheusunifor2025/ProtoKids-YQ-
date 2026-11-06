@@ -31,7 +31,7 @@ func _rodar_testes() -> void:
 
 	print("[TESTE] --- início ---")
 	checar(_blocos(1).size() == 3 and _blocos(2).size() == 3, "3 números de cada lado no chão")
-	checar(_balanca.get_node("Conta").text == "? + ? = 10", "conta inicial '? + ? = 10'")
+	checar(_balanca.get_node("Cronometro/Faixa/Conta").text == "? + ? = 10", "conta inicial '? + ? = 10'")
 	checar(_balanca.get_node("Cronometro/Moldura/Tempo").text == "1:00", "cronômetro começa em 1:00")
 
 	print("[TESTE] --- agarrar e arrastar ---")
@@ -58,7 +58,7 @@ func _rodar_testes() -> void:
 	await _colocar(p1, tres, 1)
 	checar(tres.no_prato and _balanca.bloco_no_lado(1) == tres, "3 entra no prato esquerdo sozinho")
 	checar(p1.objeto_carregado == null, "jogador larga o número ao encaixar")
-	checar(_balanca.get_node("Conta").text == "3 + ? = 10", "conta mostra '3 + ? = 10'")
+	checar(_balanca.get_node("Cronometro/Faixa/Conta").text == "3 + ? = 10", "conta mostra '3 + ? = 10'")
 	await _colocar(p1, cinco, 2)
 	checar(_balanca.bloco_no_lado(2) == cinco, "5 entra no prato direito")
 	checar(_balanca._estado == "direita", "3 + 5 errado: balança inclina para a direita (lado maior)")
@@ -79,9 +79,9 @@ func _rodar_testes() -> void:
 	await _colocar(p1, _bloco(8), 1)
 	await _colocar(p1, _bloco(2), 2)
 	checar(_balanca._estado == "equilibrada", "8 + 2 = 10: balança equilibra")
-	checar(_balanca.get_node("Conta").text == "8 + 2 = 10", "conta mostra '8 + 2 = 10'")
+	checar(_balanca.get_node("Cronometro/Faixa/Conta").text == "8 + 2 = 10", "conta mostra '8 + 2 = 10'")
 	await get_tree().create_timer(1.0).timeout
-	checar(_balanca._indice == 1 and _balanca.get_node("Conta").text == "? - ? = 3", "depois de 0,8 s vem a 2ª conta (? - ? = 3)")
+	checar(_balanca._indice == 1 and _balanca.get_node("Cronometro/Faixa/Conta").text == "? - ? = 3", "depois de 0,8 s vem a 2ª conta (? - ? = 3)")
 	checar(_blocos(1).size() == 3 and _blocos(2).size() == 3, "números novos: 3 de cada lado")
 
 	print("[TESTE] --- subtração: 5 - 2 ---")
@@ -89,7 +89,7 @@ func _rodar_testes() -> void:
 	await _colocar(p1, _bloco(2), 2)
 	checar(_balanca._estado == "equilibrada" and _balanca._correto(), "5 - 2 = 3: equilibra")
 	await get_tree().create_timer(1.0).timeout
-	checar(_balanca._indice == 2 and _balanca.get_node("Conta").text == "? + ? = 9", "vem a 3ª conta (? + ? = 9)")
+	checar(_balanca._indice == 2 and _balanca.get_node("Cronometro/Faixa/Conta").text == "? + ? = 9", "vem a 3ª conta (? + ? = 9)")
 
 	print("[TESTE] --- tempo esgotado ---")
 	for i in 59:
@@ -97,7 +97,7 @@ func _rodar_testes() -> void:
 	checar(_balanca.get_node("Cronometro/Moldura/Tempo").text == "0:01", "cronômetro desce até 0:01")
 	_balanca._passar_segundo()
 	await get_tree().physics_frame
-	checar(_balanca._indice == 0 and _balanca.get_node("Conta").text == "? + ? = 10", "tempo acabou: volta para a 1ª conta")
+	checar(_balanca._indice == 0 and _balanca.get_node("Cronometro/Faixa/Conta").text == "? + ? = 10", "tempo acabou: volta para a 1ª conta")
 	checar(_balanca.get_node("Cronometro/Moldura/Tempo").text == "1:00", "cronômetro volta para 1:00")
 
 	print("[TESTE] --- co-op: cada um no seu lado ---")
