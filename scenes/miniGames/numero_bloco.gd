@@ -1,6 +1,6 @@
 extends StaticBody2D
 ## Bloco numérico: E agarra, andar arrasta, e entra ao chegar perto do prato.
-## Ao tirar da balança, não volta enquanto o jogador não se afastar.
+## No prato, o E tira o bloco e ele não volta enquanto o jogador não se afastar.
 
 const DISTANCIA_POR_SOM := 32.0
 const TAMANHO := 40.0
@@ -64,8 +64,14 @@ func _physics_process(_delta: float) -> void:
 
 
 func interagir(jogador: Node2D) -> void:
-	if no_prato or not pode_usar(jogador):
+	if not pode_usar(jogador):
 		return
+	if no_prato:
+		var balanca := get_tree().get_first_node_in_group("balanca")
+		if balanca == null:
+			return
+		balanca.retirar(self)
+		marcar_saida()
 	_jogador = jogador
 	_ultima_posicao_jogador = jogador.global_position
 	_distancia_acumulada = 0.0
@@ -103,7 +109,6 @@ func manter_tamanho() -> void:
 func marcar_no_prato(na_balanca: bool) -> void:
 	no_prato = na_balanca
 	($Visual as Sprite2D).scale = _escala_visual()
-	$CollisionShape2D.set_deferred("disabled", na_balanca)
 
 
 func _escala_visual() -> Vector2:
@@ -126,7 +131,6 @@ func _colocar_na_balanca() -> void:
 	no_prato = true
 	var jogador := _jogador
 	_soltar()
-	$CollisionShape2D.set_deferred("disabled", true)
 	if jogador:
 		jogador.liberar(self)
 	var balanca := get_tree().get_first_node_in_group("balanca")

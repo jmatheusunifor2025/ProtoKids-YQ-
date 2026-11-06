@@ -23,6 +23,8 @@ const DESAFIOS: Array[Dictionary] = [
 const DISTANCIA_PRATO := 70.0
 const FOLGA_BLOCO := 50.0
 const TEMPO_DESAFIO := 60
+## Raio da área do prato no mundo. A escala da sala não encolhe o alcance.
+const ALCANCE_PRATO := 40.0
 ## Chão da sala, longe da balança e entre as paredes.
 ## Coordenadas do mundo: a escala da balança não puxa os blocos para o centro.
 const PONTOS_ESQUERDA: Array[Vector2] = [
@@ -61,17 +63,28 @@ var _segundos := TEMPO_DESAFIO
 var _blocos: Array[Node] = []
 
 @onready var _visual: Sprite2D = $Visual
-@onready var _conta: Label = $Conta
+## No CanvasLayer: a escala 0,4 da sala não encolhe a conta.
+@onready var _conta: Label = $Cronometro/Faixa/Conta
 @onready var _tempo: Label = $Cronometro/Moldura/Tempo
 @onready var _relogio: Timer = $Cronometro/Relogio
 
 
 func _ready() -> void:
 	add_to_group("balanca")
+	_abrir_pratos()
 	_relogio.wait_time = 1.0
 	_relogio.timeout.connect(_passar_segundo)
 	_comecar_contagem()
 	_montar()
+
+
+## Os dois pratos usam o mesmo CircleShape2D. Um raio vale para os dois.
+func _abrir_pratos() -> void:
+	var escala := absf(global_scale.x)
+	if escala == 0.0:
+		escala = 1.0
+	var forma := $PratoEsquerdo/CollisionShape2D.shape as CircleShape2D
+	forma.radius = ALCANCE_PRATO / escala
 
 
 func destino_do_numero(bloco: Node2D) -> Node2D:
@@ -105,12 +118,12 @@ func retirar(bloco: Node2D) -> void:
 		_esquerdo = null
 	if _direito == bloco:
 		_direito = null
-	var destino: Vector2 = _prato_do_lado(bloco.lado).global_position
+	var onde := bloco.global_position
 	bloco.top_level = false
 	bloco.reparent(self)
 	bloco.z_index = 0
 	bloco.scale = Vector2.ONE
-	bloco.global_position = destino
+	bloco.global_position = onde
 	bloco.marcar_no_prato(false)
 	bloco.manter_tamanho()
 	_atualizar()
@@ -222,6 +235,8 @@ func _texto_lado(bloco: Node) -> String:
 
 func _posicionar_miniaturas() -> void:
 	var pontos: Array = PRATOS[_estado]
+	_prato_do_lado(1).position = pontos[0]
+	_prato_do_lado(2).position = pontos[1]
 	if _esquerdo:
 		_apoiar(_esquerdo, pontos[0])
 	if _direito:
@@ -241,6 +256,7 @@ func _avancar() -> void:
 	var geracao: int = _geracao
 	_indice += 1
 	if _indice >= DESAFIOS.size():
+		_entregar_medalha()
 		return
 	await get_tree().create_timer(0.8).timeout
 	if geracao != _geracao or not is_inside_tree():
@@ -252,6 +268,11 @@ func _avancar() -> void:
 	_avancando = false
 	_montar()
 	_comecar_contagem()
+
+
+func _entregar_medalha() -> void:
+	$Medalha.visible = true
+	$Medalha.monitoring = true
 
 
 func _comecar_contagem() -> void:

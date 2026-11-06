@@ -3,7 +3,13 @@
 [ext_resource type="Script" uid="uid://b6juceq8vqd52" path="res://scenes/miniGames/forca.gd" id="1_mn1kr"]
 [ext_resource type="Texture2D" uid="uid://bhe42npqjvvhd" path="res://assets/elementos dos mini games/portugues/Quadro-negro pixel art com suporte de madeira.png" id="1_n1tj3"]
 [ext_resource type="FontFile" uid="uid://dh12wc57431y4" path="res://assets/dialogo/yolanda_texto.png" id="3_font"]
-[ext_resource type="Texture2D" uid="uid://ny2wh8a6r7bj" path="res://assets/elementos dos mini games/HUD de Ampulheta Dourada em Pixel Art.png" id="4_amp"]
+[ext_resource type="Texture2D" uid="uid://di4ck1rionup7" path="res://assets/elementos dos mini games/matematica/HUD de Ampulheta Dourada em Pixel Art.png" id="4_amp"]
+[ext_resource type="Texture2D" uid="uid://ccdg6x6kleuvu" path="res://assets/elementos dos mini games/medalhas/Medalha Portugues.png" id="5_61dyb"]
+[ext_resource type="Script" uid="uid://b1rjflbk68vjf" path="res://scenes/miniGames/medalha.gd" id="5_lbb0i"]
+[ext_resource type="AudioStream" uid="uid://dlfn0k6k2nw1o" path="res://assets/sounds/sfx/sfx_seal_collect.wav" id="6_qmi5m"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e2ube"]
+radius = 28.01785
 
 [node name="Forca" type="Node2D" unique_id=2009148738]
 position = Vector2(0, 2)
@@ -45,3 +51,21 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Relogio" type="Timer" parent="Cronometro" unique_id=1897230242]
+
+[node name="Medalha" type="Area2D" parent="." unique_id=537004658]
+visible = false
+position = Vector2(0, -2)
+monitoring = false
+script = ExtResource("5_lbb0i")
+
+[node name="Visual" type="Sprite2D" parent="Medalha" unique_id=68159449]
+position = Vector2(608.99994, 554.99994)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("5_61dyb")
+
+[node name="Som" type="AudioStreamPlayer" parent="Medalha" unique_id=1606184240]
+stream = ExtResource("6_qmi5m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Medalha" unique_id=2029582664]
+position = Vector2(609, 552)
+shape = SubResource("CircleShape2D_e2ube")

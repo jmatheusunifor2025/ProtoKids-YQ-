@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://buq3oh005r5he"]
+
+[ext_resource type="Texture2D" uid="uid://2w04ujlo4bwr" path="res://assets/cenarios/vitoria/Vitória na Biblioteca Mágica.png" id="1_5chu4"]
+
+[node name="Vitoria" type="Node2D" unique_id=1847173631]
+
+[node name="Fundo" type="Sprite2D" parent="." unique_id=1561504222]
+position = Vector2(640, 360)
+scale = Vector2(0.7655504, 0.7651434)
+texture = ExtResource("1_5chu4")

@@ -1,5 +1,5 @@
 extends Area2D
-## Área do prato no chão. E tira o número e ele não volta até se afastar.
+## Área do prato. E no prato chama o mesmo interagir do bloco.
 
 @export var lado := 1
 
@@ -9,6 +9,4 @@ func interagir(jogador: Node2D) -> void:
 	var bloco = balanca.bloco_no_lado(lado)
 	if bloco == null or not bloco.pode_usar(jogador):
 		return
-	balanca.retirar(bloco)
-	bloco.marcar_saida()
 	bloco.interagir(jogador)
