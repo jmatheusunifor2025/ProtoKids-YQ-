@@ -1,14 +1,13 @@
 extends StaticBody2D
-## Bloco de letra: E agarra, andar arrasta, Q solta.
-## Gruda sozinho no próximo giz quando a letra é a da vez.
+## Bloco de letra: E dá um empurrão e solta. Continuar andando não leva a letra.
+## Gruda sozinha no giz da vez.
 
-const DISTANCIA_POR_SOM := 32.0
+## Um toque afasta a letra o bastante para sair de cima do explorador.
+const EMPURRAO := 48.0
 
 var letra := "A"
 var _jogador: Node2D = null
 var _fixada := false
-var _ultima_posicao_jogador := Vector2.ZERO
-var _distancia_acumulada := 0.0
 
 
 func definir(nova_letra: String, textura: Texture2D) -> void:
@@ -16,34 +15,30 @@ func definir(nova_letra: String, textura: Texture2D) -> void:
 	$Visual.texture = textura
 
 
-func _physics_process(_delta: float) -> void:
-	if _fixada or _jogador == null:
-		return
-	var deslocamento := _jogador.global_position - _ultima_posicao_jogador
-	_ultima_posicao_jogador = _jogador.global_position
-	if deslocamento == Vector2.ZERO:
-		return
-	if move_and_collide(deslocamento):
-		var jogador := _jogador
-		_soltar()
-		jogador.liberar(self)
-		return
-	_distancia_acumulada += deslocamento.length()
-	if _distancia_acumulada >= DISTANCIA_POR_SOM:
-		_distancia_acumulada = 0.0
-		_jogador.registrar_empurrao(self)
-	_tentar_fixar()
-
-
 func interagir(jogador: Node2D) -> void:
 	if _fixada:
 		return
-	_jogador = jogador
-	_ultima_posicao_jogador = jogador.global_position
-	_distancia_acumulada = 0.0
-	add_collision_exception_with(jogador)
-	jogador.add_collision_exception_with(self)
-	jogador.segurar(self)
+	var pessoa := jogador as Player
+	var direcao := _eixo_do_empurrao(pessoa)
+	add_collision_exception_with(pessoa)
+	pessoa.add_collision_exception_with(self)
+	move_and_collide(direcao * EMPURRAO)
+	remove_collision_exception_with(pessoa)
+	pessoa.remove_collision_exception_with(self)
+	pessoa.registrar_empurrao(self)
+	_tentar_fixar()
+
+
+## Lateral empurra só no X. Cima ou baixo empurra só no Y.
+func _eixo_do_empurrao(pessoa: Player) -> Vector2:
+	var delta := global_position - pessoa.global_position
+	if absf(delta.x) <= 1.0 and absf(delta.y) <= 1.0:
+		delta = pessoa.direcao_olhar
+	if absf(delta.x) > absf(delta.y):
+		return Vector2(signf(delta.x), 0.0)
+	if absf(delta.y) > 0.0:
+		return Vector2(0.0, signf(delta.y))
+	return Vector2.DOWN
 
 
 func largar(_jogador_que_solta: Node2D) -> void:

@@ -1,5 +1,5 @@
 extends Node2D
-## Forca: uma palavra por vez. A letra só gruda no giz da vez.
+## Forca: uma palavra por vez. O alfabeto nasce espalhado no chão.
 
 const PALAVRAS: PackedStringArray = ["amizade", "amor", "respeito", "amigo"]
 const CENA_LETRA := preload("res://scenes/miniGames/letra_bloco.tscn")
@@ -8,6 +8,11 @@ const PASTA_LETRA := "res://assets/elementos dos mini games/alfabeto/%s.png"
 ## O tracejado fica no meio do PNG, com muita margem vazia em volta.
 const REGIAO_GIZ := Rect2(404, 384, 446, 438)
 const FOLGA := 8.0
+const ALFABETO := "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+## Chão livre da sala, em coordenadas do mundo.
+const CHAO := Rect2(220, 300, 740, 160)
+const DISTANCIA_LETRA := 52.0
+const FOLGA_MEDALHA := 80.0
 ## Última linha opaca da lousa no centro do PNG (a base da madeira, sem o vazio).
 const BORDA_INFERIOR_LOUSA := 572.0 / 866.0
 const TEMPO_PALAVRA := 60
@@ -23,6 +28,9 @@ var _letras: Array[Node] = []
 @onready var _tempo: Label = $Cronometro/Moldura/Tempo
 @onready var _relogio: Timer = $Cronometro/Relogio
 
+func _entregar_medalha() -> void:
+	$Medalha.visible = true
+	$Medalha.monitoring = true
 
 func _ready() -> void:
 	add_to_group("forca")
@@ -74,6 +82,7 @@ func prender(bloco: Node2D) -> void:
 	_relogio.stop()
 	_indice_palavra += 1
 	if _indice_palavra >= PALAVRAS.size():
+		_entregar_medalha()
 		return
 	await get_tree().create_timer(0.8).timeout
 	_limpar()
@@ -100,17 +109,65 @@ func _montar_palavra() -> void:
 		giz.position = Vector2(inicio + espaco * i, 0)
 		$Linha.add_child(giz)
 		_espacos.append(giz)
+	_espalhar_alfabeto()
+
+
+func _espalhar_alfabeto() -> void:
+	var lugares := _lugares_do_chao(ALFABETO.length())
 	var ordem: Array[String] = []
-	for i in palavra.length():
-		ordem.append(palavra[i])
+	for i in ALFABETO.length():
+		ordem.append(ALFABETO[i])
 	ordem.shuffle()
 	for i in ordem.size():
 		var bloco: StaticBody2D = CENA_LETRA.instantiate()
-		var caminho := PASTA_LETRA % ordem[i]
-		bloco.definir(ordem[i], load(caminho))
-		bloco.position = $SaidaLetras.position + Vector2(inicio + espaco * i, 0)
+		bloco.definir(ordem[i], load(PASTA_LETRA % ordem[i]))
 		add_child(bloco)
+		bloco.global_position = lugares[i]
 		_letras.append(bloco)
+
+
+func _lugares_do_chao(quantidade: int) -> Array[Vector2]:
+	var lugares: Array[Vector2] = []
+	var tentativas := 0
+	while lugares.size() < quantidade and tentativas < 500:
+		tentativas += 1
+		var ponto := Vector2(
+			randf_range(CHAO.position.x, CHAO.end.x),
+			randf_range(CHAO.position.y, CHAO.end.y)
+		)
+		if not _cabe_no_chao(ponto, lugares):
+			continue
+		lugares.append(ponto)
+	if lugares.size() < quantidade:
+		return _grade_do_chao(quantidade)
+	return lugares
+
+
+func _grade_do_chao(quantidade: int) -> Array[Vector2]:
+	var celulas: Array[Vector2] = []
+	var x := CHAO.position.x + DISTANCIA_LETRA * 0.5
+	while x < CHAO.end.x:
+		var y := CHAO.position.y + DISTANCIA_LETRA * 0.5
+		while y < CHAO.end.y:
+			var ponto := Vector2(x, y)
+			if _cabe_no_chao(ponto, celulas):
+				celulas.append(ponto)
+			y += DISTANCIA_LETRA
+		x += DISTANCIA_LETRA
+	celulas.shuffle()
+	if celulas.size() > quantidade:
+		celulas.resize(quantidade)
+	return celulas
+
+
+func _cabe_no_chao(ponto: Vector2, lugares: Array[Vector2]) -> bool:
+	var medalha := get_node_or_null("Medalha/Visual") as Node2D
+	if medalha != null and ponto.distance_to(medalha.global_position) < FOLGA_MEDALHA:
+		return false
+	for outro in lugares:
+		if ponto.distance_to(outro) < DISTANCIA_LETRA:
+			return false
+	return true
 
 
 func _limpar() -> void:

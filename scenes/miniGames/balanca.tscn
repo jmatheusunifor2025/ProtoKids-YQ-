@@ -1,62 +1,77 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene format=3 uid="uid://6slawl2df54t"]
 
-[ext_resource type="Script" path="res://scenes/miniGames/balanca.gd" id="1_script"]
-[ext_resource type="Script" path="res://scenes/miniGames/prato_balanca.gd" id="2_prato"]
+[ext_resource type="Script" uid="uid://g2pr6sl0f6fo" path="res://scenes/miniGames/balanca.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://bnwt50kwoed4t" path="res://scenes/miniGames/prato_balanca.gd" id="2_prato"]
 [ext_resource type="Texture2D" uid="uid://csi7hqxwlt7c8" path="res://assets/elementos dos mini games/matematica/balanca_equilibrada_01.png" id="3_visual"]
 [ext_resource type="FontFile" uid="uid://dh12wc57431y4" path="res://assets/dialogo/yolanda_texto.png" id="4_font"]
 [ext_resource type="Texture2D" uid="uid://di4ck1rionup7" path="res://assets/elementos dos mini games/matematica/HUD de Ampulheta Dourada em Pixel Art.png" id="5_amp"]
+[ext_resource type="Texture2D" uid="uid://b1gerdfdbha0c" path="res://assets/elementos dos mini games/matematica/Faixa Pixelada Dourada com Pergaminho Crema.png" id="6_faixa"]
+[ext_resource type="Texture2D" uid="uid://djeghhn04mmxm" path="res://assets/elementos dos mini games/medalhas/Medalha Matematica.png" id="7_medalha"]
+[ext_resource type="Script" uid="uid://b1rjflbk68vjf" path="res://scenes/miniGames/medalha.gd" id="8_medalha"]
+[ext_resource type="AudioStream" uid="uid://dlfn0k6k2nw1o" path="res://assets/sounds/sfx/sfx_seal_collect.wav" id="9_som"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_prato"]
 radius = 36.0
 
-[node name="Balanca" type="Node2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_medalha"]
+radius = 28.0
+
+[node name="Balanca" type="Node2D" unique_id=617931454]
 script = ExtResource("1_script")
 
-[node name="Visual" type="Sprite2D" parent="."]
+[node name="Visual" type="Sprite2D" parent="." unique_id=501939457]
 texture = ExtResource("3_visual")
 
-[node name="PratoEsquerdo" type="Area2D" parent="."]
+[node name="PratoEsquerdo" type="Area2D" parent="." unique_id=1630865318]
 position = Vector2(-180, 50)
 script = ExtResource("2_prato")
-lado = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PratoEsquerdo"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PratoEsquerdo" unique_id=1521286063]
 shape = SubResource("CircleShape2D_prato")
 
-[node name="PratoDireito" type="Area2D" parent="."]
+[node name="PratoDireito" type="Area2D" parent="." unique_id=965792518]
 position = Vector2(180, 50)
 script = ExtResource("2_prato")
 lado = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PratoDireito"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PratoDireito" unique_id=1396926480]
 shape = SubResource("CircleShape2D_prato")
 
-[node name="Conta" type="Label" parent="."]
-offset_left = -170.0
-offset_top = -175.0
-offset_right = 170.0
-offset_bottom = -120.0
-mouse_filter = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+[node name="Cronometro" type="CanvasLayer" parent="." unique_id=1323793554]
+
+[node name="Faixa" type="Node2D" parent="Cronometro" unique_id=2080573985]
+position = Vector2(436, 48)
+
+[node name="Fundo" type="Sprite2D" parent="Cronometro/Faixa" unique_id=2080573986]
+position = Vector2(-34.000015, -2)
+scale = Vector2(0.15180202, 0.13056323)
+texture = ExtResource("6_faixa")
+region_enabled = true
+region_rect = Rect2(202, 148, 1576, 506)
+
+[node name="Conta" type="Label" parent="Cronometro/Faixa" unique_id=2080573984]
+offset_left = -152.0
+offset_top = -26.0
+offset_right = 85.0
+offset_bottom = 24.0
+theme_override_colors/font_color = Color(0.28, 0.1, 0.04, 1)
 theme_override_fonts/font = ExtResource("4_font")
 theme_override_font_sizes/font_size = 35
 text = "? + ? = 10"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Cronometro" type="CanvasLayer" parent="."]
-
-[node name="Moldura" type="Node2D" parent="Cronometro"]
+[node name="Moldura" type="Node2D" parent="Cronometro" unique_id=1144531280]
 position = Vector2(198, 68)
 
-[node name="Fundo" type="Sprite2D" parent="Cronometro/Moldura"]
+[node name="Fundo" type="Sprite2D" parent="Cronometro/Moldura" unique_id=359874024]
 position = Vector2(-54, -23.5)
 scale = Vector2(0.17741935, 0.15208334)
 texture = ExtResource("5_amp")
 region_enabled = true
 region_rect = Rect2(92, 214, 1488, 480)
 
-[node name="Tempo" type="Label" parent="Cronometro/Moldura"]
+[node name="Tempo" type="Label" parent="Cronometro/Moldura" unique_id=148421907]
 offset_left = -73.0
 offset_top = -44.0
 offset_right = 35.0
@@ -68,4 +83,21 @@ text = "1:00"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Relogio" type="Timer" parent="Cronometro"]
+[node name="Relogio" type="Timer" parent="Cronometro" unique_id=1195291951]
+
+[node name="Medalha" type="Area2D" parent="." unique_id=1847263901]
+visible = false
+monitoring = false
+position = Vector2(0, 405)
+script = ExtResource("8_medalha")
+materia = "matematica"
+
+[node name="Visual" type="Sprite2D" parent="Medalha" unique_id=1847263902]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("7_medalha")
+
+[node name="Som" type="AudioStreamPlayer" parent="Medalha" unique_id=1847263903]
+stream = ExtResource("9_som")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Medalha" unique_id=1847263904]
+shape = SubResource("CircleShape2D_medalha")

@@ -3,6 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://bfssif1arksnf" path="res://assets/cenarios/sala principal/Biblioteca Mágica Sem Entrada.png" id="1_hh5f0"]
 [ext_resource type="Script" uid="uid://d3s8tx3td8ru0" path="res://scripts/cenario/cena_cenario.gd" id="1_tush0"]
 [ext_resource type="PackedScene" uid="uid://dw6qhojgd3g1i" path="res://scenes/objetos/porta.tscn" id="3_kuj36"]
+[ext_resource type="Texture2D" uid="uid://bgkpyn81lmrqn" path="res://assets/cenarios/hud_medalhas/Painel Medieval de Medalhas Educacionais.png" id="4_3im4o"]
+[ext_resource type="Script" uid="uid://bytpbmtqnjevd" path="res://scripts/cenario/hud_medalhas.gd" id="4_pxxs8"]
+[ext_resource type="Texture2D" uid="uid://bon5tnksbr2fa" path="res://assets/cenarios/hud_medalhas/Marca de Verificação Verde Dourada em Pixel Art.png" id="5_iv5sq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e2ube"]
 radius = 90.005554
@@ -68,3 +71,29 @@ shape = SubResource("RectangleShape2D_e2ube")
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Paredes" unique_id=328141936]
 position = Vector2(382, 364)
 shape = SubResource("RectangleShape2D_lbo00")
+
+[node name="HudMedalhas" type="CanvasLayer" parent="." unique_id=1249734676]
+script = ExtResource("4_pxxs8")
+
+[node name="Painel" type="Sprite2D" parent="HudMedalhas" unique_id=1725079683]
+position = Vector2(1173, 119)
+scale = Vector2(0.16, 0.16)
+texture = ExtResource("4_3im4o")
+
+[node name="CheckPortugues" type="Sprite2D" parent="HudMedalhas/Painel" unique_id=1353798858]
+visible = false
+position = Vector2(137.50002, -250.00002)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("5_iv5sq")
+
+[node name="CheckMatematica" type="Sprite2D" parent="HudMedalhas/Painel" unique_id=1812781974]
+visible = false
+position = Vector2(137.50002, -25.000002)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("5_iv5sq")
+
+[node name="CheckCiencias" type="Sprite2D" parent="HudMedalhas/Painel" unique_id=687083344]
+visible = false
+position = Vector2(137.50002, 200.00002)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("5_iv5sq")
