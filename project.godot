@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Yolanda e o Labirinto das Matérias"
-run/main_scene="res://scenes/teste/menu_testes.tscn"
+run/main_scene="res://scenes/menus/menu_principal.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 

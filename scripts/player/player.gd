@@ -14,6 +14,9 @@ signal empurrou(alvo: Node)
 
 ## Igual para todos os exploradores (SGDD: inclusão não é penalidade).
 const VELOCIDADE := 120.0
+## Escala de exibição dos sheets (~126 px de altura). Não é gameplay.
+const ESCALA_SPRITE := Vector2(0.45, 0.45)
+const MARGEM_PES := 3.0
 
 @export_range(1, 2) var id_jogador := 1
 @export var dados: DadosExplorador:
@@ -120,7 +123,24 @@ func _alvo_mais_proximo(metodo: String) -> Node:
 
 func _aplicar_dados() -> void:
 	_sprite.sprite_frames = dados.sprite_frames if dados else null
+	_sprite.scale = ESCALA_SPRITE * (dados.escala_sprite if dados else 1.0)
+	if _sprite.sprite_frames and _sprite.sprite_frames.has_animation("idle_baixo"):
+		_sprite.offset = Vector2(0, _offset_pes(_sprite.sprite_frames.get_frame_texture("idle_baixo", 0)))
 	_atualizar_animacao()
+
+
+## Põe os pés (última linha opaca do frame parado de frente) na origem do Player,
+## qualquer que seja o tamanho ou a margem do sheet.
+func _offset_pes(textura: Texture2D) -> float:
+	var imagem := textura.get_image()
+	var altura := textura.get_height()
+	if imagem == null or imagem.is_compressed():
+		return -altura / 2.0 + MARGEM_PES
+	for y in range(imagem.get_height() - 1, -1, -1):
+		for x in imagem.get_width():
+			if imagem.get_pixel(x, y).a > 0.5:
+				return altura / 2.0 - y
+	return -altura / 2.0 + MARGEM_PES
 
 
 func _atualizar_animacao() -> void:

@@ -1,0 +1,45 @@
+{
+  "reference": {
+    "asset_id": "70908b08-51f9-4d35-a212-1dbec95847dc",
+    "label": "Referência - Sala Principal (upload)"
+  },
+  "assets": [
+    {
+      "asset_id": "ded69718-19ea-40cd-ae7d-facad492bc00",
+      "sha12": "1d78b68f4cab",
+      "label": "estante_horizontal",
+      "path": "assets/objetos/estante_horizontal.png"
+    },
+    {
+      "asset_id": "637e90f6-688d-42aa-9b25-7cb1065e0247",
+      "sha12": "ab858f3688bb",
+      "label": "estante_vertical",
+      "path": "assets/objetos/estante_vertical.png"
+    },
+    {
+      "asset_id": "5c8172f8-1ebe-4e36-a663-692453ad169c",
+      "sha12": "d47283b39095",
+      "label": "caixa_empurravel",
+      "path": "assets/objetos/caixa_empurravel.png"
+    },
+    {
+      "asset_id": "e9e6b6ab-2b13-4d9e-978d-a04e2862ba7a",
+      "sha12": "159b14dad8c5",
+      "label": "caixa_fala_yolanda",
+      "path": "assets/dialogo/caixa_fala_yolanda.png"
+    },
+    {
+      "asset_id": "3b098c7a-e833-469b-9ef2-4d73f26d699a",
+      "sha12": "da5e23fb5030",
+      "label": "theo_costas (ampliado 1,4x e montado em 3 células 76x126)",
+      "path": "assets/personagens/caio/theo_costas.png"
+    }
+  ],
+  "referencias": [
+    {
+      "asset_id": "01b9dc38-8792-4e7b-813c-6d55c991dcfe",
+      "label": "Referência - sheet caio (upload)",
+      "sha12": "f14cd8c1ca7b"
+    }
+  ]
+}

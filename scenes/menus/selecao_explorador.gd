@@ -13,11 +13,11 @@ signal escolha_cancelada(jogador: int)
 signal partida_iniciada(exploradores: Array)
 
 const CENA_CARD := preload("res://scenes/menus/card_explorador.tscn")
-const MENU_TESTES := "res://scenes/teste/menu_testes.tscn"
+const MENU_PRINCIPAL := "res://scenes/menus/menu_principal.tscn"
 
 @export var elenco: ElencoExploradores
 ## Cena aberta depois da escolha. Vazio = fica no menu (usado nos testes).
-@export_file("*.tscn") var proxima_cena := "res://scenes/teste/teste_sala_livre.tscn"
+@export_file("*.tscn") var proxima_cena := "res://scenes/menus/intro_yolanda.tscn"
 
 var _cards: Array[CardExplorador] = []
 var _ativo := {1: true, 2: false}
@@ -40,8 +40,8 @@ func _ready() -> void:
 
 
 func _unhandled_input(evento: InputEvent) -> void:
-	if evento.is_action_pressed("ui_cancel") and ResourceLoader.exists(MENU_TESTES):
-		get_tree().change_scene_to_file(MENU_TESTES)
+	if evento.is_action_pressed("ui_cancel") and ResourceLoader.exists(MENU_PRINCIPAL):
+		get_tree().change_scene_to_file(MENU_PRINCIPAL)
 		return
 	for id in [1, 2]:
 		if evento.is_action_pressed("p%d_esquerda" % id):

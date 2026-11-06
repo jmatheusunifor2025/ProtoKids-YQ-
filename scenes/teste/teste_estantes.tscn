@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scenes/teste/teste_estantes.gd" id="1_teste"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" path="res://scenes/objetos/estante.tscn" id="3_estante"]
+[ext_resource type="Resource" path="res://data/exploradores/theo.tres" id="4_theo"]
+
+[sub_resource type="RectangleShape2D" id="FormaParede"]
+size = Vector2(32, 720)
+
+[node name="TesteEstantes" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_teste")
+
+[node name="Fundo" type="ColorRect" parent="."]
+z_index = -1
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+color = Color(0.55, 0.36, 0.2, 1)
+
+[node name="Instrucoes" type="Label" parent="."]
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 1256.0
+offset_bottom = 90.0
+text = "ESTANTES — E agarra, andar puxa/empurra, Q solta. Esquerda: horizontal e vertical (móveis). Direita: vertical fixa (movel = false).
+Esc volta ao menu de testes."
+
+[node name="Parede" type="StaticBody2D" parent="."]
+position = Vector2(560, 360)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Parede"]
+shape = SubResource("FormaParede")
+
+[node name="Visual" type="ColorRect" parent="Parede"]
+offset_left = -16.0
+offset_top = -360.0
+offset_right = 16.0
+offset_bottom = 360.0
+mouse_filter = 2
+color = Color(0.25, 0.15, 0.08, 1)
+
+[node name="EstanteHorizontal" parent="." instance=ExtResource("3_estante")]
+position = Vector2(220, 300)
+
+[node name="EstanteVertical" parent="." instance=ExtResource("3_estante")]
+position = Vector2(400, 300)
+orientacao = 1
+
+[node name="EstanteFixa" parent="." instance=ExtResource("3_estante")]
+position = Vector2(900, 300)
+orientacao = 1
+movel = false
+
+[node name="P1" parent="." instance=ExtResource("2_player")]
+position = Vector2(300, 500)
+dados = ExtResource("4_theo")

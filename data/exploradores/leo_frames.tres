@@ -1,0 +1,106 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/personagens/lucas/Folha de sprites do jovem viajante.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="frame_01"]
+atlas = ExtResource("1_sheet")
+region = Rect2(639, 0, 104, 215)
+
+[sub_resource type="AtlasTexture" id="frame_02"]
+atlas = ExtResource("1_sheet")
+region = Rect2(804, 0, 104, 215)
+
+[sub_resource type="AtlasTexture" id="frame_03"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1485, 0, 104, 215)
+
+[sub_resource type="AtlasTexture" id="frame_04"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1658, 0, 104, 215)
+
+[sub_resource type="AtlasTexture" id="frame_05"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1836, 0, 104, 215)
+
+[sub_resource type="AtlasTexture" id="frame_06"]
+atlas = ExtResource("1_sheet")
+region = Rect2(988, 0, 104, 215)
+
+[sub_resource type="AtlasTexture" id="frame_07"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1147, 0, 104, 215)
+
+[sub_resource type="AtlasTexture" id="frame_08"]
+atlas = ExtResource("1_sheet")
+region = Rect2(1300, 0, 104, 215)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("frame_03")
+},
+{
+"duration": 1.0,
+"texture": SubResource("frame_04")
+},
+{
+"duration": 1.0,
+"texture": SubResource("frame_05")
+}],
+"loop": true,
+"name": &"andar_baixo",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("frame_06")
+},
+{
+"duration": 1.0,
+"texture": SubResource("frame_07")
+},
+{
+"duration": 1.0,
+"texture": SubResource("frame_08")
+}],
+"loop": true,
+"name": &"andar_cima",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("frame_01")
+},
+{
+"duration": 1.0,
+"texture": SubResource("frame_02")
+}],
+"loop": true,
+"name": &"andar_lado",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("frame_03")
+}],
+"loop": true,
+"name": &"idle_baixo",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("frame_06")
+}],
+"loop": true,
+"name": &"idle_cima",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("frame_01")
+}],
+"loop": true,
+"name": &"idle_lado",
+"speed": 1.0
+}]

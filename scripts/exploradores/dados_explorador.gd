@@ -14,6 +14,9 @@ extends Resource
 @export_multiline var frase_de_selecao: String
 ## Som de deslocamento (apresentação, não gameplay), conforme assets/sounds/sound_guide.md.
 @export var som_movimento: AudioStream
+## Ajuste de exibição para sheets desenhados em outra resolução (não é gameplay:
+## a colisão e a velocidade não mudam).
+@export var escala_sprite := 1.0
 
 
 ## Explorador sem sprite_frames ainda está em construção (To Be Done) e não pode ser escolhido.
