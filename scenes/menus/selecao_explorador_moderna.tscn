@@ -1,0 +1,151 @@
+[gd_scene load_steps=16 format=3]
+
+[ext_resource type="Script" path="res://scenes/menus/selecao_explorador.gd" id="1_selecao"]
+[ext_resource type="Resource" path="res://data/exploradores/elenco.tres" id="2_elenco"]
+[ext_resource type="Script" path="res://scripts/ui/audio_por_sinal.gd" id="3_audio"]
+[ext_resource type="AudioStream" path="res://assets/sounds/ui/ui_button_hover.wav" id="4_hover"]
+[ext_resource type="AudioStream" path="res://assets/sounds/ui/ui_button_select.wav" id="5_select"]
+[ext_resource type="PackedScene" path="res://scenes/menus/card_explorador_moderno.tscn" id="6_card"]
+[ext_resource type="Texture2D" path="res://assets/cenarios/HUD/Menu.png" id="7_fundo"]
+[ext_resource type="Shader" path="res://scenes/ui/desfoque.gdshader" id="8_desfoque"]
+[ext_resource type="FontVariation" path="res://scenes/ui/fontes/titulo.tres" id="9_titulo"]
+[ext_resource type="FontVariation" path="res://scenes/ui/fontes/hud.tres" id="10_hud"]
+[ext_resource type="FontVariation" path="res://scenes/ui/fontes/vitoria.tres" id="11_vitoria"]
+[ext_resource type="Texture2D" path="res://assets/personagens/mentorCoruja/yolanda_01.png" id="12_yolanda"]
+
+[sub_resource type="ShaderMaterial" id="FundoDesfocado"]
+shader = ExtResource("8_desfoque")
+shader_parameter/passo = 2.0
+shader_parameter/escurecer = 0.45
+
+[sub_resource type="StyleBoxFlat" id="FaixaYolanda"]
+bg_color = Color(0.09, 0.06, 0.15, 0.82)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.85, 0.62, 0.22, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 14.0
+content_margin_top = 6.0
+content_margin_right = 22.0
+content_margin_bottom = 6.0
+
+[node name="SelecaoExplorador" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_selecao")
+elenco = ExtResource("2_elenco")
+cena_card = ExtResource("6_card")
+
+[node name="Fundo" type="TextureRect" parent="."]
+material = SubResource("FundoDesfocado")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("7_fundo")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Centro" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Coluna" type="VBoxContainer" parent="Centro"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 12
+
+[node name="Titulo" type="Label" parent="Centro/Coluna"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_titulo")
+theme_override_font_sizes/font_size = 55
+text = "Escolha seu explorador"
+horizontal_alignment = 1
+
+[node name="Frase" type="Label" parent="Centro/Coluna"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_hud")
+theme_override_font_sizes/font_size = 22
+text = "Cada um tem um jeito especial de aprender — juntos somos mais fortes!"
+horizontal_alignment = 1
+
+[node name="Cards" type="HBoxContainer" parent="Centro/Coluna"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="Espaco" type="Control" parent="Centro/Coluna"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Yolanda" type="CenterContainer" parent="Centro/Coluna"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Faixa" type="PanelContainer" parent="Centro/Coluna/Yolanda"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("FaixaYolanda")
+
+[node name="Linha" type="HBoxContainer" parent="Centro/Coluna/Yolanda/Faixa"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 12
+
+[node name="Retrato" type="TextureRect" parent="Centro/Coluna/Yolanda/Faixa/Linha"]
+texture_filter = 1
+custom_minimum_size = Vector2(50, 54)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("12_yolanda")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Texto" type="Label" parent="Centro/Coluna/Yolanda/Faixa/Linha"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("11_vitoria")
+theme_override_font_sizes/font_size = 26
+text = "Não importa quem você é, importa como a gente organiza junto."
+vertical_alignment = 1
+
+[node name="Dica" type="Label" parent="Centro/Coluna"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.09, 0.06, 0.15, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+
+[node name="Mensagem" type="Label" parent="Centro/Coluna"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.72, 0.85, 1)
+theme_override_fonts/font = ExtResource("10_hud")
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[node name="AudioPorSinal" type="AudioStreamPlayer" parent="."]
+script = ExtResource("3_audio")
+sons = {
+&"cursor_movido": ExtResource("4_hover"),
+&"escolha_confirmada": ExtResource("5_select"),
+&"partida_iniciada": ExtResource("5_select")
+}

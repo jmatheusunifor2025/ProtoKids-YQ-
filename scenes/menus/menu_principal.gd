@@ -1,6 +1,6 @@
 extends Control
 
-@export_file("*.tscn") var cena_novo_jogo := "res://scenes/menus/selecao_explorador.tscn"
+@export_file("*.tscn") var cena_novo_jogo := "res://scenes/menus/selecao_explorador_moderna.tscn"
 
 @onready var _novo_jogo: TextureButton = %NovoJogo
 @onready var _sair: TextureButton = %Sair

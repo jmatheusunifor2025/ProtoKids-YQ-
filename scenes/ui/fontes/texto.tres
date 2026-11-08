@@ -1,0 +1,10 @@
+[gd_resource type="FontVariation" load_steps=3 format=3]
+
+[ext_resource type="FontFile" path="res://assets/fonts/yolanda_texto.fnt" id="1_base"]
+
+[sub_resource type="SystemFont" id="Reserva"]
+font_names = PackedStringArray("Noto Sans", "DejaVu Sans", "Arial", "sans-serif")
+
+[resource]
+base_font = ExtResource("1_base")
+fallbacks = [SubResource("Reserva")]

@@ -12,10 +12,11 @@ signal escolha_recusada(jogador: int)
 signal escolha_cancelada(jogador: int)
 signal partida_iniciada(exploradores: Array)
 
-const CENA_CARD := preload("res://scenes/menus/card_explorador.tscn")
 const MENU_PRINCIPAL := "res://scenes/menus/menu_principal.tscn"
 
 @export var elenco: ElencoExploradores
+## Cena de cada card (precisa ter script CardExplorador). Troca só o visual.
+@export var cena_card: PackedScene = preload("res://scenes/menus/card_explorador.tscn")
 ## Cena aberta depois da escolha. Vazio = fica no menu (usado nos testes).
 @export_file("*.tscn") var proxima_cena := "res://scenes/menus/intro_yolanda.tscn"
 
@@ -31,7 +32,7 @@ var _confirmado := {1: false, 2: false}
 
 func _ready() -> void:
 	for dados in elenco.exploradores:
-		var card: CardExplorador = CENA_CARD.instantiate()
+		var card: CardExplorador = cena_card.instantiate()
 		_lista_cards.add_child(card)
 		card.configurar(dados)
 		_cards.append(card)
