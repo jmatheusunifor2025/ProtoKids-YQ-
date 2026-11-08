@@ -60,11 +60,20 @@ func interagir(jogador: Node2D) -> void:
 	_distancia_acumulada = 0.0
 	add_collision_exception_with(jogador)
 	jogador.add_collision_exception_with(self)
-	jogador.segurar(self)
+	jogador.segurar(self, true)
 
 
 func largar(_jogador_que_solta: Node2D) -> void:
 	_soltar()
+
+
+## Solta a estante de quem estiver segurando (ex.: um minijogo reiniciando a rodada).
+func soltar_se() -> void:
+	if _jogador == null:
+		return
+	var jogador := _jogador
+	_soltar()
+	jogador.liberar(self)
 
 
 func _soltar() -> void:

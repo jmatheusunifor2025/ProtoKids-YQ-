@@ -19,6 +19,14 @@ func _rodar_testes() -> void:
 	checar(forma_v == Vector2(28, 56), "vertical usa colisão 28x56")
 	checar(_horizontal.get_node("CollisionShape2D").shape != _vertical.get_node("CollisionShape2D").shape, "cada estante tem a própria forma de colisão")
 
+	print("[TESTE] --- só interage olhando para a estante ---")
+	await posicionar(_p1, _horizontal.global_position + Vector2(0, 50), Vector2.DOWN)
+	await apertar("p1_botao1")
+	checar(_p1.objeto_carregado == null, "de costas para a estante, E não agarra")
+	await posicionar(_p1, _horizontal.global_position + Vector2(0, 50), Vector2.RIGHT)
+	await apertar("p1_botao1")
+	checar(_p1.objeto_carregado == null, "de lado para a estante, E não agarra")
+
 	for estante: Estante in [_horizontal, _vertical]:
 		var nome := "horizontal" if estante == _horizontal else "vertical"
 		print("[TESTE] --- estante %s ---" % nome)
@@ -27,6 +35,7 @@ func _rodar_testes() -> void:
 		checar(_p1.objeto_carregado == estante and eventos.has("P1:carregou"), "E agarra a estante %s" % nome)
 		var antes := estante.global_position
 		await andar(_p1, "baixo", 40)
+		checar(_p1.direcao_olhar == Vector2.UP and _p1.esta_arrastando(), "puxando (andando para trás), continua olhando para a estante")
 		checar(estante.global_position.y > antes.y + 50, "puxando: a estante acompanha o jogador")
 		var velocidade := await andar(_p1, "cima", 30)
 		checar(is_equal_approx(snappedf(velocidade, 1.0), Player.VELOCIDADE), "empurrando: o jogador não fica mais lento (%.0f)" % velocidade)

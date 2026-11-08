@@ -91,7 +91,8 @@ func destino_do_numero(bloco: Node2D) -> Node2D:
 	if bloco.no_prato or _ocupado(bloco.lado):
 		return null
 	var prato := _prato_do_lado(bloco.lado)
-	if bloco.global_position.distance_to(prato.global_position) > DISTANCIA_PRATO:
+	var ponto: Vector2 = bloco.posicao_de_referencia() if bloco.has_method("posicao_de_referencia") else bloco.global_position
+	if ponto.distance_to(prato.global_position) > DISTANCIA_PRATO:
 		return null
 	return prato
 

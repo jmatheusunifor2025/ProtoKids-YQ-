@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scenes/miniGames/animal_bloco.gd" id="1_script"]
+[ext_resource type="FontVariation" path="res://scenes/ui/fontes/texto.tres" id="2_texto"]
+
+[sub_resource type="RectangleShape2D" id="Forma"]
+size = Vector2(44, 44)
+
+[sub_resource type="StyleBoxFlat" id="Placa"]
+bg_color = Color(0.86, 0.95, 0.78, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.2, 0.42, 0.16, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="AnimalBloco" type="StaticBody2D"]
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("Forma")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+
+[node name="Provisorio" type="Panel" parent="."]
+offset_left = -46.0
+offset_top = -22.0
+offset_right = 46.0
+offset_bottom = 22.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Placa")
+
+[node name="Nome" type="Label" parent="Provisorio"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_texto")
+theme_override_font_sizes/font_size = 14
+text = "ANIMAL"
+horizontal_alignment = 1
+vertical_alignment = 1

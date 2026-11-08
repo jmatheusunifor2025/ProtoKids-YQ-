@@ -134,13 +134,14 @@ há aceleração.
 | `chutou(alvo)`   | Apertou Q perto de algo com `chutar`           |
 | `empurrou(alvo)` | O objeto chamou `jogador.registrar_empurrao(self)` |
 
-**Métodos que os objetos podem chamar:** `segurar(objeto)`,
+**Métodos que os objetos podem chamar:** `segurar(objeto, arrastado := false)`,
 `liberar(objeto)`, `registrar_empurrao(objeto)`.
 **Propriedades que os objetos podem ler:** `direcao_olhar`, `objeto_carregado`.
 
 **Botões:**
 - **E (botão 1):** se não estiver segurando nada, chama `interagir(self)` no
-  objeto mais próximo que tenha esse método.
+  objeto mais próximo que tenha esse método **e esteja à frente** (até 45° para
+  cada lado de `direcao_olhar`). De costas ou de lado, nada acontece.
 - **Q (botão 2):** se estiver segurando algo, chama `largar(self)` nele; senão,
   chama `chutar(self)` no objeto mais próximo que tenha esse método.
 
@@ -259,7 +260,9 @@ frame `idle_baixo`, para os pés ficarem na origem em qualquer sheet.
    | `chutar(jogador)`    | Jogador aperta Q perto, de mãos vazias |
 
 3. Avise o Player quando precisar:
-   - vai ficar na mão dele → `jogador.segurar(self)`;
+   - vai ficar na mão dele (acima da cabeça) → `jogador.segurar(self)`;
+   - vai ser puxado/empurrado no chão (estante, caixa) → `jogador.segurar(self, true)`:
+     o explorador trava o olhar no objeto e anda de costas ao puxar;
    - se soltou sozinho (travou, quebrou) → `jogador.liberar(self)`;
    - foi empurrado/arrastado → `jogador.registrar_empurrao(self)` (toca o som).
 4. Use `jogador.direcao_olhar` para decidir para onde empurrar, largar ou chutar.
@@ -300,6 +303,29 @@ frame `idle_baixo`, para os pés ficarem na origem em qualquer sheet.
   selo) fica no próprio objeto ou num componente dele.
 
 ---
+
+### Música (autoload `Musica`, `scripts/audio/musica.gd`)
+
+A música de fundo não fica em nenhuma cena: a autoload `Musica` escuta a troca
+de cena e toca a faixa da tabela `FAIXA_DA_CENA` (cena → arquivo em
+`assets/sounds/bgm/`), com transição de 0,8 s. Se a cena nova usa a mesma faixa
+(ex.: menu → seleção), a música continua sem reiniciar. Cena fora da tabela
+(testes) fica em silêncio. Ela continua tocando com o jogo pausado.
+
+| Cena                                  | Faixa                    |
+| ------------------------------------- | ------------------------ |
+| Menu principal, seleção               | `Intro-Music.mp3`        |
+| Introdução da Yolanda e HUB (sala principal) | `FalaCoruja-Music.mp3` (continua da intro para o HUB, sem reiniciar) |
+| Sala final                            | `bgm_library_hub.wav`    |
+| Salas de Português, Matemática, Ciências | `Desafios-Music.mp3`  |
+| Vitória                               | `Victory-Music.mp3` (sem loop) |
+
+- **Cena nova com música:** adicione uma linha em `FAIXA_DA_CENA`.
+- **Volume:** os MP3 vêm bem mais altos que os WAV; `GANHO_DA_FAIXA` abaixa
+  cada faixa para não cobrir falas e efeitos.
+- **Loop:** configurado na importação (`.import`), sem editar o arquivo:
+  `loop = true` e `loop_offset` pulando o silêncio do começo de cada MP3.
+- Teste: `teste_musica.tscn`.
 
 ## 9. Entrada
 

@@ -34,14 +34,25 @@ func _rodar_testes() -> void:
 	checar(_balanca.get_node("Cronometro/Faixa/Conta").text == "? + ? = 10", "conta inicial '? + ? = 10'")
 	checar(_balanca.get_node("Cronometro/Moldura/Tempo").text == "1:00", "cronômetro começa em 1:00")
 
-	print("[TESTE] --- agarrar e arrastar ---")
+	print("[TESTE] --- carregar ---")
 	var tres := _bloco(3)
 	await _preparar(p1, tres, _prato(1) + Vector2(-140, 0))
 	await apertar("p1_botao1")
-	checar(p1.objeto_carregado == tres and eventos.has("P1:carregou"), "E agarra o número 3")
+	checar(p1.objeto_carregado == tres and eventos.has("P1:carregou"), "E pega o número 3")
+	await get_tree().physics_frame
+	checar(tres.global_position.y < p1.global_position.y - 30, "o número fica acima da cabeça (carregado, não arrastado)")
+	checar(tres.get_node("CollisionShape2D").disabled, "carregado, o número não colide com nada")
 	var antes := tres.global_position
-	var vel := await andar(p1, "direita", 10)
+	await andar(p1, "direita", 10)
 	checar(tres.global_position.x > antes.x + 10, "o número acompanha o jogador")
+	await apertar("p1_botao2")
+	checar(p1.objeto_carregado == null and tres.global_position.distance_to(p1.global_position + p1.direcao_olhar * 34.0) < 2.0, "Q larga o número na frente do jogador")
+	await get_tree().physics_frame
+	checar(not tres.get_node("CollisionShape2D").disabled, "no chão, o número volta a colidir")
+	for i in 3:
+		await get_tree().physics_frame
+	await apertar("p1_botao1")
+	checar(p1.objeto_carregado == tres, "E pega de novo")
 
 	print("[TESTE] --- lado errado ---")
 	var cinco := _bloco(5)
