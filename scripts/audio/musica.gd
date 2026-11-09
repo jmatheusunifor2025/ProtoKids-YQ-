@@ -13,23 +13,23 @@ const HUB := PASTA + "bgm_library_hub.wav"
 
 ## Cena -> faixa.
 const FAIXA_DA_CENA := {
-	"res://scenes/menus/menu_principal.tscn": INTRO,
-	"res://scenes/menus/selecao_explorador.tscn": INTRO,
-	"res://scenes/menus/selecao_explorador_moderna.tscn": INTRO,
+	"res://scenes/menus/menu_principal.tscn": DESAFIOS,
+	"res://scenes/menus/selecao_explorador.tscn": DESAFIOS,
+	"res://scenes/menus/selecao_explorador_moderna.tscn": DESAFIOS,
 	"res://scenes/menus/intro_yolanda.tscn": FALA_CORUJA,
 	"res://scripts/cenario/sala_principal.tscn": FALA_CORUJA,
-	"res://scripts/cenario/sala_portugues.tscn": DESAFIOS,
-	"res://scripts/cenario/sala_matematica.tscn": DESAFIOS,
-	"res://scripts/cenario/sala_ciencia.tscn": DESAFIOS,
+	"res://scripts/cenario/sala_portugues.tscn": INTRO,
+	"res://scripts/cenario/sala_matematica.tscn": INTRO,
+	"res://scripts/cenario/sala_ciencia.tscn": INTRO,
 	"res://scripts/cenario/sala_final.tscn": HUB,
 	"res://scripts/cenario/vitoria.tscn": VITORIA,
 }
 ## Ajuste por faixa (dB). Os MP3 vêm masterizados bem mais altos (~-14 LUFS)
 ## que os WAV do sound_guide (~-20 LUFS); sem isto a música cobre falas e efeitos.
 const GANHO_DA_FAIXA := {
-	INTRO: -8.0,
+	INTRO: -10.0,
 	FALA_CORUJA: -9.0,
-	DESAFIOS: -10.0,
+	DESAFIOS: -8.0,
 	VITORIA: -6.0,
 	HUB: -2.0,
 }

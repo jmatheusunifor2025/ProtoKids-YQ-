@@ -15,9 +15,9 @@ func _rodar_testes() -> void:
 	checar(fala != null and _texto(fala) == da_vez.pistas[0], "1ª pista de %s: \"%s\"" % [da_vez.nome, da_vez.pistas[0]])
 	await _fechar(fala)
 	checar(not get_tree().paused and _desafio._valendo, "depois das pistas: cronômetro valendo")
-	checar(_desafio._tempo.text == "0:30", "rodada 1: cronômetro começa em 0:30")
+	checar(_desafio._tempo.text == "0:25", "rodada 1: cronômetro começa em 0:25")
 	var tempos := range(5).map(func(i): return _desafio.tempo_da_rodada(i))
-	checar(tempos == [30, 25, 20, 15, 10], "tempos das rodadas: %s" % str(tempos))
+	checar(tempos == [25, 20, 15, 10, 10], "tempos das rodadas: %s" % str(tempos))
 
 	print("[TESTE] --- estantes cercam o animal ---")
 	var cima: Estante = _desafio.get_node("Estantes/%sCima" % da_vez.name)
@@ -53,7 +53,7 @@ func _rodar_testes() -> void:
 	fala = await _fala_aberta()
 	checar(_desafio.rodada == 1 and fala != null and _texto(fala) == _desafio.animal_da_vez.pistas[0], "rodada 2 começa com as pistas do próximo animal")
 	await _fechar(fala)
-	checar(_desafio._tempo.text == "0:25", "rodada 2: cronômetro começa em 0:25")
+	checar(_desafio._tempo.text == "0:20", "rodada 2: cronômetro começa em 0:20")
 
 	print("[TESTE] --- tempo esgotado ---")
 	var estante: Estante = _desafio.get_node("Estantes/%sCima" % _desafio.animal_da_vez.name)

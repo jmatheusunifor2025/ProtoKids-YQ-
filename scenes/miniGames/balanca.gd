@@ -22,7 +22,10 @@ const DESAFIOS: Array[Dictionary] = [
 ]
 const DISTANCIA_PRATO := 70.0
 const FOLGA_BLOCO := 50.0
-const TEMPO_DESAFIO := 60
+## Tempo da 1ª conta; cada conta seguinte tem 5 s a menos, sem passar de 10 (25, 20, 15).
+const TEMPO_INICIAL := 25
+const REDUCAO_POR_CONTA := 5
+const TEMPO_MINIMO := 10
 ## Raio da área do prato no mundo. A escala da sala não encolhe o alcance.
 const ALCANCE_PRATO := 40.0
 ## Chão da sala, longe da balança e entre as paredes.
@@ -59,7 +62,7 @@ var _direito: Node = null
 var _estado := "equilibrada"
 var _geracao := 0
 var _avancando := false
-var _segundos := TEMPO_DESAFIO
+var _segundos := TEMPO_INICIAL
 var _blocos: Array[Node] = []
 
 @onready var _visual: Sprite2D = $Visual
@@ -276,8 +279,12 @@ func _entregar_medalha() -> void:
 	$Medalha.monitoring = true
 
 
+func tempo_da_conta(indice: int) -> int:
+	return maxi(TEMPO_INICIAL - REDUCAO_POR_CONTA * indice, TEMPO_MINIMO)
+
+
 func _comecar_contagem() -> void:
-	_segundos = TEMPO_DESAFIO
+	_segundos = tempo_da_conta(_indice)
 	_mostrar_tempo()
 	_relogio.start()
 

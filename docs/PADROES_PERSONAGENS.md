@@ -314,10 +314,10 @@ de cena e toca a faixa da tabela `FAIXA_DA_CENA` (cena → arquivo em
 
 | Cena                                  | Faixa                    |
 | ------------------------------------- | ------------------------ |
-| Menu principal, seleção               | `Intro-Music.mp3`        |
+| Menu principal, seleção               | `Desafios-Music.mp3`     |
 | Introdução da Yolanda e HUB (sala principal) | `FalaCoruja-Music.mp3` (continua da intro para o HUB, sem reiniciar) |
 | Sala final                            | `bgm_library_hub.wav`    |
-| Salas de Português, Matemática, Ciências | `Desafios-Music.mp3`  |
+| Salas de Português, Matemática, Ciências | `Intro-Music.mp3`     |
 | Vitória                               | `Victory-Music.mp3` (sem loop) |
 
 - **Cena nova com música:** adicione uma linha em `FAIXA_DA_CENA`.

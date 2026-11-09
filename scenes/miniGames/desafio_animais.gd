@@ -1,7 +1,7 @@
 class_name DesafioAnimais
 extends Node2D
 ## Desafio de Ciências: 5 rodadas. Em cada uma a Yolanda dá as pistas de um animal
-## e os exploradores têm um tempo (30 s na 1ª, 5 s a menos a cada rodada, mínimo 10)
+## e os exploradores têm um tempo (25 s na 1ª, 5 s a menos a cada rodada, mínimo 10)
 ## para tirá-lo de trás das estantes
 ## e levá-lo até o alvo quadriculado. Animal errado no alvo é empurrado de volta.
 ## Tempo esgotado: animais e estantes voltam ao lugar e a rodada recomeça.
@@ -17,8 +17,8 @@ const COR_ACERTO := Color(0.6, 1.0, 0.6)
 const COR_ERRO := Color(1.0, 0.55, 0.55)
 
 ## Tempo da 1ª rodada; cada rodada seguinte tem `reducao_por_rodada` a menos,
-## sem passar de `tempo_minimo` (30, 25, 20, 15, 10).
-@export var tempo_inicial := 30
+## sem passar de `tempo_minimo` (25, 20, 15, 10, 10).
+@export var tempo_inicial := 25
 @export var reducao_por_rodada := 5
 @export var tempo_minimo := 10
 ## Embaralha a ordem dos animais a cada partida.
@@ -78,10 +78,10 @@ func _comecar_rodada() -> void:
 	_titulo.text = "Rodada %d de %d" % [rodada + 1, _ordem.size()]
 	_pistas.text = " ".join(animal_da_vez.pistas)
 	_painel_pistas.hide()
-	await _yolanda(animal_da_vez.pistas, ["normal"])
-	_painel_pistas.show()
 	_segundos = tempo_da_rodada()
 	_mostrar_tempo()
+	await _yolanda(animal_da_vez.pistas, ["normal"])
+	_painel_pistas.show()
 	_valendo = true
 	_relogio.start()
 

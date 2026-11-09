@@ -32,7 +32,9 @@ func _rodar_testes() -> void:
 	print("[TESTE] --- início ---")
 	checar(_blocos(1).size() == 3 and _blocos(2).size() == 3, "3 números de cada lado no chão")
 	checar(_balanca.get_node("Cronometro/Faixa/Conta").text == "? + ? = 10", "conta inicial '? + ? = 10'")
-	checar(_balanca.get_node("Cronometro/Moldura/Tempo").text == "1:00", "cronômetro começa em 1:00")
+	checar(_balanca.get_node("Cronometro/Moldura/Tempo").text == "0:25", "1ª conta: cronômetro começa em 0:25")
+	var tempos := range(3).map(func(i): return _balanca.tempo_da_conta(i))
+	checar(tempos == [25, 20, 15], "tempos das contas: %s" % str(tempos))
 
 	print("[TESTE] --- carregar ---")
 	var tres := _bloco(3)
@@ -103,13 +105,14 @@ func _rodar_testes() -> void:
 	checar(_balanca._indice == 2 and _balanca.get_node("Cronometro/Faixa/Conta").text == "? + ? = 9", "vem a 3ª conta (? + ? = 9)")
 
 	print("[TESTE] --- tempo esgotado ---")
-	for i in 59:
+	checar(_balanca.get_node("Cronometro/Moldura/Tempo").text == "0:15", "3ª conta: cronômetro começa em 0:15")
+	for i in 14:
 		_balanca._passar_segundo()
 	checar(_balanca.get_node("Cronometro/Moldura/Tempo").text == "0:01", "cronômetro desce até 0:01")
 	_balanca._passar_segundo()
 	await get_tree().physics_frame
 	checar(_balanca._indice == 0 and _balanca.get_node("Cronometro/Faixa/Conta").text == "? + ? = 10", "tempo acabou: volta para a 1ª conta")
-	checar(_balanca.get_node("Cronometro/Moldura/Tempo").text == "1:00", "cronômetro volta para 1:00")
+	checar(_balanca.get_node("Cronometro/Moldura/Tempo").text == "0:25", "cronômetro volta para 0:25 (1ª conta)")
 
 	print("[TESTE] --- co-op: cada um no seu lado ---")
 	Partida.exploradores = [SOFIA, MAYA]
