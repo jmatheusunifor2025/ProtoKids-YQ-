@@ -1,0 +1,124 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scenes/menus/menu_principal.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/cenarios/HUD/Menu.png" id="2_fundo"]
+[ext_resource type="Texture2D" path="res://assets/cenarios/HUD/Yolanda e a Biblioteca dos Saberes Logo.png" id="3_logo"]
+[ext_resource type="Texture2D" path="res://assets/cenarios/HUD/Moldura de Pergaminho Fantástica com Hera.png" id="4_moldura"]
+[ext_resource type="Texture2D" path="res://assets/cenarios/HUD/Botões do HUD.png" id="5_botoes"]
+
+[sub_resource type="AtlasTexture" id="Logo"]
+atlas = ExtResource("3_logo")
+region = Rect2(186, 47, 1403, 728)
+
+[sub_resource type="AtlasTexture" id="Moldura"]
+atlas = ExtResource("4_moldura")
+region = Rect2(240, 21, 1055, 955)
+
+[sub_resource type="AtlasTexture" id="NovoJogoAzul"]
+atlas = ExtResource("5_botoes")
+region = Rect2(85, 283, 613, 178)
+
+[sub_resource type="AtlasTexture" id="NovoJogoAmarelo"]
+atlas = ExtResource("5_botoes")
+region = Rect2(748, 283, 613, 178)
+
+[sub_resource type="AtlasTexture" id="SairVermelho"]
+atlas = ExtResource("5_botoes")
+region = Rect2(85, 597, 613, 180)
+
+[sub_resource type="AtlasTexture" id="SairAmarelo"]
+atlas = ExtResource("5_botoes")
+region = Rect2(748, 597, 613, 180)
+
+[node name="MenuPrincipal" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Fundo" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_fundo")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Logo" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -310.0
+offset_top = 8.0
+offset_right = 310.0
+offset_bottom = 330.0
+grow_horizontal = 2
+mouse_filter = 2
+texture = SubResource("Logo")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Moldura" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -210.0
+offset_top = 330.0
+offset_right = 210.0
+offset_bottom = 710.0
+grow_horizontal = 2
+mouse_filter = 2
+texture = SubResource("Moldura")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Botoes" type="VBoxContainer" parent="Moldura"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -145.0
+offset_top = -100.0
+offset_right = 145.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="NovoJogo" type="TextureButton" parent="Moldura/Botoes"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(290, 84)
+layout_mode = 2
+focus_neighbor_top = NodePath("../Sair")
+focus_neighbor_bottom = NodePath("../Sair")
+texture_normal = SubResource("NovoJogoAzul")
+texture_pressed = SubResource("NovoJogoAmarelo")
+texture_hover = SubResource("NovoJogoAmarelo")
+texture_focused = SubResource("NovoJogoAmarelo")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Sair" type="TextureButton" parent="Moldura/Botoes"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(290, 84)
+layout_mode = 2
+focus_neighbor_top = NodePath("../NovoJogo")
+focus_neighbor_bottom = NodePath("../NovoJogo")
+texture_normal = SubResource("SairVermelho")
+texture_pressed = SubResource("SairAmarelo")
+texture_hover = SubResource("SairAmarelo")
+texture_focused = SubResource("SairAmarelo")
+ignore_texture_size = true
+stretch_mode = 5

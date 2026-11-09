@@ -1,0 +1,78 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/fala_yolanda.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/dialogo/caixa_fala_yolanda.png" id="3_caixa"]
+[ext_resource type="Texture2D" path="res://assets/personagens/mentorCoruja/yolanda_01.png" id="4_rosto"]
+[ext_resource type="FontFile" path="res://assets/fonts/yolanda_vitoria.fnt" id="5_fonte"]
+
+[node name="FalaYolanda" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_script")
+
+[node name="Caixa" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -576.0
+offset_top = -390.0
+offset_right = 576.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="Moldura" type="TextureRect" parent="Caixa"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_caixa")
+expand_mode = 1
+
+[node name="Retrato" type="TextureRect" parent="Caixa"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 0
+offset_left = 52.0
+offset_top = 106.0
+offset_right = 222.0
+offset_bottom = 312.0
+mouse_filter = 2
+texture = ExtResource("4_rosto")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Texto" type="Label" parent="Caixa"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 316.0
+offset_top = 118.0
+offset_right = 1856.0
+offset_bottom = 492.0
+scale = Vector2(0.5, 0.5)
+theme_override_constants/line_spacing = -16
+theme_override_fonts/font = ExtResource("5_fonte")
+theme_override_font_sizes/font_size = 66
+autowrap_mode = 2
+visible_characters_behavior = 1
+
+[node name="Seta" type="Label" parent="Caixa"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 1066.0
+offset_top = 278.0
+offset_right = 1096.0
+offset_bottom = 308.0
+theme_override_colors/font_color = Color(1, 0.8, 0.3, 1)
+theme_override_font_sizes/font_size = 22
+text = "▼"
+horizontal_alignment = 1

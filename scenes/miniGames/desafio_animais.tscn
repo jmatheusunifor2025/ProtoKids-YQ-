@@ -1,0 +1,271 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/miniGames/desafio_animais.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/miniGames/animal_bloco.tscn" id="2_animal"]
+[ext_resource type="Script" path="res://scenes/miniGames/alvo_quadriculado.gd" id="3_alvo"]
+[ext_resource type="PackedScene" path="res://scenes/objetos/estante.tscn" id="4_estante"]
+[ext_resource type="FontFile" path="res://assets/dialogo/yolanda_texto.png" id="5_fonte"]
+[ext_resource type="Texture2D" path="res://assets/elementos dos mini games/matematica/Faixa Pixelada Dourada com Pergaminho Crema.png" id="6_faixa"]
+[ext_resource type="Texture2D" path="res://assets/elementos dos mini games/matematica/HUD de Ampulheta Dourada em Pixel Art.png" id="7_amp"]
+[ext_resource type="FontVariation" path="res://scenes/ui/fontes/hud.tres" id="8_hud"]
+[ext_resource type="Script" path="res://scenes/miniGames/medalha.gd" id="9_medalha"]
+[ext_resource type="Texture2D" path="res://assets/elementos dos mini games/medalhas/Medalha   Ciencias.png" id="10_medalha_img"]
+[ext_resource type="AudioStream" path="res://assets/sounds/sfx/sfx_seal_collect.wav" id="11_som"]
+
+[sub_resource type="CircleShape2D" id="AreaMedalha"]
+radius = 28.0
+
+[sub_resource type="StyleBoxFlat" id="PainelPistas"]
+bg_color = Color(0.09, 0.06, 0.15, 0.82)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.35, 0.65, 0.3, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 14.0
+content_margin_top = 4.0
+content_margin_right = 14.0
+content_margin_bottom = 4.0
+
+[node name="DesafioAnimais" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Alvo" type="Node2D" parent="."]
+position = Vector2(420, 250)
+script = ExtResource("3_alvo")
+
+[node name="Animais" type="Node2D" parent="."]
+
+[node name="Pato" parent="Animais" instance=ExtResource("2_animal")]
+position = Vector2(190, 300)
+nome = "PATO"
+nome_falado = "o pato"
+pistas = Array[String](["Tenho penas...", "...nado na lagoa...", "...e faço quá-quá!"])
+
+[node name="Peixe" parent="Animais" instance=ExtResource("2_animal")]
+position = Vector2(340, 400)
+nome = "PEIXE"
+nome_falado = "o peixe"
+pistas = Array[String](["Moro na água...", "...respiro pelas brânquias...", "...e tenho escamas e nadadeiras!"])
+
+[node name="Sapo" parent="Animais" instance=ExtResource("2_animal")]
+position = Vector2(620, 545)
+nome = "SAPO"
+nome_falado = "o sapo"
+pistas = Array[String](["Quando sou filhote, sou um girino...", "...minha pele é lisinha e úmida...", "...e eu pulo e faço croac!"])
+
+[node name="Abelha" parent="Animais" instance=ExtResource("2_animal")]
+position = Vector2(820, 420)
+nome = "ABELHA"
+nome_falado = "a abelha"
+pistas = Array[String](["Sou pequenininha e tenho asas...", "...visito as flores todos os dias...", "...e faço mel!"])
+
+[node name="Tartaruga" parent="Animais" instance=ExtResource("2_animal")]
+position = Vector2(640, 330)
+nome = "TARTARUGA"
+nome_falado = "a tartaruga"
+pistas = Array[String](["Ando bem devagarinho...", "...carrego um casco nas costas...", "...e posso viver mais de cem anos!"])
+
+[node name="Estantes" type="Node2D" parent="."]
+
+[node name="PatoCima" parent="Estantes" instance=ExtResource("4_estante")]
+position = Vector2(190, 250)
+orientacao = 0
+
+[node name="PatoBaixo" parent="Estantes" instance=ExtResource("4_estante")]
+position = Vector2(190, 350)
+orientacao = 0
+
+[node name="PatoEsquerda" parent="Estantes" instance=ExtResource("4_estante")]
+position = Vector2(140, 300)
+orientacao = 1
+
+[node name="PatoDireita" parent="Estantes" instance=ExtResource("4_estante")]
+position = Vector2(240, 300)
+orientacao = 1
+
+[node name="PeixeCima" parent="Estantes" instance=ExtResource("4_estante")]
+position = Vector2(340, 350)
+orientacao = 0
+
+[node name="PeixeBaixo" parent="Estantes" instance=ExtResource("4_estante")]
+position = Vector2(340, 450)
+orientacao = 0
+
+[node name="PeixeEsquerda" parent="Estantes" instance=ExtResource("4_estante")]
+position = Vector2(290, 400)
+orientacao = 1
+
+[node name="PeixeDireita" parent="Estantes" instance=ExtResource("4_estante")]
+position = Vector2(390, 400)
+orientacao = 1
+
+[node name="SapoCima" parent="Estantes" instance=ExtResource("4_estante")]
+position = Vector2(620, 495)
+orientacao = 0
+
+[node name="SapoBaixo" parent="Estantes" instance=ExtResource("4_estante")]
+position = Vector2(620, 595)
+orientacao = 0
+
+[node name="SapoEsquerda" parent="Estantes" instance=ExtResource("4_estante")]
+position = Vector2(570, 545)
+orientacao = 1
+
+[node name="SapoDireita" parent="Estantes" instance=ExtResource("4_estante")]
+position = Vector2(670, 545)
+orientacao = 1
+
+[node name="AbelhaCima" parent="Estantes" instance=ExtResource("4_estante")]
+position = Vector2(820, 370)
+orientacao = 0
+
+[node name="AbelhaBaixo" parent="Estantes" instance=ExtResource("4_estante")]
+position = Vector2(820, 470)
+orientacao = 0
+
+[node name="AbelhaEsquerda" parent="Estantes" instance=ExtResource("4_estante")]
+position = Vector2(770, 420)
+orientacao = 1
+
+[node name="AbelhaDireita" parent="Estantes" instance=ExtResource("4_estante")]
+position = Vector2(870, 420)
+orientacao = 1
+
+[node name="TartarugaCima" parent="Estantes" instance=ExtResource("4_estante")]
+position = Vector2(640, 280)
+orientacao = 0
+
+[node name="TartarugaBaixo" parent="Estantes" instance=ExtResource("4_estante")]
+position = Vector2(640, 380)
+orientacao = 0
+
+[node name="TartarugaEsquerda" parent="Estantes" instance=ExtResource("4_estante")]
+position = Vector2(590, 330)
+orientacao = 1
+
+[node name="TartarugaDireita" parent="Estantes" instance=ExtResource("4_estante")]
+position = Vector2(690, 330)
+orientacao = 1
+
+[node name="Fixa1" parent="Estantes" instance=ExtResource("4_estante")]
+position = Vector2(190, 395)
+orientacao = 0
+movel = false
+
+[node name="Fixa2" parent="Estantes" instance=ExtResource("4_estante")]
+position = Vector2(270, 230)
+orientacao = 1
+movel = false
+
+[node name="Fixa3" parent="Estantes" instance=ExtResource("4_estante")]
+position = Vector2(470, 400)
+orientacao = 1
+movel = false
+
+[node name="Fixa4" parent="Estantes" instance=ExtResource("4_estante")]
+position = Vector2(730, 470)
+orientacao = 1
+movel = false
+
+[node name="Fixa5" parent="Estantes" instance=ExtResource("4_estante")]
+position = Vector2(900, 330)
+orientacao = 1
+movel = false
+
+[node name="Cronometro" type="CanvasLayer" parent="."]
+
+[node name="Faixa" type="Node2D" parent="Cronometro"]
+position = Vector2(436, 48)
+
+[node name="Fundo" type="Sprite2D" parent="Cronometro/Faixa"]
+position = Vector2(-34, -2)
+scale = Vector2(0.15180202, 0.13056323)
+texture = ExtResource("6_faixa")
+region_enabled = true
+region_rect = Rect2(202, 148, 1576, 506)
+
+[node name="Titulo" type="Label" parent="Cronometro/Faixa"]
+offset_left = -152.0
+offset_top = -26.0
+offset_right = 85.0
+offset_bottom = 24.0
+theme_override_colors/font_color = Color(0.28, 0.1, 0.04, 1)
+theme_override_fonts/font = ExtResource("5_fonte")
+theme_override_font_sizes/font_size = 30
+text = "Rodada 1 de 5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Moldura" type="Node2D" parent="Cronometro"]
+position = Vector2(198, 68)
+
+[node name="Fundo" type="Sprite2D" parent="Cronometro/Moldura"]
+position = Vector2(-54, -23.5)
+scale = Vector2(0.17741935, 0.15208334)
+texture = ExtResource("7_amp")
+region_enabled = true
+region_rect = Rect2(92, 214, 1488, 480)
+
+[node name="Tempo" type="Label" parent="Cronometro/Moldura"]
+offset_left = -73.0
+offset_top = -44.0
+offset_right = 35.0
+offset_bottom = 3.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_fonte")
+theme_override_font_sizes/font_size = 35
+text = "0:15"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Relogio" type="Timer" parent="Cronometro"]
+
+[node name="Pistas" type="PanelContainer" parent="Cronometro"]
+offset_left = 560.0
+offset_top = 22.0
+offset_right = 1260.0
+offset_bottom = 74.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("PainelPistas")
+
+[node name="Texto" type="Label" parent="Cronometro/Pistas"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("8_hud")
+theme_override_font_sizes/font_size = 18
+text = "Pistas"
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Aviso" type="Label" parent="Cronometro"]
+offset_left = 340.0
+offset_top = 640.0
+offset_right = 940.0
+offset_bottom = 676.0
+theme_override_colors/font_color = Color(1, 0.75, 0.75, 1)
+theme_override_colors/font_outline_color = Color(0.15, 0.05, 0.05, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("8_hud")
+theme_override_font_sizes/font_size = 22
+horizontal_alignment = 1
+
+[node name="Medalha" type="Area2D" parent="."]
+visible = false
+monitoring = false
+position = Vector2(420, 250)
+script = ExtResource("9_medalha")
+materia = "ciencias"
+
+[node name="Visual" type="Sprite2D" parent="Medalha"]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("10_medalha_img")
+
+[node name="Som" type="AudioStreamPlayer" parent="Medalha"]
+stream = ExtResource("11_som")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Medalha"]
+shape = SubResource("AreaMedalha")

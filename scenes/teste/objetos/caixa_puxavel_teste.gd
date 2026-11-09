@@ -35,7 +35,7 @@ func interagir(jogador: Node2D) -> void:
 	# Jogador e caixa não se bloqueiam enquanto estão juntos.
 	add_collision_exception_with(jogador)
 	jogador.add_collision_exception_with(self)
-	jogador.segurar(self)
+	jogador.segurar(self, true)
 
 
 func largar(_jogador_que_solta: Node2D) -> void:

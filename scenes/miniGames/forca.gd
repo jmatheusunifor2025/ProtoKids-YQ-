@@ -15,13 +15,16 @@ const DISTANCIA_LETRA := 52.0
 const FOLGA_MEDALHA := 80.0
 ## Última linha opaca da lousa no centro do PNG (a base da madeira, sem o vazio).
 const BORDA_INFERIOR_LOUSA := 572.0 / 866.0
-const TEMPO_PALAVRA := 60
+## Tempo da 1ª palavra; cada palavra seguinte tem 5 s a menos, sem passar de 15 (30, 25, 20, 15).
+const TEMPO_INICIAL := 30
+const REDUCAO_POR_PALAVRA := 5
+const TEMPO_MINIMO := 15
 
 var _indice_palavra := 0
 var _proxima := 0
 var _tamanho_bloco := 40.0
 var _alcance_y := 60.0
-var _segundos := TEMPO_PALAVRA
+var _segundos := TEMPO_INICIAL
 var _espacos: Array[Node2D] = []
 var _letras: Array[Node] = []
 
@@ -181,8 +184,12 @@ func _limpar() -> void:
 	_letras.clear()
 
 
+func tempo_da_palavra(indice: int) -> int:
+	return maxi(TEMPO_INICIAL - REDUCAO_POR_PALAVRA * indice, TEMPO_MINIMO)
+
+
 func _comecar_contagem() -> void:
-	_segundos = TEMPO_PALAVRA
+	_segundos = tempo_da_palavra(_indice_palavra)
 	_mostrar_tempo()
 	_relogio.start()
 

@@ -1,8 +1,10 @@
 extends StaticBody2D
-## Bloco numérico: E agarra, andar arrasta, e entra ao chegar perto do prato.
+## Bloco numérico: E carrega acima da cabeça, Q larga na frente, e entra sozinho
+## quando quem carrega chega perto do prato do seu lado.
 ## No prato, o E tira o bloco e ele não volta enquanto o jogador não se afastar.
 
-const DISTANCIA_POR_SOM := 32.0
+const ALTURA_CARREGADO := Vector2(0, -44)
+const DISTANCIA_LARGAR := 34.0
 const TAMANHO := 40.0
 ## No prato o bloco fica 25% menor que no chão. A escala da balança não entra nisso.
 const FATOR_NO_PRATO := 0.75
@@ -13,8 +15,6 @@ var lado := 1
 var no_prato := false
 var _jogador: Node2D = null
 var _escala_chao := Vector2(0.23, 0.23)
-var _ultima_posicao_jogador := Vector2.ZERO
-var _distancia_acumulada := 0.0
 var _saindo := false
 
 
@@ -44,19 +44,7 @@ func pode_usar(jogador: Node) -> bool:
 func _physics_process(_delta: float) -> void:
 	if no_prato or _jogador == null:
 		return
-	var deslocamento := _jogador.global_position - _ultima_posicao_jogador
-	_ultima_posicao_jogador = _jogador.global_position
-	if deslocamento == Vector2.ZERO:
-		return
-	if move_and_collide(deslocamento):
-		var jogador := _jogador
-		_soltar()
-		jogador.liberar(self)
-		return
-	_distancia_acumulada += deslocamento.length()
-	if _distancia_acumulada >= DISTANCIA_POR_SOM:
-		_distancia_acumulada = 0.0
-		_jogador.registrar_empurrao(self)
+	global_position = _jogador.global_position + ALTURA_CARREGADO
 	if _saindo and _perto_do_prato():
 		return
 	_saindo = false
@@ -73,20 +61,27 @@ func interagir(jogador: Node2D) -> void:
 		balanca.retirar(self)
 		marcar_saida()
 	_jogador = jogador
-	_ultima_posicao_jogador = jogador.global_position
-	_distancia_acumulada = 0.0
-	add_collision_exception_with(jogador)
-	jogador.add_collision_exception_with(self)
+	z_index = 2
+	$CollisionShape2D.set_deferred("disabled", true)
+	global_position = jogador.global_position + ALTURA_CARREGADO
 	jogador.segurar(self)
+
+
+## Carregado, o que conta para chegar no prato é onde o explorador está (não o bloco
+## acima da cabeça dele). No chão, é o próprio bloco.
+func posicao_de_referencia() -> Vector2:
+	return _jogador.global_position if _jogador else global_position
 
 
 func marcar_saida() -> void:
 	_saindo = true
 
 
-func largar(_jogador_que_solta: Node2D) -> void:
+func largar(jogador_que_solta: Node2D) -> void:
 	_saindo = false
 	_soltar()
+	global_position = jogador_que_solta.global_position + jogador_que_solta.direcao_olhar * DISTANCIA_LARGAR
+	_tentar_fixar()
 
 
 func soltar_se() -> void:
@@ -131,6 +126,7 @@ func _colocar_na_balanca() -> void:
 	no_prato = true
 	var jogador := _jogador
 	_soltar()
+	$CollisionShape2D.set_deferred("disabled", true)
 	if jogador:
 		jogador.liberar(self)
 	var balanca := get_tree().get_first_node_in_group("balanca")
@@ -139,11 +135,10 @@ func _colocar_na_balanca() -> void:
 
 
 func _soltar() -> void:
-	if _jogador == null:
-		return
-	remove_collision_exception_with(_jogador)
-	_jogador.remove_collision_exception_with(self)
 	_jogador = null
+	if not no_prato:
+		z_index = 0
+		$CollisionShape2D.set_deferred("disabled", false)
 
 
 func _quantidade_jogadores() -> int:

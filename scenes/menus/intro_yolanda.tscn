@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://b5ipdvb2ghfgb"]
+
+[ext_resource type="Script" uid="uid://b51uyyuogv518" path="res://scenes/menus/intro_yolanda.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://d3pyu5vkyb30d" path="res://assets/cenarios/HUD/Menu.png" id="2_fundo"]
+[ext_resource type="PackedScene" path="res://scenes/ui/fala_yolanda.tscn" id="3_fala"]
+
+[sub_resource type="Shader" id="Desfoque"]
+code = "shader_type canvas_item;
+// Desfoque gaussiano do fundo (21x21 amostras) e um leve escurecimento.
+uniform float passo = 2.0;
+uniform float escurecer : hint_range(0.0, 1.0) = 0.3;
+
+void fragment() {
+	vec3 soma = vec3(0.0);
+	float pesos = 0.0;
+	for (int x = -10; x <= 10; x++) {
+		for (int y = -10; y <= 10; y++) {
+			float peso = exp(-float(x * x + y * y) / 50.0);
+			soma += texture(TEXTURE, UV + vec2(float(x), float(y)) * TEXTURE_PIXEL_SIZE * passo).rgb * peso;
+			pesos += peso;
+		}
+	}
+	COLOR = vec4(soma / pesos * (1.0 - escurecer), 1.0);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="FundoDesfocado"]
+shader = SubResource("Desfoque")
+shader_parameter/passo = 2.0
+shader_parameter/escurecer = 0.3
+
+[node name="IntroYolanda" type="Control" unique_id=111986395]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Fundo" type="TextureRect" parent="." unique_id=1169303991]
+material = SubResource("FundoDesfocado")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_fundo")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="FalaYolanda" parent="." instance=ExtResource("3_fala")]
+unique_name_in_owner = true
+pausar_jogo = false

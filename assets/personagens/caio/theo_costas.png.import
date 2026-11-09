@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dl1v2u7x4kitp"
-path="res://.godot/imported/Grade de Balanças Douradas em Pixel Art.png-4bbb02ba2cee3d6d8744c8639cef06b9.ctex"
+uid="uid://cjet2ut766f1d"
+path="res://.godot/imported/theo_costas.png-2c04454c2a3bdd3a1927713bb96e50b0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/elementos dos mini games/Grade de Balanças Douradas em Pixel Art.png"
-dest_files=["res://.godot/imported/Grade de Balanças Douradas em Pixel Art.png-4bbb02ba2cee3d6d8744c8639cef06b9.ctex"]
+source_file="res://assets/personagens/caio/theo_costas.png"
+dest_files=["res://.godot/imported/theo_costas.png-2c04454c2a3bdd3a1927713bb96e50b0.ctex"]
 
 [params]
 

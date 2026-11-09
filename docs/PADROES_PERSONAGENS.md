@@ -134,13 +134,14 @@ há aceleração.
 | `chutou(alvo)`   | Apertou Q perto de algo com `chutar`           |
 | `empurrou(alvo)` | O objeto chamou `jogador.registrar_empurrao(self)` |
 
-**Métodos que os objetos podem chamar:** `segurar(objeto)`,
+**Métodos que os objetos podem chamar:** `segurar(objeto, arrastado := false)`,
 `liberar(objeto)`, `registrar_empurrao(objeto)`.
 **Propriedades que os objetos podem ler:** `direcao_olhar`, `objeto_carregado`.
 
 **Botões:**
 - **E (botão 1):** se não estiver segurando nada, chama `interagir(self)` no
-  objeto mais próximo que tenha esse método.
+  objeto mais próximo que tenha esse método **e esteja à frente** (até 45° para
+  cada lado de `direcao_olhar`). De costas ou de lado, nada acontece.
 - **Q (botão 2):** se estiver segurando algo, chama `largar(self)` nele; senão,
   chama `chutar(self)` no objeto mais próximo que tenha esse método.
 
@@ -166,7 +167,8 @@ há aceleração.
    dominante.
 3. **DadosExplorador** — crie `data/exploradores/<id>.tres` e preencha:
    `id` (ex.: `&"maya"`), `nome`, `retrato`, `sprite_frames`,
-   `frase_de_selecao` e, opcionalmente, `som_movimento`.
+   `frase_de_selecao` e, opcionalmente, `som_movimento` e `escala_sprite`
+   (só exibição, para sheets em outra resolução — veja 6.2).
 4. **Menu de seleção** — se o personagem for novo (não é Maya, Theo ou Leo),
    adicione o `.tres` dele na lista de `data/exploradores/elenco.tres`. A ordem
    da lista é a ordem dos cards.
@@ -180,8 +182,8 @@ Um explorador **sem `sprite_frames`** é tratado como *em construção*
 (`DadosExplorador.jogavel()` devolve `false`): aparece no menu como
 "EM BREVE · To Be Done" e não pode ser escolhido.
 
-> Os sheets atuais têm frames de ~70x126 px (não 32x32 como o SGDD). O
-> `AnimatedSprite2D` do Player usa `scale = 0.45` e `offset = (0, -60)` para os
+> Os sheets atuais têm frames de ~70x126 px (não 32x32 como o SGDD). O Player
+> exibe o sprite com `scale = 0.45 × escala_sprite` e calcula o `offset` para os
 > pés ficarem na origem. Isso é ajuste de exibição, não edição do asset.
 
 **O que NÃO pode ir no `DadosExplorador`:** velocidade, força, alcance, vida,
@@ -214,32 +216,36 @@ O menu **não toca som**: ele emite `cursor_movido`, `escolha_confirmada`,
 
 ---
 
-## 6.2 Pendências: Maya, Theo e Leo (To Be Done)
+## 6.2 Elenco (Maya, Theo, Leo e Sofia)
 
-Os três já existem como dados (`data/exploradores/maya.tres`, `theo.tres`,
-`leo.tres`) com nome e frase do SGDD, mas **sem retrato e sem animações**. Por
-isso aparecem no menu como "EM BREVE · To Be Done".
+Os quatro exploradores estão jogáveis. A equipe decidiu manter os nomes do SGDD
+e usar a arte de `assets/personagens/` assim:
 
-O que falta para cada um ficar jogável:
+| Explorador | Pasta da arte | Retrato (`menuDeEscolhaDePersonagens/`) | `escala_sprite` |
+| ---------- | ------------- | --------------------------------------- | --------------- |
+| Maya       | `lisa/`       | `lisa.png`                              | 1.1             |
+| Theo       | `caio/`       | `caio.png`                              | 1.0             |
+| Sofia      | `sofia/`      | `sofia.png`                             | 1.0             |
+| Leo        | `lucas/`      | `lucas.png`                             | 0.61            |
 
-- [ ] **Definir qual arte é de quem.** As pastas em `assets/personagens/` se
-      chamam `caio`, `lisa` e `lucas`, e os retratos em
-      `menuDeEscolhaDePersonagens/` também. Isso não bate com os nomes do SGDD
-      (Maya, Theo, Leo). A equipe precisa decidir: renomear no SGDD, ou entregar
-      arte nova com os nomes certos.
-- [ ] **Conferir a arte com o SGDD** (sem editar o asset): 4 direções, idle,
-      e as características de cada um (Maya: cabelo black power com lacinhos
-      amarelos e óculos; Theo: camiseta listrada; Leo: colar de sementes e
-      grafismo na camiseta).
-- [ ] **Criar `<id>_frames.tres`** com os 6 nomes de animação padrão (seção 6).
-- [ ] **Preencher `retrato` e `sprite_frames`** no `.tres` de cada um. Só isso:
-      o card deixa de ser "To Be Done" sozinho, sem editar nenhum script.
-- [ ] (Opcional) `som_movimento`: hoje `sfx_footstep.wav` é o som de passos
-      que o `sound_guide.md` indica para Maya, Theo e Leo.
-- [ ] Quando houver dois exploradores jogáveis, testar o co-op completo no
-      menu (P1 e P2 com exploradores diferentes) e na sala livre.
+Detalhes dos sheets (os PNGs não foram editados):
 
----
+- **`_lado` usa só os frames que olham para a direita.** Os sheets têm frames
+  de lado olhando para os dois lados; os que olham para a esquerda ficam de
+  fora, porque a esquerda é espelhada pelo Player.
+- **Theo de costas** vem de `assets/personagens/caio/theo_costas.png` (3 frames
+  de 76x126, gerados no SpriteCook a partir do sheet do `caio/`, porque o sheet
+  original não tem costas). É um arquivo novo; o sheet original não foi mexido.
+- **Leo** usa um sheet maior (215 px de altura), por isso `escala_sprite = 0.61`.
+- Maya, Theo e Leo usam `sfx_footstep.wav` como `som_movimento`, conforme o
+  `sound_guide.md`.
+- O sheet da Maya tem dois frames extras do caderno mágico (fim do sheet), ainda
+  sem uso — combinam com `sfx_magic_sparkle.wav` do `sound_guide.md`.
+
+**`escala_sprite`** é só exibição (a colisão e a velocidade não mudam): serve
+para sheets desenhados em outra resolução ficarem do tamanho dos outros. O
+Player também calcula sozinho o `offset` do sprite pela última linha opaca do
+frame `idle_baixo`, para os pés ficarem na origem em qualquer sheet.
 
 ## 7. Como criar um objeto interativo
 
@@ -254,10 +260,18 @@ O que falta para cada um ficar jogável:
    | `chutar(jogador)`    | Jogador aperta Q perto, de mãos vazias |
 
 3. Avise o Player quando precisar:
-   - vai ficar na mão dele → `jogador.segurar(self)`;
+   - vai ficar na mão dele (acima da cabeça) → `jogador.segurar(self)`;
+   - vai ser puxado/empurrado no chão (estante, caixa) → `jogador.segurar(self, true)`:
+     o explorador trava o olhar no objeto e anda de costas ao puxar;
    - se soltou sozinho (travou, quebrou) → `jogador.liberar(self)`;
    - foi empurrado/arrastado → `jogador.registrar_empurrao(self)` (toca o som).
 4. Use `jogador.direcao_olhar` para decidir para onde empurrar, largar ou chutar.
+
+**Objetos prontos para qualquer cena** (com arte, em `scenes/objetos/`):
+
+| Objeto          | Como usar                                                        |
+| --------------- | ---------------------------------------------------------------- |
+| `estante.tscn`  | Arraste para a cena e escolha no Inspector: **Orientacao** (Horizontal 72x32 / Vertical 28x56 — sprite e colisão mudam na hora, no editor) e **Movel** (desmarcado = obstáculo fixo). Móvel: E agarra, andar puxa/empurra sem perder velocidade, Q solta; travou em algo, solta sozinha. Cada instância cria a própria colisão. Teste: `teste_estantes.tscn`. |
 
 **Modelos prontos** em `scenes/teste/objetos/`:
 
@@ -289,6 +303,29 @@ O que falta para cada um ficar jogável:
   selo) fica no próprio objeto ou num componente dele.
 
 ---
+
+### Música (autoload `Musica`, `scripts/audio/musica.gd`)
+
+A música de fundo não fica em nenhuma cena: a autoload `Musica` escuta a troca
+de cena e toca a faixa da tabela `FAIXA_DA_CENA` (cena → arquivo em
+`assets/sounds/bgm/`), com transição de 0,8 s. Se a cena nova usa a mesma faixa
+(ex.: menu → seleção), a música continua sem reiniciar. Cena fora da tabela
+(testes) fica em silêncio. Ela continua tocando com o jogo pausado.
+
+| Cena                                  | Faixa                    |
+| ------------------------------------- | ------------------------ |
+| Menu principal, seleção               | `Desafios-Music.mp3`     |
+| Introdução da Yolanda e HUB (sala principal) | `FalaCoruja-Music.mp3` (continua da intro para o HUB, sem reiniciar) |
+| Sala final                            | `bgm_library_hub.wav`    |
+| Salas de Português, Matemática, Ciências | `Intro-Music.mp3`     |
+| Vitória                               | `Victory-Music.mp3` (sem loop) |
+
+- **Cena nova com música:** adicione uma linha em `FAIXA_DA_CENA`.
+- **Volume:** os MP3 vêm bem mais altos que os WAV; `GANHO_DA_FAIXA` abaixa
+  cada faixa para não cobrir falas e efeitos.
+- **Loop:** configurado na importação (`.import`), sem editar o arquivo:
+  `loop = true` e `loop_offset` pulando o silêncio do começo de cada MP3.
+- Teste: `teste_musica.tscn`.
 
 ## 9. Entrada
 

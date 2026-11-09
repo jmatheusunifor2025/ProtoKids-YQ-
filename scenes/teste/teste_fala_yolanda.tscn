@@ -1,0 +1,66 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/teste/teste_fala_yolanda.gd" id="1_teste"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" path="res://scenes/ui/fala_yolanda.tscn" id="3_fala"]
+[ext_resource type="Script" path="res://scenes/miniGames/medalha.gd" id="4_medalha"]
+[ext_resource type="Texture2D" path="res://assets/elementos dos mini games/medalhas/Medalha Matematica.png" id="5_textura"]
+
+[sub_resource type="CircleShape2D" id="Area"]
+radius = 24.0
+
+[node name="TesteFalaYolanda" type="Node2D"]
+script = ExtResource("1_teste")
+
+[node name="Fundo" type="ColorRect" parent="."]
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+color = Color(0.55, 0.36, 0.2, 1)
+
+[node name="P1" parent="." instance=ExtResource("2_player")]
+position = Vector2(640, 200)
+
+[node name="FalaYolanda" parent="." instance=ExtResource("3_fala")]
+
+[node name="Medalha_portugues" type="Area2D" parent="."]
+position = Vector2(300, 400)
+script = ExtResource("4_medalha")
+materia = "portugues"
+
+[node name="Visual" type="Sprite2D" parent="Medalha_portugues"]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_textura")
+
+[node name="Som" type="AudioStreamPlayer" parent="Medalha_portugues"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Medalha_portugues"]
+shape = SubResource("Area")
+
+[node name="Medalha_matematica" type="Area2D" parent="."]
+position = Vector2(600, 400)
+script = ExtResource("4_medalha")
+materia = "matematica"
+
+[node name="Visual" type="Sprite2D" parent="Medalha_matematica"]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_textura")
+
+[node name="Som" type="AudioStreamPlayer" parent="Medalha_matematica"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Medalha_matematica"]
+shape = SubResource("Area")
+
+[node name="Medalha_ciencias" type="Area2D" parent="."]
+position = Vector2(900, 400)
+script = ExtResource("4_medalha")
+materia = "ciencias"
+
+[node name="Visual" type="Sprite2D" parent="Medalha_ciencias"]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_textura")
+
+[node name="Som" type="AudioStreamPlayer" parent="Medalha_ciencias"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Medalha_ciencias"]
+shape = SubResource("Area")

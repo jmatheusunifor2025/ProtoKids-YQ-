@@ -14,6 +14,11 @@ signal empurrou(alvo: Node)
 
 ## Igual para todos os exploradores (SGDD: inclusão não é penalidade).
 const VELOCIDADE := 120.0
+## Escala de exibição dos sheets (~126 px de altura). Não é gameplay.
+const ESCALA_SPRITE := Vector2(0.45, 0.45)
+const MARGEM_PES := 3.0
+## Só interage com o que está à frente: até 45° para cada lado de onde olha.
+const ANGULO_FRENTE := PI / 4
 
 @export_range(1, 2) var id_jogador := 1
 @export var dados: DadosExplorador:
@@ -27,6 +32,7 @@ var direcao_olhar := Vector2.DOWN
 var objeto_carregado: Node = null
 
 var _andando := false
+var _arrastando := false
 
 @onready var _sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var _area_interacao: Area2D = $AreaInteracao
@@ -43,7 +49,8 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 
 	var andando_agora := direcao != Vector2.ZERO
-	if andando_agora:
+	# Arrastando, o explorador continua virado para o objeto (puxa andando de costas).
+	if andando_agora and not esta_arrastando():
 		direcao_olhar = direcao.normalized()
 	if andando_agora != _andando:
 		_andando = andando_agora
@@ -62,15 +69,25 @@ func _unhandled_input(evento: InputEvent) -> void:
 
 
 ## Chamado pelo objeto quando decide ser carregado.
-func segurar(objeto: Node) -> void:
+## `arrastado`: o objeto fica no chão e é puxado/empurrado (estante, caixa); o
+## explorador trava o olhar nele até soltar.
+func segurar(objeto: Node, arrastado := false) -> void:
 	objeto_carregado = objeto
+	_arrastando = arrastado
+	if arrastado:
+		direcao_olhar = _direcao_principal(objeto.global_position - global_position)
 	carregou.emit(objeto)
+
+
+func esta_arrastando() -> bool:
+	return objeto_carregado != null and _arrastando
 
 
 ## Chamado pelo objeto quando ele mesmo se solta (ex.: travou numa parede).
 func liberar(objeto: Node) -> void:
 	if objeto_carregado == objeto:
 		objeto_carregado = null
+		_arrastando = false
 		largou.emit(objeto)
 
 
@@ -92,6 +109,7 @@ func _usar_botao2() -> void:
 	if objeto_carregado:
 		var objeto := objeto_carregado
 		objeto_carregado = null
+		_arrastando = false
 		if objeto.has_method("largar"):
 			objeto.largar(self)
 		largou.emit(objeto)
@@ -111,6 +129,8 @@ func _alvo_mais_proximo(metodo: String) -> Node:
 	for candidato in candidatos:
 		if candidato == self or candidato == objeto_carregado or not candidato.has_method(metodo):
 			continue
+		if not _esta_na_frente(candidato):
+			continue
 		var distancia := global_position.distance_squared_to(candidato.global_position)
 		if distancia < menor_distancia:
 			menor_distancia = distancia
@@ -118,9 +138,40 @@ func _alvo_mais_proximo(metodo: String) -> Node:
 	return melhor
 
 
+func _esta_na_frente(alvo: Node2D) -> bool:
+	var para_alvo := alvo.global_position - global_position
+	return para_alvo.is_zero_approx() or absf(direcao_olhar.angle_to(para_alvo)) <= ANGULO_FRENTE
+
+
+## Eixo dominante do vetor (cima, baixo, esquerda ou direita).
+func _direcao_principal(vetor: Vector2) -> Vector2:
+	if vetor.is_zero_approx():
+		return direcao_olhar
+	if absf(vetor.x) > absf(vetor.y):
+		return Vector2(signf(vetor.x), 0)
+	return Vector2(0, signf(vetor.y))
+
+
 func _aplicar_dados() -> void:
 	_sprite.sprite_frames = dados.sprite_frames if dados else null
+	_sprite.scale = ESCALA_SPRITE * (dados.escala_sprite if dados else 1.0)
+	if _sprite.sprite_frames and _sprite.sprite_frames.has_animation("idle_baixo"):
+		_sprite.offset = Vector2(0, _offset_pes(_sprite.sprite_frames.get_frame_texture("idle_baixo", 0)))
 	_atualizar_animacao()
+
+
+## Põe os pés (última linha opaca do frame parado de frente) na origem do Player,
+## qualquer que seja o tamanho ou a margem do sheet.
+func _offset_pes(textura: Texture2D) -> float:
+	var imagem := textura.get_image()
+	var altura := textura.get_height()
+	if imagem == null or imagem.is_compressed():
+		return -altura / 2.0 + MARGEM_PES
+	for y in range(imagem.get_height() - 1, -1, -1):
+		for x in imagem.get_width():
+			if imagem.get_pixel(x, y).a > 0.5:
+				return altura / 2.0 - y
+	return -altura / 2.0 + MARGEM_PES
 
 
 func _atualizar_animacao() -> void:
