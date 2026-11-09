@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dw6qhojgd3g1i" path="res://scenes/objetos/porta.tscn" id="3_kkw13"]
 [ext_resource type="PackedScene" uid="uid://b10cchu7vjqlp" path="res://scenes/miniGames/forca.tscn" id="4_uwde1"]
 [ext_resource type="PackedScene" uid="uid://dexb7ldg6te0p" path="res://scripts/yolanda/yolanda.tscn" id="5_ehfv5"]
+[ext_resource type="PackedScene" uid="uid://cj3c1ajean2n4" path="res://scenes/ui/dica_yolanda.tscn" id="6_dica"]
 
 [node name="Sala Portugues" type="Node2D" unique_id=1933975245]
 script = ExtResource("1_w703l")
@@ -32,3 +33,5 @@ position = Vector2(-92, -195)
 
 [node name="Yolanda" parent="." unique_id=2098969618 instance=ExtResource("5_ehfv5")]
 position = Vector2(758, 108)
+
+[node name="DicaYolanda" parent="." unique_id=1436138620 instance=ExtResource("6_dica")]

@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://cj3c1ajean2n4"]
+
+[ext_resource type="Texture2D" uid="uid://djqrokani0od" path="res://assets/personagens/mentorCoruja/yolanda.png" id="1_0yy4t"]
+[ext_resource type="Script" uid="uid://ctdjqrxr07pt8" path="res://scripts/ui/dica_yolanda.gd" id="1_k1gmc"]
+[ext_resource type="AudioStream" uid="uid://c1gdsk02spt6f" path="res://assets/sounds/sfx/sfx_yolanda_hint.wav" id="3_tvj21"]
+[ext_resource type="AudioStream" uid="uid://ctrqng3vpwyvh" path="res://assets/sounds/sfx/sfx_yolanda_hoot.wav" id="4_jjcw7"]
+
+[node name="DicaYolanda" type="CanvasLayer" unique_id=1436138619]
+script = ExtResource("1_k1gmc")
+
+[node name="BalaoDica" type="Node2D" parent="." unique_id=338031006]
+
+[node name="Fundo" type="ColorRect" parent="BalaoDica" unique_id=491234167]
+offset_left = 260.0
+offset_top = 580.0
+offset_right = 1020.0
+offset_bottom = 690.0
+color = Color(0.8102406, 0.22812656, 0.9999984, 1)
+
+[node name="SpriteYolanda" type="Sprite2D" parent="BalaoDica" unique_id=934874538]
+position = Vector2(320, 635)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("1_0yy4t")
+region_enabled = true
+region_rect = Rect2(0, 0, 149, 130)
+
+[node name="TextoDica" type="Label" parent="BalaoDica" unique_id=583201141]
+offset_left = 390.0
+offset_top = 595.0
+offset_right = 1000.0
+offset_bottom = 675.0
+autowrap_mode = 3
+
+[node name="StatusRecarga" type="Label" parent="." unique_id=1359823584]
+offset_left = 24.0
+offset_top = 680.0
+offset_right = 64.0
+offset_bottom = 703.0
+
+[node name="TimerRecarga" type="Timer" parent="." unique_id=1942620557]
+wait_time = 20.0
+one_shot = true
+
+[node name="TimerExibicao" type="Timer" parent="." unique_id=730598971]
+wait_time = 5.0
+one_shot = true
+
+[node name="SomDica" type="AudioStreamPlayer" parent="." unique_id=562106424]
+stream = ExtResource("3_tvj21")
+
+[node name="SomHoot" type="AudioStreamPlayer" parent="." unique_id=1693926049]
+stream = ExtResource("4_jjcw7")
+
+[connection signal="dica_pedida" from="." to="SomDica" method="play"]
+[connection signal="yolanda_falou" from="." to="SomHoot" method="play"]
+[connection signal="timeout" from="TimerRecarga" to="." method="_on_timer_recarga_timeout"]
+[connection signal="timeout" from="TimerExibicao" to="." method="_on_timer_exibicao_timeout"]

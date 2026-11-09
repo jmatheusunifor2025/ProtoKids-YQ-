@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dw6qhojgd3g1i" path="res://scenes/objetos/porta.tscn" id="3_kmv5a"]
 [ext_resource type="PackedScene" uid="uid://6slawl2df54t" path="res://scenes/miniGames/balanca.tscn" id="4_balanca"]
 [ext_resource type="PackedScene" uid="uid://dexb7ldg6te0p" path="res://scripts/yolanda/yolanda.tscn" id="5_yolanda"]
+[ext_resource type="PackedScene" uid="uid://cj3c1ajean2n4" path="res://scenes/ui/dica_yolanda.tscn" id="6_dica"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e2ube"]
 size = Vector2(13.5, 139)
@@ -47,3 +48,5 @@ position = Vector2(980, 330)
 [node name="Yolanda" parent="." unique_id=1847263510 instance=ExtResource("5_yolanda")]
 position = Vector2(220, 200)
 texto = "Resolva as equações para ganhar a medalha de matemática."
+
+[node name="DicaYolanda" parent="." unique_id=1436138621 instance=ExtResource("6_dica")]
