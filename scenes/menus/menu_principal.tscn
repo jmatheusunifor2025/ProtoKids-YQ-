@@ -1,10 +1,13 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene format=3]
 
 [ext_resource type="Script" path="res://scenes/menus/menu_principal.gd" id="1_script"]
 [ext_resource type="Texture2D" path="res://assets/cenarios/HUD/Menu.png" id="2_fundo"]
 [ext_resource type="Texture2D" path="res://assets/cenarios/HUD/Yolanda e a Biblioteca dos Saberes Logo.png" id="3_logo"]
 [ext_resource type="Texture2D" path="res://assets/cenarios/HUD/Moldura de Pergaminho Fantástica com Hera.png" id="4_moldura"]
 [ext_resource type="Texture2D" path="res://assets/cenarios/HUD/Botões do HUD.png" id="5_botoes"]
+[ext_resource type="Texture2D" path="res://assets/cenarios/HUD/Placa Ajuda.png" id="6_placa"]
+[ext_resource type="FontVariation" path="res://scenes/ui/fontes/titulo.tres" id="7_titulo"]
+[ext_resource type="FontVariation" path="res://scenes/ui/fontes/hud.tres" id="8_hud"]
 
 [sub_resource type="AtlasTexture" id="Logo"]
 atlas = ExtResource("3_logo")
@@ -30,6 +33,43 @@ region = Rect2(85, 597, 613, 180)
 atlas = ExtResource("5_botoes")
 region = Rect2(748, 597, 613, 180)
 
+[sub_resource type="AtlasTexture" id="PlacaVerde"]
+atlas = ExtResource("6_placa")
+region = Rect2(0, 0, 613, 178)
+
+[sub_resource type="AtlasTexture" id="PlacaAmarela"]
+atlas = ExtResource("6_placa")
+region = Rect2(633, 0, 613, 178)
+
+[sub_resource type="AtlasTexture" id="MolduraAjuda"]
+atlas = ExtResource("4_moldura")
+region = Rect2(240, 21, 1055, 955)
+
+[sub_resource type="StyleBoxFlat" id="Tecla"]
+content_margin_left = 7.0
+content_margin_top = 2.0
+content_margin_right = 7.0
+content_margin_bottom = 4.0
+bg_color = Color(0.36, 0.2, 0.1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 4
+border_color = Color(0.93, 0.7, 0.2, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="Divisoria"]
+content_margin_top = 6.0
+content_margin_bottom = 6.0
+bg_color = Color(0.55, 0.33, 0.15, 0.18)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
 [node name="MenuPrincipal" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -38,6 +78,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_script")
+estilo_tecla = SubResource("Tecla")
+fonte_controles = ExtResource("8_hud")
 
 [node name="Fundo" type="TextureRect" parent="."]
 layout_mode = 1
@@ -88,21 +130,21 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -145.0
-offset_top = -100.0
-offset_right = 145.0
-offset_bottom = 80.0
+offset_left = -125.0
+offset_top = -132.0
+offset_right = 125.0
+offset_bottom = 112.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 12
 alignment = 1
 
 [node name="NovoJogo" type="TextureButton" parent="Moldura/Botoes"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(290, 84)
+custom_minimum_size = Vector2(250, 73)
 layout_mode = 2
 focus_neighbor_top = NodePath("../Sair")
-focus_neighbor_bottom = NodePath("../Sair")
+focus_neighbor_bottom = NodePath("../Ajuda")
 texture_normal = SubResource("NovoJogoAzul")
 texture_pressed = SubResource("NovoJogoAmarelo")
 texture_hover = SubResource("NovoJogoAmarelo")
@@ -110,11 +152,39 @@ texture_focused = SubResource("NovoJogoAmarelo")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="Sair" type="TextureButton" parent="Moldura/Botoes"]
+[node name="Ajuda" type="TextureButton" parent="Moldura/Botoes"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(290, 84)
+custom_minimum_size = Vector2(250, 73)
 layout_mode = 2
 focus_neighbor_top = NodePath("../NovoJogo")
+focus_neighbor_bottom = NodePath("../Sair")
+texture_normal = SubResource("PlacaVerde")
+texture_pressed = SubResource("PlacaAmarela")
+texture_hover = SubResource("PlacaAmarela")
+texture_focused = SubResource("PlacaAmarela")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Texto" type="Label" parent="Moldura/Botoes/Ajuda"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.99, 0.93, 0.72, 1)
+theme_override_fonts/font = ExtResource("7_titulo")
+theme_override_font_sizes/font_size = 30
+text = "? Ajuda"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sair" type="TextureButton" parent="Moldura/Botoes"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 73)
+layout_mode = 2
+focus_neighbor_top = NodePath("../Ajuda")
 focus_neighbor_bottom = NodePath("../NovoJogo")
 texture_normal = SubResource("SairVermelho")
 texture_pressed = SubResource("SairAmarelo")
@@ -140,3 +210,146 @@ grow_vertical = 0
 focus_mode = 0
 tooltip_text = "Ferramenta de desenvolvimento: joga sozinho até a vitória (só no editor)."
 text = "Testar se é vencível"
+
+[node name="PainelAjuda" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Escurecer" type="ColorRect" parent="PainelAjuda"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05, 0.03, 0.08, 0.7)
+
+[node name="Moldura" type="TextureRect" parent="PainelAjuda"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -326.0
+offset_right = 360.0
+offset_bottom = 326.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("MolduraAjuda")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Conteudo" type="VBoxContainer" parent="PainelAjuda/Moldura"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 108.0
+offset_top = 80.0
+offset_right = -108.0
+offset_bottom = -138.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Titulo" type="Label" parent="PainelAjuda/Moldura/Conteudo"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.36, 0.16, 0.06, 1)
+theme_override_fonts/font = ExtResource("7_titulo")
+theme_override_font_sizes/font_size = 44
+text = "AJUDA"
+horizontal_alignment = 1
+
+[node name="Colunas" type="HBoxContainer" parent="PainelAjuda/Moldura/Conteudo"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Player1" type="VBoxContainer" parent="PainelAjuda/Moldura/Conteudo/Colunas"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="Nome" type="Label" parent="PainelAjuda/Moldura/Conteudo/Colunas/Player1"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.12, 0.3, 0.7, 1)
+theme_override_fonts/font = ExtResource("8_hud")
+theme_override_font_sizes/font_size = 26
+text = "Player 1"
+horizontal_alignment = 1
+
+[node name="Controles" type="GridContainer" parent="PainelAjuda/Moldura/Conteudo/Colunas/Player1"]
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 2
+
+[node name="Player2" type="VBoxContainer" parent="PainelAjuda/Moldura/Conteudo/Colunas"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="Nome" type="Label" parent="PainelAjuda/Moldura/Conteudo/Colunas/Player2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.12, 0.12, 1)
+theme_override_fonts/font = ExtResource("8_hud")
+theme_override_font_sizes/font_size = 26
+text = "Player 2"
+horizontal_alignment = 1
+
+[node name="Controles" type="GridContainer" parent="PainelAjuda/Moldura/Conteudo/Colunas/Player2"]
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 2
+
+[node name="Juntos" type="PanelContainer" parent="PainelAjuda/Moldura/Conteudo"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("Divisoria")
+
+[node name="Controles" type="HBoxContainer" parent="PainelAjuda/Moldura/Conteudo/Juntos"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Voltar" type="TextureButton" parent="PainelAjuda/Moldura/Conteudo"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(190, 55)
+layout_mode = 2
+size_flags_horizontal = 4
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
+texture_normal = SubResource("PlacaVerde")
+texture_pressed = SubResource("PlacaAmarela")
+texture_hover = SubResource("PlacaAmarela")
+texture_focused = SubResource("PlacaAmarela")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Texto" type="Label" parent="PainelAjuda/Moldura/Conteudo/Voltar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.99, 0.93, 0.72, 1)
+theme_override_fonts/font = ExtResource("7_titulo")
+theme_override_font_sizes/font_size = 24
+text = "Voltar"
+horizontal_alignment = 1
+vertical_alignment = 1
