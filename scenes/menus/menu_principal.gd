@@ -1,14 +1,20 @@
 extends Control
 
+const VERIFICADOR := preload("res://scenes/teste/verificador_vitoria.gd")
+
 @export_file("*.tscn") var cena_novo_jogo := "res://scenes/menus/selecao_explorador_moderna.tscn"
 
 @onready var _novo_jogo: TextureButton = %NovoJogo
 @onready var _sair: TextureButton = %Sair
+## Só mouse (sem foco pelo teclado) e só no editor/debug: some no jogo exportado.
+@onready var _testar_vitoria: Button = %TestarVitoria
 
 
 func _ready() -> void:
 	_novo_jogo.pressed.connect(_ao_novo_jogo)
 	_sair.pressed.connect(_ao_sair)
+	_testar_vitoria.visible = OS.is_debug_build()
+	_testar_vitoria.pressed.connect(_ao_testar_vitoria)
 	for botao: TextureButton in [_novo_jogo, _sair]:
 		botao.mouse_entered.connect(botao.grab_focus)
 	_novo_jogo.grab_focus()
@@ -36,3 +42,9 @@ func _ao_novo_jogo() -> void:
 
 func _ao_sair() -> void:
 	get_tree().quit()
+
+
+func _ao_testar_vitoria() -> void:
+	var verificador: Node = VERIFICADOR.new()
+	get_tree().root.add_child(verificador)
+	verificador.iniciar()
