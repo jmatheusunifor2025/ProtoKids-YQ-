@@ -1,18 +1,6 @@
-[gd_resource type="SpriteFrames" format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://dcey1isbm0sk"]
 
-[ext_resource type="Texture2D" path="res://assets/personagens/lisa/Sprites de Exploradores em Roxo Profundo.png" id="1_sheet"]
-
-[sub_resource type="AtlasTexture" id="frame_01"]
-atlas = ExtResource("1_sheet")
-region = Rect2(421, 0, 74, 113)
-
-[sub_resource type="AtlasTexture" id="frame_02"]
-atlas = ExtResource("1_sheet")
-region = Rect2(491, 0, 74, 113)
-
-[sub_resource type="AtlasTexture" id="frame_03"]
-atlas = ExtResource("1_sheet")
-region = Rect2(560, 0, 74, 113)
+[ext_resource type="Texture2D" uid="uid://bkxhvbrewgv3n" path="res://assets/personagens/lisa/Sprites de Exploradores em Roxo Profundo.png" id="1_sheet"]
 
 [sub_resource type="AtlasTexture" id="frame_04"]
 atlas = ExtResource("1_sheet")
@@ -42,57 +30,62 @@ region = Rect2(801, 0, 74, 113)
 atlas = ExtResource("1_sheet")
 region = Rect2(876, 0, 74, 113)
 
+[sub_resource type="AtlasTexture" id="frame_01"]
+atlas = ExtResource("1_sheet")
+region = Rect2(421, 0, 74, 113)
+
+[sub_resource type="AtlasTexture" id="frame_02"]
+atlas = ExtResource("1_sheet")
+region = Rect2(491, 0, 74, 113)
+
+[sub_resource type="AtlasTexture" id="frame_03"]
+atlas = ExtResource("1_sheet")
+region = Rect2(560, 0, 74, 113)
+
 [resource]
 animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("frame_04")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("frame_05")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("frame_06")
 }],
-"loop": true,
+"loop": 1,
 "name": &"andar_baixo",
 "speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("frame_07")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("frame_08")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("frame_09")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("frame_10")
 }],
-"loop": true,
+"loop": 1,
 "name": &"andar_cima",
 "speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("frame_01")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("frame_02")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("frame_03")
 }],
-"loop": true,
+"loop": 1,
 "name": &"andar_lado",
 "speed": 8.0
 }, {
@@ -100,7 +93,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("frame_04")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle_baixo",
 "speed": 1.0
 }, {
@@ -108,7 +101,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("frame_07")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle_cima",
 "speed": 1.0
 }, {
@@ -116,7 +109,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("frame_01")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle_lado",
 "speed": 1.0
 }]

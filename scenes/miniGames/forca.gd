@@ -1,7 +1,7 @@
 extends Node2D
 ## Forca: uma palavra por vez. O alfabeto nasce espalhado no chão.
 
-const PALAVRAS: PackedStringArray = ["amizade", "amor", "respeito", "amigo"]
+const PALAVRAS: PackedStringArray = ["amor", "amigo", "amizade", "respeito"]
 const CENA_LETRA := preload("res://scenes/miniGames/letra_bloco.tscn")
 const TEXTURA_GIZ := preload("res://assets/elementos dos mini games/portugues/Quadrado Branco Pontilhado em Pixel Art.png")
 const PASTA_LETRA := "res://assets/elementos dos mini games/alfabeto/%s.png"
@@ -15,10 +15,10 @@ const DISTANCIA_LETRA := 52.0
 const FOLGA_MEDALHA := 80.0
 ## Última linha opaca da lousa no centro do PNG (a base da madeira, sem o vazio).
 const BORDA_INFERIOR_LOUSA := 572.0 / 866.0
-## Tempo da 1ª palavra; cada palavra seguinte tem 5 s a menos, sem passar de 15 (30, 25, 20, 15).
-const TEMPO_INICIAL := 30
-const REDUCAO_POR_PALAVRA := 5
-const TEMPO_MINIMO := 15
+## Tempo da 1ª palavra; cada palavra seguinte tem 10 s a menos, sem passar de 120 (165, 155, 145, 135).
+const TEMPO_INICIAL := 165
+const REDUCAO_POR_PALAVRA := 10
+const TEMPO_MINIMO := 120
 
 var _indice_palavra := 0
 var _proxima := 0
@@ -116,11 +116,16 @@ func _montar_palavra() -> void:
 
 
 func _espalhar_alfabeto() -> void:
-	var lugares := _lugares_do_chao(ALFABETO.length())
 	var ordem: Array[String] = []
 	for i in ALFABETO.length():
 		ordem.append(ALFABETO[i])
+	# Letra repetida na palavra (ex.: os dois A de AMIZADE) ganha um bloco a mais por repetição.
+	var palavra := PALAVRAS[_indice_palavra].to_upper()
+	for letra in palavra:
+		if ordem.count(letra) < palavra.count(letra):
+			ordem.append(letra)
 	ordem.shuffle()
+	var lugares := _lugares_do_chao(ordem.size())
 	for i in ordem.size():
 		var bloco: StaticBody2D = CENA_LETRA.instantiate()
 		bloco.definir(ordem[i], load(PASTA_LETRA % ordem[i]))

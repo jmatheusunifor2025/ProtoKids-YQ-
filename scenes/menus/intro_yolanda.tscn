@@ -51,6 +51,6 @@ texture = ExtResource("2_fundo")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="FalaYolanda" parent="." instance=ExtResource("3_fala")]
+[node name="FalaYolanda" parent="." unique_id=47222687 instance=ExtResource("3_fala")]
 unique_name_in_owner = true
 pausar_jogo = false
