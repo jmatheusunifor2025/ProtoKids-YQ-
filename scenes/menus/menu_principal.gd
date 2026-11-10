@@ -7,12 +7,12 @@ const VERIFICADOR := preload("res://scenes/teste/verificador_vitoria.gd")
 const CONTROLES_P1 := [
 	["W A S D", "Andar"],
 	["E", "Pegar / Usar"],
-	["Q", "Largar / Chutar"],
+	["Q", "Largar"],
 ]
 const CONTROLES_P2 := [
 	["Setas", "Andar"],
 	["Enter", "Pegar / Usar"],
-	["Ctrl Dir.", "Largar / Chutar"],
+	["Shift Dir.", "Largar"],
 ]
 ## Ação compartilhada (`pedir_dica`): qualquer jogador pode apertar.
 const CONTROLES_JUNTOS := [["R", ""], ["H", ""], ["Tab", "Pedir dica à Yolanda"]]
